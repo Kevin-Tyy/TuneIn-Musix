@@ -1,4 +1,13 @@
-const express = require("express");
-const dotenv = require("dotenv").config();
+import express from "express";
+import { config } from 'dotenv'
+import router from "../routes/index.js";
+
+config()
 const app = express();
-module.exports = app;
+
+
+app.use(express.json())
+app.use('/api/v1', router)
+
+
+export default app;
