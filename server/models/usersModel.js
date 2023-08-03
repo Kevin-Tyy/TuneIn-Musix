@@ -7,27 +7,30 @@ const UserSchema = new Schema({
 	},
 	email: {
 		type: String,
-		required: true,
 		unique: true,
 	},
 	password: {
 		type: String,
-		required: true,
 	},
 	avatar: {
 		type: String,
 	},
-    savedMusic : [
-        {
-            type : Schema.Types.ObjectId,
-            ref : 'Music'
-        }
-    ],
-	authenticationmethod : {
-		type : String,
-		enum : ['oauth' , 'email_password'],
-	}
+	savedMusic: [
+		{
+			type: Schema.Types.ObjectId,
+			ref: "Music",
+		},
+	],
+	authenticationmethod: {
+		type: String,
+		enum: ["oauth", "email_password"],
+		default : 'email_password'
+	},
+	provider: {
+		type: String,
+		enum: ["google", "github", "facebook", "twitter"],
+	},
 });
 
-const UserModel = model('Users' , UserSchema);
+const UserModel = model("Users", UserSchema);
 export default UserModel;
