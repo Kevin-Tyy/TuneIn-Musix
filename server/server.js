@@ -5,7 +5,7 @@ const port = process.env.PORT
 const server = createServer(app)
 const startServer = async () => {
     await mongodb();
-    server.listen(port , ()=> {
+    server.listen(port, ()=> {
         console.log(`Server running ... 😎 😎`)
     })
 }
