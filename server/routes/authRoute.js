@@ -1,10 +1,9 @@
 import { Router } from "express";
-import AuthController from "../controllers/AuthController.js";
+import AuthController from "../controllers/authController.js";
 import passport from "passport";
-
+import validate from "../middleware/validation.js";
+import { AuthValidationSchema } from "../validation/authValidation.js";
 const AuthRouter = Router();
-
-AuthRouter.get("/login/failed", AuthController.loginfail);
 
 AuthRouter.get(
 	"/google",
@@ -22,11 +21,13 @@ AuthRouter.get(
 
 AuthRouter.get(
 	"/github/callback",
-	passport.authenticate("github", { failureRedirect: "/login" }),
-	function (req, res) {
-		// Successful authentication, redirect home.
-		res.redirect("/");
-	}
+	passport.authenticate("github", { failureRedirect: "/login" })
+);
+
+AuthRouter.post(
+	"/signin/email",
+	validate(AuthValidationSchema),
+	AuthController.emailSignin
 );
 
 export default AuthRouter;

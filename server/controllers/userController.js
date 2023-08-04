@@ -1,6 +1,6 @@
 import UserModel from "../models/usersModel.js";
 import userService from "../services/userService.js";
-import createToken from '../utils/createJwt.js'
+import createToken from "../utils/createJwt.js";
 class UserController {
 	register = async (req, res) => {
 		try {
@@ -19,13 +19,12 @@ class UserController {
 			}
 			const createUser = await userService.createUser(req.body);
 			if (createUser) {
-				const token = await createToken(createUser)
-				console.log(token);
-				res.json({createUser});
+				const token = await createToken(createUser);
+				res.status(201).json({ user: createUser, token: token });
 			}
 		} catch (error) {
 			console.error(error);
-			res.json({ msg: "Something went wrong" });
+			res.status(500).json({ msg: "Something went wrong" });
 		}
 	};
 }

@@ -1,11 +1,13 @@
 import UserModel from "../models/usersModel.js";
+import bcrypt from 'bcrypt'
 
 class UserService {
 	createUser = async ({ username, password, email }) => {
 		try {
+			const passwordHash = await bcrypt.hash(password , 10)
 			const newUser = new UserModel({
 				username,
-				password,
+				password : passwordHash,
 				email,
 			});
 			return await newUser.save();
