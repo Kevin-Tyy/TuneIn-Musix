@@ -2,15 +2,19 @@ import UserModel from "../models/usersModel.js";
 import authService from "../services/authService.js";
 import createToken from "../utils/createJwt.js";
 class AuthController {
-	callback = (req, res) => {
-		console.log('callback reached 🫡🫡🫡')
-		res.json({ msg: "you reached callback" });
+	//controller to handle open authentication (oauth) 🫡🫡
+	callback = async (req, res) => {
+		console.log("callback reached 🫡🫡🫡");
+		const token = await createToken(req.user);
+		res.json({ msg: "Logged in successfully", user: req.user, token: token });
 	};
+
+	//controller to handle authentication by email and password
 	emailSignin = async (req, res) => {
 		try {
 			const userByEmail = await UserModel.findOne({ email: req.body.email });
 			//check whether the email is registered
-            
+
 			if (userByEmail) {
 				//check whether the user registerd with oauth
 
@@ -22,10 +26,11 @@ class AuthController {
 					const authUser = await authService.emailSignIn(req.body);
 					if (authUser) {
 						const token = await createToken(authUser);
-						console.log(authUser);
-						res
-							.status(200)
-							.json({ msg: "login successful", user: authUser, token: token });
+						res.status(200).json({
+							msg: "Logged in successfully",
+							user: authUser,
+							token: token,
+						});
 					} else {
 						res.status(404).json({ msg: "Incorrect password" });
 					}

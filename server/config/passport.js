@@ -4,6 +4,15 @@ import GitHubStrategy from "passport-github2";
 import AuthService from "../services/authService.js";
 import UserModel from "../models/usersModel.js";
 export const passportAuth = () => {
+	passport.serializeUser((user, done) => {
+		done(null, user.email);
+	});
+	passport.deserializeUser((user, done) => {
+		UserModel.findOne({ email: user.email }).then((user) => {
+			done(null, user);
+		});
+	});
+
 	passport.use(
 		new GoogleStrategy(
 			{
@@ -11,14 +20,13 @@ export const passportAuth = () => {
 				clientSecret: process.env.GOOGLE_CLIENT_SECRET,
 				callbackURL: `${process.env.CALLBACK_URL}/google/callback`,
 			},
-			(accessToken, refreshToken, profile, callback) => {
-				console.log("passport google callback fired");
-				AuthService.createUser(profile)
-					.then((newUser) => {
-						console.log(newUser);
+			(accessToken, refreshToken, profile, done) => {
+				AuthService.findOrCreate(profile)
+					.then((user) => {
+						return done(null, user);
 					})
 					.catch((error) => {
-						console.log(`Error ${error}`);
+						done(error);
 					});
 			}
 		)
@@ -31,15 +39,13 @@ export const passportAuth = () => {
 				callbackURL: `${process.env.CALLBACK_URL}/github/callback`,
 				scope: ["user:email"],
 			},
-			(accessToken, refreshToken, profile, callback) => {
-				console.log("passport github callback fired");
-				console.log(profile);
-				AuthService.createUser(profile)
-					.then((newUser) => {
-						console.log(newUser);
+			(accessToken, refreshToken, profile, done) => {
+				AuthService.findOrCreate(profile)
+					.then((user) => {
+						return done(null, user);
 					})
 					.catch((error) => {
-						console.log(`Error ${error}`);
+						done(error);
 					});
 			}
 		)

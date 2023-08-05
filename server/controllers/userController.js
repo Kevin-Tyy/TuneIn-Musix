@@ -20,7 +20,13 @@ class UserController {
 			const createUser = await userService.createUser(req.body);
 			if (createUser) {
 				const token = await createToken(createUser);
-				res.status(201).json({ user: createUser, token: token });
+				res
+					.status(201)
+					.json({
+						user: createUser,
+						token: token,
+						msg: "Your account has been created",
+					});
 			}
 		} catch (error) {
 			console.error(error);

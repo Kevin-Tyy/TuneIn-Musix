@@ -5,7 +5,7 @@ import Button from "../../../components/buttons/Button";
 import AuthSocialButton from "../../../components/buttons/AuthSocialButton";
 import { useCallback, useState } from "react";
 import { useForm, SubmitHandler, FieldValues } from "react-hook-form";
-import axios from "axios";
+import axios, { AxiosError, AxiosResponse } from "axios";
 import { ApiRoot } from "../../../api/config/apiRoot";
 import { toast } from "react-hot-toast";
 const AuthForm = () => {
@@ -28,14 +28,14 @@ const AuthForm = () => {
 		if (variant === "REGISTER") {
 			axios
 				.post(`${ApiRoot}/user/register`, data)
-				.then((response) => {
-					toast.success(response.data.msg)
+				.then((response: AxiosResponse) => {
+					toast.success(response.data.msg);
 				})
 				.catch((error) => {
-					if(error.response){
-						toast.error(error.response.data.msg)
-					}else{
-						toast.error('Something went wrong')
+					if (error.response) {
+						toast.error(error?.response?.data?.msg);
+					} else {
+						toast.error("Something went wrong");
 					}
 				})
 				.finally(() => setLoading(false));
@@ -44,6 +44,10 @@ const AuthForm = () => {
 		}
 	};
 
+	const socialAction = (action: string) => {
+		window.open(`${ApiRoot}/auth/${action}`, "_self");
+	};
+	
 	return (
 		<div className="mt-8 sm:mx-4  sm:rounded-lg">
 			<form className="space-y-5" onSubmit={handleSubmit(onSubmit)}>
@@ -87,8 +91,16 @@ const AuthForm = () => {
 					<div className="w-full border-t border-gray-500" />
 				</div>
 				<div className="flex gap-2 mt-6">
-					<AuthSocialButton icon={BsGithub} onClick={() => {}} />
-					<AuthSocialButton icon={BsGoogle} onClick={() => {}} />
+					<AuthSocialButton
+						disabled={loading}
+						icon={BsGithub}
+						onClick={() => socialAction("github")}
+					/>
+					<AuthSocialButton
+						disabled={loading}
+						icon={BsGoogle}
+						onClick={() => socialAction("google")}
+					/>
 				</div>
 			</div>
 			<div className="flex gap-2 justify-center text-sm px-2 mt-6 text-gray-500">
