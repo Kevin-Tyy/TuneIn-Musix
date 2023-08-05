@@ -5,6 +5,7 @@ import validate from "../middleware/validation.js";
 import { AuthValidationSchema } from "../validation/authValidation.js";
 const AuthRouter = Router();
 
+//google oauth
 AuthRouter.get(
 	"/google",
 	passport.authenticate("google", { scope: ["profile", "email"] })
@@ -14,6 +15,8 @@ AuthRouter.get(
 	passport.authenticate("google"),
 	AuthController.callback
 );
+
+//github oauth
 AuthRouter.get(
 	"/github",
 	passport.authenticate("github", { scope: ["user:email"] })
@@ -24,6 +27,7 @@ AuthRouter.get(
 	passport.authenticate("github", { failureRedirect: "/login" })
 );
 
+//email auth
 AuthRouter.post(
 	"/signin/email",
 	validate(AuthValidationSchema),

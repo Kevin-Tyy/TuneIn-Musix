@@ -3,6 +3,7 @@ import authService from "../services/authService.js";
 import createToken from "../utils/createJwt.js";
 class AuthController {
 	callback = (req, res) => {
+		console.log('callback reached 🫡🫡🫡')
 		res.json({ msg: "you reached callback" });
 	};
 	emailSignin = async (req, res) => {
