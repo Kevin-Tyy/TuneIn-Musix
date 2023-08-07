@@ -34,7 +34,6 @@ AuthRouter.get(
 );
 
 //email and password authentication
-
 AuthRouter.post(
 	"/signin/email",
 	validate(AuthValidationSchema),

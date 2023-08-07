@@ -5,19 +5,25 @@ import Button from "../../../components/buttons/Button";
 import AuthSocialButton from "../../../components/buttons/AuthSocialButton";
 import { useCallback, useState } from "react";
 import { useForm, SubmitHandler, FieldValues } from "react-hook-form";
-import axios, { AxiosError, AxiosResponse } from "axios";
+import axios, { AxiosResponse } from "axios";
 import { ApiRoot } from "../../../api/config/apiRoot";
 import { toast } from "react-hot-toast";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { login } from "../../../redux/slices/AuthSlice";
 const AuthForm = () => {
 	const [variant, setVariant] = useState<"LOGIN" | "REGISTER">("LOGIN");
 	const [loading, setLoading] = useState<boolean>(false);
+	const dispatch = useDispatch();
+	const navigate = useNavigate();
 
+	document.title = variant === "REGISTER" ? "Join TuneIn" : "Sign into TuneIn";
 	const toggleVariant = useCallback(() => {
 		setVariant(variant === "LOGIN" ? "REGISTER" : "LOGIN");
 	}, [variant]);
 	const { register, handleSubmit } = useForm<FieldValues>({
 		defaultValues: {
-			username: "",
+			username: variant === "REGISTER" ? "" : undefined,
 			email: "",
 			password: "",
 		},
@@ -30,6 +36,8 @@ const AuthForm = () => {
 				.post(`${ApiRoot}/user/register`, data)
 				.then((response: AxiosResponse) => {
 					toast.success(response.data.msg);
+					dispatch(login(response.data.user));
+					navigate("/");
 				})
 				.catch((error) => {
 					if (error.response) {
@@ -41,13 +49,37 @@ const AuthForm = () => {
 				.finally(() => setLoading(false));
 		}
 		if (variant === "LOGIN") {
+			axios
+				.post(`${ApiRoot}/auth//signin/email`, data)
+				.then((response: AxiosResponse) => {
+					toast.success(response.data.msg);
+					dispatch(login(response.data.user));
+					navigate("/");
+				})
+				.catch((error) => {
+					if (error.response) {
+						toast.error(error?.response?.data?.msg);
+					} else {
+						toast.error("Something went wrong");
+					}
+				})
+				.finally(() => setLoading(false));
 		}
 	};
 
 	const socialAction = (action: string) => {
+		// setLoading(true);
+		// axios
+		// 	.get(`${ApiRoot}/auth/${action}`)
+		// 	.then((response: AxiosResponse) => {
+		// 		console.log(response);
+		// 	})
+		// 	.catch((error) => {
+		// 		console.log(error);
+		// 	})
+		// 	.finally(() => setLoading(false));
 		window.open(`${ApiRoot}/auth/${action}`, "_self");
 	};
-	
 	return (
 		<div className="mt-8 sm:mx-4  sm:rounded-lg">
 			<form className="space-y-5" onSubmit={handleSubmit(onSubmit)}>
@@ -86,7 +118,9 @@ const AuthForm = () => {
 				<div className="flex items-center">
 					<div className="w-full border-t border-gray-500" />
 					<div className="w-full flex justify-center text-sm">
-						<span className="px-2 text-gray-500 text-sm">Or continue with</span>
+						<span className="px-2 text-gray-500 text-sm text-center">
+							Or continue with
+						</span>
 					</div>
 					<div className="w-full border-t border-gray-500" />
 				</div>

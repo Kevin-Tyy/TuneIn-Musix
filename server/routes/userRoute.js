@@ -5,5 +5,6 @@ import { RegisterValidationSchema } from "../validation/userValidation.js";
 const userRoute = Router()
 
 userRoute.post('/register', validate(RegisterValidationSchema), userController.register)
+userRoute.get('/getUser' , userController.getUser)
 
 export default userRoute

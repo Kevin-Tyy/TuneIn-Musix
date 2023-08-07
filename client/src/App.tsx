@@ -1,9 +1,11 @@
 import { useRoutes } from "react-router-dom";
 import AuthPage from "./pages/auth";
-import Home from "./pages/home";
-import Profile from "./pages/profile";
 import NotFound from "./pages/notfound";
 import HomeLayout from "./layouts/HomeLayout";
+import SettingsPage from "./pages/settings";
+import ProfilePage from "./pages/profile";
+import HomePage from "./pages/home";
+import SearchPage from "./pages/search";
 const App = () => {
 	const routes = useRoutes([
 		{
@@ -16,11 +18,19 @@ const App = () => {
 			children: [
 				{
 					index: true,
-					element: <Home />,
+					element: <HomePage />,
 				},
 				{
 					path: "profile",
-					element: <Profile />,
+					element: <ProfilePage />,
+				},
+				{
+					path: "settings",
+					element: <SettingsPage />,
+				},
+				{
+					path: "search",
+					element: <SearchPage />,
 				},
 			],
 		},
@@ -29,6 +39,11 @@ const App = () => {
 			element: <NotFound />,
 		},
 	]);
+	// const axiosConfig = axios.create({
+	// 	baseURL : ApiRoot,
+	// 	withCredentials : true,
+
+	// })
 	return <div className="h-screen">{routes}</div>;
 };
 

@@ -10,7 +10,7 @@ class UserService {
 				password : passwordHash,
 				email,
 			});
-			return await newUser.save();
+			return (await newUser.save()).isSelected('-password');
 		} catch (error) {
 			console.error(error);
 			throw new Error("Failed to create user");

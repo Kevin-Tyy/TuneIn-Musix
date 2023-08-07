@@ -19,7 +19,7 @@ const Button: React.FC<ButtonProps> = ({
 			type={type}
 			disabled={disabled}
 			className={clsx(
-				" ring-1 ring-primary-300/50 text-primary-100 font-semibold py-3 rounded-md w-full transition bg-primary-300/10 text-sm hover:bg-primary-300/20",
+				" ring-1 ring-primary-300/80 text-primary-100 font-semibold py-3 rounded-md w-full transition bg-primary-300/20 text-sm hover:bg-primary-300/30",
 				disabled && 'opacity-50 cursor-not-allowed bg-primary-200'
 			)}>
 			{children}

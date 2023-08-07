@@ -5,8 +5,10 @@ class AuthController {
 	//controller to handle open authentication (oauth) 🫡🫡
 	callback = async (req, res) => {
 		console.log("callback reached 🫡🫡🫡");
-		const token = await createToken(req.user);
-		res.json({ msg: "Logged in successfully", user: req.user, token: token });
+		const token = (await createToken(req.user)) || "kevin";
+
+		// res.json({ msg: "Logged in successfully", user: req.user, token: token });
+		res.redirect(`${process.env.CLIENT_URL}?token={token}`);
 	};
 
 	//controller to handle authentication by email and password
@@ -20,7 +22,7 @@ class AuthController {
 
 				if (userByEmail.authenticationmethod === "oauth") {
 					return res.status(403).send({
-						msg: "This user used another authentication method \n Try logging in with google or github.",
+						msg: "This user used another authentication method. Try logging in with google or github.",
 					});
 				} else {
 					const authUser = await authService.emailSignIn(req.body);

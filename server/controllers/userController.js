@@ -7,31 +7,40 @@ class UserController {
 			const { email, username } = req.body;
 			const userByEmail = await UserModel.findOne({ email });
 			const userByUsername = await UserModel.findOne({ username });
+			console.log(userByEmail)
+			if (userByEmail && userByEmail.authenticationmethod !== "email_password") {
+				return res.status(400).json({
+					msg: `Email was already registered using ${userByEmail.provider}`,
+				});
+				
+			}
 			if (userByUsername) {
 				return res
-					.status(409)
+					.status(400)
 					.json({ msg: `Username ${username} is already registered` });
 			}
 			if (userByEmail) {
 				return res
-					.status(409)
+					.status(400)
 					.json({ msg: `Email '${email}' is already registered` });
 			}
 			const createUser = await userService.createUser(req.body);
 			if (createUser) {
 				const token = await createToken(createUser);
-				res
-					.status(201)
-					.json({
-						user: createUser,
-						token: token,
-						msg: "Your account has been created",
-					});
+				res.status(201).json({
+					user: createUser,
+					token: token,
+					msg: "Your account has been created",
+				});
 			}
 		} catch (error) {
 			console.error(error);
 			res.status(500).json({ msg: "Something went wrong" });
 		}
+	};
+
+	getUser = async (req, res) => {
+		console.log(req.user)
 	};
 }
 

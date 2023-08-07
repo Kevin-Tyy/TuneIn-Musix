@@ -1,13 +1,13 @@
-import React from 'react'
-import { Outlet } from 'react-router-dom'
+import React from "react";
+import { Outlet } from "react-router-dom";
 
-const HomeLayout = () => {
-  return (
-    <div>
-      hello world
-      <Outlet/>
-    </div>
-  )
-}
+const HomeLayout: React.FC = () => {
+	return (
+		<div className="min-h-screen w-full bg-primary-dark">
+			hello world
+			<Outlet />
+		</div>
+	);
+};
 
-export default HomeLayout
+export default HomeLayout;

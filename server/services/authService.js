@@ -29,11 +29,14 @@ class AuthService {
 
 	emailSignIn = async ({ email, password }) => {
 		try {
-			const user = await UserModel.findOne({ email: email }).select('-password');
+			const user = await UserModel.findOne({ email: email });
 			const isPasswordVerified = await bcrypt.compare(password, user.password);
 
 			if (isPasswordVerified) {
-				return user;
+				let authenticatedUser = { ...user.toObject() };
+				delete authenticatedUser.password;
+
+				return authenticatedUser;
 			}
 		} catch (error) {
 			throw new Error(error);
