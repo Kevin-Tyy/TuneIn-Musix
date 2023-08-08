@@ -21,10 +21,10 @@ const HomePage: React.FC = () => {
 	};
 
 	return (
-		<div>
+		<div className="mt-4">
 			{genres && (
 				<div className="flex flex-wrap gap-4">
-					{genres.map((genre) => (
+					{genres.slice(0,7).map((genre) => (
 						<GenreBox genre={genre} key={genre.name}/>
 					))}
 				</div>

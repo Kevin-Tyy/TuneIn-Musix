@@ -7,14 +7,14 @@ const Navbar: React.FC = () => {
 	useSelector;
 	return (
 		<div className="flex gap-4">
-			<div className="bg-neutral-900 p-4 rounded-3xl w-full">
+			<div className="bg-neutral-900 p-3 rounded-3xl w-full">
 				<form>
 					<div className="flex items-center gap-5">
 						<input
-							className="bg-neutral-800 w-full max-w-2xl p-4 rounded-full pl-5 outline-none"
+							className="bg-neutral-800 w-full max-w-2xl p-3 rounded-full pl-5 outline-none"
 							placeholder="Search"
 						/>
-						<button className="bg-neutral-800 text-white p-4 rounded-full">
+						<button className="bg-neutral-800 text-white p-3 rounded-full">
 							<FiSearch size={20} />
 						</button>
 					</div>

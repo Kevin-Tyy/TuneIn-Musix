@@ -12,7 +12,7 @@ const SideNav = () => {
 						to={item.link}
 						className={({
 							isActive,
-						}) => `flex gap-5 items-center text-white rounded-full ring-1 ring-inset ring-neutral-800 p-5 transition duration-500 "
+						}) => `flex gap-5 items-center text-white rounded-full ring-1 ring-inset ring-neutral-800 p-[13px] transition duration-500 "
 							${
 								isActive
 									? "ring-2  ring-neutral-700"
