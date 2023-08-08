@@ -83,8 +83,8 @@ const AuthForm = () => {
 		window.open(`${ApiRoot}/auth/${action}`, "_self");
 	};
 	return (
-		<div className="mt-8 sm:mx-4  sm:rounded-lg">
-			<form className="space-y-5" onSubmit={handleSubmit(onSubmit)}>
+		<div className="mt-8 sm:mx-4 sm:rounded-lg">
+			<form className="space-y-8" onSubmit={handleSubmit(onSubmit)}>
 				<Input
 					icon={HiOutlineMail}
 					placeholder="Email"
@@ -116,17 +116,17 @@ const AuthForm = () => {
 					</Button>
 				</div>
 			</form>
-			<div className="mt-6">
+			<div className="space-y-8 mt-8">
 				<div className="flex items-center">
 					<div className="w-full border-t border-gray-500" />
-					<div className="w-full flex justify-center text-sm">
-						<span className="px-2 text-gray-500 text-sm text-center">
+					<div className="w-full flex justify-center">
+						<span className="px-2 text-gray-500 text-sm text-center whitespace-nowrap">
 							Or continue with
 						</span>
 					</div>
 					<div className="w-full border-t border-gray-500" />
 				</div>
-				<div className="flex gap-2 mt-6">
+				<div className="flex gap-2">
 					<AuthSocialButton
 						disabled={loading}
 						icon={BsGithub}

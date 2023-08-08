@@ -21,7 +21,7 @@ const Input: FC<InputProps> = ({
 	return (
 		<div
 			className={clsx(
-				"flex w-full ring-1 ring-inset ring-gray-700 rounded-lg items-center gap-3 p-3 transition focus-within:bg-gray-600/10",
+				"flex w-full ring-1 ring-inset ring-gray-700 rounded-lg items-center gap-3 p-3 transition focus-within:bg-gray-600/20 hover:bg-gray-600/20",
 				disabled && "opacity-50"
 			)}>
 			<Icon size={22} color="white" />

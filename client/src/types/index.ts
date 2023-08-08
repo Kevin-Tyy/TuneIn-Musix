@@ -8,3 +8,14 @@ interface UserType {
 interface MusicType {
     
 }
+export interface GenreItemType {
+    href : string
+	icons : Array<genreIconsType>
+	id : string
+	name : string
+}
+export interface genreIconsType {
+    height : number;
+    url : string;
+    width : number;
+}

@@ -38,7 +38,7 @@ class AuthController {
 					}
 				}
 			} else {
-				return res.status(404).json({ msg: "User not registered" });
+				return res.status(404).json({ msg: "User doesn't exist" });
 			}
 		} catch (error) {
 			res.status(500).json({ msg: "Something went wrong" });
