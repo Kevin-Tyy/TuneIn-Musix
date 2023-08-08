@@ -7,7 +7,6 @@ class UserController {
 			const { email, username } = req.body;
 			const userByEmail = await UserModel.findOne({ email });
 			const userByUsername = await UserModel.findOne({ username });
-			console.log(userByEmail)
 			if (userByEmail && userByEmail.authenticationmethod !== "email_password") {
 				return res.status(400).json({
 					msg: `Email was already registered using ${userByEmail.provider}`,

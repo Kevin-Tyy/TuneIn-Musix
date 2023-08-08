@@ -1,11 +1,18 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
+import SideNav from "../components/navigation/sideNavigation";
+import Navbar from "../components/navigation/navBar";
 
 const HomeLayout: React.FC = () => {
 	return (
-		<div className="min-h-screen w-full bg-primary-dark">
-			hello world
-			<Outlet />
+		<div className="min-h-screen h-screen w-full bg-black p-3">
+			<div className="flex h-full gap-4">
+				<SideNav />
+				<div className="w-full h-full text-white">
+					<Navbar />
+					<Outlet />
+				</div>
+			</div>
 		</div>
 	);
 };

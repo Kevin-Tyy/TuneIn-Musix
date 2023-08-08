@@ -36,6 +36,8 @@ const AuthForm = () => {
 				.post(`${ApiRoot}/user/register`, data)
 				.then((response: AxiosResponse) => {
 					toast.success(response.data.msg);
+					console.log(response.data.user);
+
 					dispatch(login(response.data.user));
 					navigate("/");
 				})
@@ -138,15 +140,17 @@ const AuthForm = () => {
 				</div>
 			</div>
 			<div className="flex gap-2 justify-center text-sm px-2 mt-6 text-gray-500">
-				<div>
-					{variant === "LOGIN"
-						? "New to messenger?"
-						: "Already have an account?"}
-				</div>
-				<div onClick={toggleVariant} className="underline cursor-pointer">
-					{variant === "LOGIN"
-						? "Create an account"
-						: "Login into your account"}
+				<div className="flex flex-wrap gap-2">
+					<span>
+						{variant === "LOGIN"
+							? "New to messenger?"
+							: "Already have an account?"}
+					</span>
+					<span onClick={toggleVariant} className="underline cursor-pointer">
+						{variant === "LOGIN"
+							? "Create an account"
+							: "Sign in"}
+					</span>
 				</div>
 			</div>
 		</div>

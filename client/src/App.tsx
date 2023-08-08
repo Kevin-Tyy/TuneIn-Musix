@@ -1,4 +1,4 @@
-import { useRoutes } from "react-router-dom";
+import { Navigate, useRoutes } from "react-router-dom";
 import AuthPage from "./pages/auth";
 import NotFound from "./pages/notfound";
 import HomeLayout from "./layouts/HomeLayout";
@@ -6,6 +6,8 @@ import SettingsPage from "./pages/settings";
 import ProfilePage from "./pages/profile";
 import HomePage from "./pages/home";
 import SearchPage from "./pages/search";
+import LikedSongs from "./pages/liked";
+import PlayLists from "./pages/playlists";
 const App = () => {
 	const routes = useRoutes([
 		{
@@ -32,6 +34,18 @@ const App = () => {
 					path: "search",
 					element: <SearchPage />,
 				},
+				{
+					path: "liked",
+					element: <LikedSongs />,
+				},
+				{
+					path: "playlist",
+					element: <PlayLists />,
+				},
+				{
+					path : 'explore',
+					element : <HomePage/>
+				}
 			],
 		},
 		{
