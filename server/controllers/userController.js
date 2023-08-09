@@ -7,11 +7,13 @@ class UserController {
 			const { email, username } = req.body;
 			const userByEmail = await UserModel.findOne({ email });
 			const userByUsername = await UserModel.findOne({ username });
-			if (userByEmail && userByEmail.authenticationmethod !== "email_password") {
+			if (
+				userByEmail &&
+				userByEmail.authenticationmethod !== "email_password"
+			) {
 				return res.status(400).json({
 					msg: `Email was already registered using ${userByEmail.provider}`,
 				});
-				
 			}
 			if (userByUsername) {
 				return res
@@ -39,7 +41,13 @@ class UserController {
 	};
 
 	getUser = async (req, res) => {
-		console.log(req.user)
+		try {
+			const { _id } = req.user
+			const userData = await UserModel.findOne({ _id }).select("-password");
+			res.json({ user : userData , msg : 'Authenticated successfully' });
+		} catch (error) {
+			res.status(400).json({ msg: "Something went wrong" });
+		}
 	};
 }
 

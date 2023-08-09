@@ -3,7 +3,7 @@ import { HiOutlineUser, HiOutlineMail, HiOutlineKey } from "react-icons/hi";
 import { BsGithub, BsGoogle } from "react-icons/bs";
 import Button from "../../../components/buttons/Button";
 import AuthSocialButton from "../../../components/buttons/AuthSocialButton";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useForm, SubmitHandler, FieldValues } from "react-hook-form";
 import axios, { AxiosResponse } from "axios";
 import { ApiRoot } from "../../../api/config/apiRoot";
@@ -18,6 +18,7 @@ const AuthForm = () => {
 	const navigate = useNavigate();
 
 	document.title = variant === "REGISTER" ? "Join TuneIn" : "Sign into TuneIn";
+
 	const toggleVariant = useCallback(() => {
 		setVariant(variant === "LOGIN" ? "REGISTER" : "LOGIN");
 	}, [variant]);
@@ -28,6 +29,8 @@ const AuthForm = () => {
 			password: "",
 		},
 	});
+
+	//email-password authentication
 
 	const onSubmit: SubmitHandler<FieldValues> = (data) => {
 		setLoading(true);
@@ -69,19 +72,41 @@ const AuthForm = () => {
 		}
 	};
 
+	//oauth
 	const socialAction = (action: string) => {
-		// setLoading(true);
-		// axios
-		// 	.get(`${ApiRoot}/auth/${action}`)
-		// 	.then((response: AxiosResponse) => {
-		// 		console.log(response);
-		// 	})
-		// 	.catch((error) => {
-		// 		console.log(error);
-		// 	})
-		// 	.finally(() => setLoading(false));
 		window.open(`${ApiRoot}/auth/${action}`, "_self");
 	};
+	useEffect(() => {
+		const token = new URLSearchParams(location.search).get("token");
+		console.log(token);
+		if (token) {
+			window.history.replaceState({}, document.title, "/");
+
+			setLoading(true);
+			axios
+				.get(`${ApiRoot}/user/getuser`, {
+					headers: {
+						Authorization: token,
+					},
+				})
+				.then((response: AxiosResponse) => {
+					toast.success(response.data.msg);
+					console.log(response.data.user);
+
+					dispatch(login(response.data.user));
+					navigate("/");
+				})
+				.catch((error) => {
+					if (error.response) {
+						toast.error(error?.response?.data?.msg);
+					} else {
+						toast.error("Something went wrong");
+					}
+				})
+				.finally(() => setLoading(false));
+		}
+	}, []);
+
 	return (
 		<div className="mt-8 sm:mx-4 sm:rounded-lg">
 			<form className="space-y-8" onSubmit={handleSubmit(onSubmit)}>

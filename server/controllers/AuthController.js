@@ -8,7 +8,7 @@ class AuthController {
 		const token = (await createToken(req.user)) || "kevin";
 
 		// res.json({ msg: "Logged in successfully", user: req.user, token: token });
-		res.redirect(`${process.env.CLIENT_URL}?token={token}`);
+		res.redirect(`${process.env.CLIENT_URL}/auth?token=${token}`);
 	};
 
 	//controller to handle authentication by email and password
