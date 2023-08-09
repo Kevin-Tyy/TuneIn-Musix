@@ -42,9 +42,9 @@ class UserController {
 
 	getUser = async (req, res) => {
 		try {
-			const { _id } = req.user
+			const { _id } = req.user;
 			const userData = await UserModel.findOne({ _id }).select("-password");
-			res.json({ user : userData , msg : 'Authenticated successfully' });
+			res.json({ user: userData, msg: "Authenticated successfully" });
 		} catch (error) {
 			res.status(400).json({ msg: "Something went wrong" });
 		}
