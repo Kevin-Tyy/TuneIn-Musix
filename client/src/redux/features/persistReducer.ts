@@ -3,7 +3,7 @@ import { persistConfig } from "./config/persistConfig";
 // src/redux/rootReducer.js
 import { combineReducers } from "redux";
 import { persistReducer } from "redux-persist";
-import authReducer from "../slices/AuthSlice";
+import authReducer from "../slices/Authslice";
 
 const rootReducer = combineReducers({
 	auth: authReducer,

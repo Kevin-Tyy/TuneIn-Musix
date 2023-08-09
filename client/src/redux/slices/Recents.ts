@@ -1,0 +1,1 @@
+// slice to to store users recent search activity

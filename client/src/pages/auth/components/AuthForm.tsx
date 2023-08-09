@@ -10,7 +10,7 @@ import { ApiRoot } from "../../../api/config/apiRoot";
 import { toast } from "react-hot-toast";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { login } from "../../../redux/slices/AuthSlice";
+import { login } from "../../../redux/slices/Authslice";
 const AuthForm = () => {
 	const [variant, setVariant] = useState<"LOGIN" | "REGISTER">("LOGIN");
 	const [loading, setLoading] = useState<boolean>(false);
@@ -147,9 +147,7 @@ const AuthForm = () => {
 							: "Already have an account?"}
 					</span>
 					<span onClick={toggleVariant} className="underline cursor-pointer">
-						{variant === "LOGIN"
-							? "Create an account"
-							: "Sign in"}
+						{variant === "LOGIN" ? "Create an account" : "Sign in"}
 					</span>
 				</div>
 			</div>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { _getGenres, _getToken } from "../../api/fetch/config";
+import { _getGenres, _getPlaylistByGenre, _getToken, _getTracks } from "../../api/fetch/config";
 import GenreBox from "../../components/GenreBox";
 import { GenreItemType } from "../../types";
 
@@ -7,10 +7,10 @@ import { GenreItemType } from "../../types";
 const HomePage: React.FC = () => {
 	const [token, setToken] = useState("");
 	const [genres, setGenres] = useState<GenreItemType[]>([]);
+	const [playLists, setplayLists] = useState<GenreItemType[]>([]);
 	useEffect(() => {
 		populatePage();
 	}, []);
-	console.log(genres);
 	
 	const populatePage = async () => {
 		const accessToken = await _getToken();
@@ -18,6 +18,10 @@ const HomePage: React.FC = () => {
 
 		const genres = await _getGenres(accessToken);
 		setGenres(genres);
+
+		const tracks = await _getPlaylistByGenre(accessToken , 'hiphop')
+		console.log(tracks);
+		
 	};
 
 	return (
