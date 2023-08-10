@@ -8,7 +8,7 @@ const HomeLayout: React.FC = () => {
 		<div className="min-h-screen h-screen w-full bg-black p-3">
 			<div className="flex h-full gap-4 text-sm">
 				<SideNav />
-				<div className="w-full h-full text-white">
+				<div className="w-full h-full text-white relative">
 					<Navbar />
 					<Outlet />
 				</div>

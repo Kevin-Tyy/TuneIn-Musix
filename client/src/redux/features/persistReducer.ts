@@ -3,10 +3,12 @@ import { persistConfig } from "./config/persistConfig";
 // src/redux/rootReducer.js
 import { combineReducers } from "redux";
 import { persistReducer } from "redux-persist";
-import authReducer from "../slices/Authslice";
+import AuthReducer from "../slices/Authslice";
+import AccountReducer from "../slices/AccountSlice";
 
 const rootReducer = combineReducers({
-	auth: authReducer,
+	account : AccountReducer,
+	auth: AuthReducer,
 	// Add other reducers here
 });
 

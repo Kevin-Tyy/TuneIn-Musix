@@ -1,35 +1,52 @@
 import React, { useEffect, useState } from "react";
-import { _getGenres, _getPlaylistByGenre, _getToken, _getTracks } from "../../api/fetch/config";
+import {
+	_getArtists,
+	_getGenres,
+	_getPlaylistByGenre,
+	_getToken,
+	_getTracks,
+} from "../../api/fetch/config";
 import GenreBox from "../../components/GenreBox";
-import { GenreItemType } from "../../types";
-
+import { GenreItemType, ArtistType } from "../../types";
+import ArtistBox from "../../components/ArtistBox";
+import { useDispatch } from "react-redux";
+import { addToken } from "../../redux/slices/AccountSlice";
 
 const HomePage: React.FC = () => {
-	const [token, setToken] = useState("");
+	// const [token, setToken] = useState("");
 	const [genres, setGenres] = useState<GenreItemType[]>([]);
-	const [playLists, setplayLists] = useState<GenreItemType[]>([]);
+	const [artists, setArtists] = useState<any>([]);
+	const dispatch = useDispatch();
 	useEffect(() => {
 		populatePage();
 	}, []);
-	
+
 	const populatePage = async () => {
 		const accessToken = await _getToken();
-		setToken(accessToken);
+		// setToken(accessToken);
+		dispatch(addToken(accessToken));
 
 		const genres = await _getGenres(accessToken);
 		setGenres(genres);
 
-		const tracks = await _getPlaylistByGenre(accessToken , 'hiphop')
-		console.log(tracks);
-		
+		const { artists } = await _getArtists(accessToken);
+		setArtists(artists);
+		console.log(artists);
 	};
 
 	return (
 		<div className="mt-4">
 			{genres && (
 				<div className="flex flex-wrap gap-4">
-					{genres.slice(0,7).map((genre) => (
-						<GenreBox genre={genre} key={genre.name}/>
+					{genres.slice(0, 7).map((genre) => (
+						<GenreBox genre={genre} key={genre.id} />
+					))}
+				</div>
+			)}
+			{artists && (
+				<div className="flex flex-wrap gap-4">
+					{artists.map((artist: any) => (
+						<ArtistBox artist={artist} key={artist.id} />
 					))}
 				</div>
 			)}

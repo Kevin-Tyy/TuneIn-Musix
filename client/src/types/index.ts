@@ -3,7 +3,7 @@ export interface UserType {
 	email: string;
 	authenticationmethod: "email_password" | "oauth";
 	savedMusic: Array<any>;
-	avatarUrl: string;
+	avatar: string;
 }
 interface MusicType {}
 export interface GenreItemType {
@@ -17,39 +17,66 @@ export interface ImageType {
 	url: string | null;
 	width: number | null;
 }
-export interface playlistsType {
-	collaborative: boolean;
-	descrition: string;
+export interface ArtistType {
 	external_urls: ExternalUrlsType;
+	followers: ArtistFollowerType;
 	href: string;
 	id: string;
-	images: ImageType[];
 	name: string;
-	owner: any;
-	primary_color: string | null;
-	public: string | null;
-	snapshot_id: string;
-	tracks: string;
+	images: ImageType[];
+	genres: string[];
+	popularity: number;
 	type: string;
 	uri: string;
 }
 type ExternalUrlsType = {
-    spotify : string
+	spotify: string;
+};
+type ArtistFollowerType = {
+	href: string | null;
+	total: number;
+};
+
+// type PlaylistOwner = {
+// 	external_urls: ExternalUrlsType;
+// 	display_name: string;
+// 	spotify: string;
+// 	href: string;
+// 	id: string;
+// 	type: string;
+// 	uri: string;
+// };
+
+// type Track = {
+// 	href: string;
+// 	total: number;
+// };
+
+interface AlbumType {
+	album_group: string;
+	album_type: string;
+	artists: ArtistType[];
+	available_markets: string[];
+	external_urls: {
+		spotify: string;
+	};
+	href: string;
+	id: string;
+	images: ImageType[];
+	name: string;
+	release_date: string;
+	release_date_precision: string;
+	total_tracks: number;
+	type: string;
+	uri: string;
 }
-type PlaylistOwner = {
-    
+
+export interface SearchResult {
+	href: string;
+	items: AlbumType[];
+	limit: null;
+	next: string | null;
+	offset: number;
+	previous: string | null;
+	total: number;
 }
-// collaborative : false
-// description: "The latest straight bars and Afro-Trap. Cover:  <a href=\"https://open.spotify.com/artist/2gzWmhOZhDN6gXL49JW9qj?si=Ora3xnr8SBGrMFD1T03W7A\"> Nasty C</a>"
-// external_urls:{spotify: 'https://open.spotify.com/playlist/37i9dQZF1DXdl8xYyG9Dm1'}
-// href: "https://api.spotify.com/v1/playlists/37i9dQZF1DXdl8xYyG9Dm1"
-// id:"37i9dQZF1DXdl8xYyG9Dm1"
-// images: [{…}]
-// name: "No Wahala"
-// owner: {display_name: 'Spotify', external_urls: {…}, href: 'https://api.spotify.com/v1/users/spotify', id: 'spotify', type: 'user', …}
-// primary_color: null
-// public : null
-// snapshot_id: "MTY5MDUwMjQ2MCwwMDAwMDAwMDE3ZjI4OTM2MjA3M2UwNWJlMzBiYjNiMmJkZTkwNjY1"
-// tracks: {href: 'https://api.spotify.com/v1/playlists/37i9dQZF1DXdl8xYyG9Dm1/tracks', total: 70}
-// type : "playlist"
-// uri : "spotify:playlist:37i9dQZF1DXdl8xYyG9Dm1"

@@ -1,9 +1,12 @@
 // import axios from "axios";
 
+import axios from "axios";
+
 // type FuncProps = (value: string) => any;
 const clientId = "a370aafac3f84b53a50cc0600aa2f531";
 const clientSecret = "bd1c4a3b88b149beb2e5cc7b349b8905";
 
+const BaseUrl = "https://api.spotify.com/v1";
 const _getToken = async () => {
 	const result = await fetch("https://accounts.spotify.com/api/token", {
 		method: "POST",
@@ -19,13 +22,10 @@ const _getToken = async () => {
 };
 
 const _getGenres = async (token: string) => {
-	const result = await fetch(
-		`https://api.spotify.com/v1/browse/categories?locale=sv_US`,
-		{
-			method: "GET",
-			headers: { Authorization: "Bearer " + token },
-		}
-	);
+	const result = await fetch(`${BaseUrl}/browse/categories?locale=sv_US`, {
+		method: "GET",
+		headers: { Authorization: "Bearer " + token },
+	});
 
 	const data = await result.json();
 	return data.categories.items;
@@ -68,4 +68,52 @@ const _getTrack = async (token: string, trackEndPoint: string) => {
 	return data;
 };
 
-export { _getGenres, _getToken, _getTrack, _getPlaylistByGenre, _getTracks };
+const _getArtists = async (token: string) => {
+	const result = await fetch(
+		`${BaseUrl}/artists?ids=3wcj11K77LjEY1PkEazffa,7vk5e3vY1uw9plTHJAMwjN,6DqOCt7j8SziMQBGXrXVFD,048LktY5zMnakWq7PTtFrz,75VKfyoBlkmrJFDqo1o2VY,5H4yInM5zmHqpKIoMNAx4r,46pWGuE3dSwY3bMMXGBvVS,1vCWHaC5f2uS3yhpwWbIA6`,
+		{
+			method: "GET",
+			headers: {
+				Authorization: "Bearer " + token,
+			},
+		}
+	);
+	const data = result.json();
+	return data;
+};
+const _getArtistById = async (token: string, artistId: string) => {
+	const result = await fetch(
+		`${BaseUrl}/artists/${artistId}`,
+		{
+			method: "GET",
+			headers: {
+				Authorization: "Bearer " + token,
+			},
+		}
+	);
+	const data = result.json();
+	return data;
+};
+const _getArtistAlbumsById = async (token: string, artistId: string) => {
+	const result = await fetch(
+		`${BaseUrl}/artists/${artistId}/albums`,
+		{
+			method: "GET",
+			headers: {
+				Authorization: "Bearer " + token,
+			},
+		}
+	);
+	const data = result.json();
+	return data;
+};
+export {
+	_getGenres,
+	_getToken,
+	_getTrack,
+	_getPlaylistByGenre,
+	_getTracks,
+	_getArtists,
+	_getArtistById,
+	_getArtistAlbumsById
+};

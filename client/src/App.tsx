@@ -8,6 +8,7 @@ import HomePage from "./pages/home";
 import SearchPage from "./pages/search";
 import LikedSongs from "./pages/liked";
 import PlayLists from "./pages/playlists";
+import Artist from "./pages/artist";
 const App = () => {
 	const routes = useRoutes([
 		{
@@ -45,6 +46,10 @@ const App = () => {
 				{
 					path : 'explore',
 					element : <HomePage/>
+				},
+				{
+					path : '/artist/:id',
+					element : <Artist/>
 				}
 			],
 		},

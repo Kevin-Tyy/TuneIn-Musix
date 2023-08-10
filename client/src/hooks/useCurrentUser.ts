@@ -2,9 +2,7 @@ import { useSelector } from "react-redux";
 import { loggedInUser } from "../redux/slices/Authslice";
 
 const useCurrentUser = () => {
-	const {
-		auth: { user },
-	} = useSelector(loggedInUser);
+	const { user } = useSelector(loggedInUser);
 	console.log(user);
 
 	return user;

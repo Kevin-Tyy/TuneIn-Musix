@@ -6,8 +6,8 @@ import Profile from "./components/profile";
 const Navbar: React.FC = () => {
 	useSelector;
 	return (
-		<div className="flex gap-4">
-			<div className="bg-neutral-900 p-3 rounded-3xl w-full">
+		<div className="flex gap-4 relative z-[10]">
+			<div className=" p-3 rounded-3xl w-full">
 				<form>
 					<div className="flex items-center gap-5">
 						<input
