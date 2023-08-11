@@ -1,5 +1,3 @@
-
-
 // type FuncProps = (value: string) => any;
 const clientId = "a370aafac3f84b53a50cc0600aa2f531";
 const clientSecret = "bd1c4a3b88b149beb2e5cc7b349b8905";
@@ -119,8 +117,8 @@ const _getArtistRelated = async (token: string, artistId: string) => {
 	const data = await result.json();
 	return data;
 };
-const _searchItems = async (token: string, query: string) => {
-	const result = await fetch(`${BaseUrl}/search?q=${query}&type=album`, {
+const _searchItems = async (token: string, query: string, filter: string) => {
+	const result = await fetch(`${BaseUrl}/search?q=${query}&type=${filter}`, {
 		method: "GET",
 		headers: {
 			Authorization: "Bearer " + token,

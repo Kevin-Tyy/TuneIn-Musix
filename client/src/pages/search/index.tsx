@@ -2,23 +2,26 @@ import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { userAccount } from "../../redux/slices/Accountslice";
 import { FiSearch } from "react-icons/fi";
-import { LuSettings2 } from "react-icons/lu";
 import { _searchItems } from "../../api/fetch/config";
 import { SearchResult } from "../../types";
 import SearchBox from "./components/SearchBox";
+import SearchFilter from "../../components/modals/SearchFilter";
 const SearchPage: React.FC = () => {
 	const { recentMusic } = useSelector(userAccount);
-	const [queryString, setQueryString] = useState<string>('');
+	const [queryString, setQueryString] = useState<string>("");
 	const [searchResults, setSearchResults] = useState<SearchResult | null>(null);
-
+	const [searchFilter, setSearchFilter] = useState("album");
+	const [isSearchFilterOpen, setIsSearchFilterOpen] = useState(false);
 	const { userToken } = useSelector(userAccount);
 	const handleSearch = (e: any) => {
 		e.preventDefault();
 		if (queryString) {
-			_searchItems(userToken, queryString as string).then((response) => {
-				const { albums } = response;
-				setSearchResults(albums);
-			});
+			_searchItems(userToken, queryString as string, "album").then(
+				(response) => {
+					const { albums } = response;
+					setSearchResults(albums);
+				}
+			);
 		}
 	};
 
@@ -38,9 +41,15 @@ const SearchPage: React.FC = () => {
 							value={queryString as string}
 							onChange={(e) => setQueryString(e.target.value)}
 						/>
-						<div className="flex items-center text-gray-400 cursor-pointer hover:bg-gray-700/50 p-2 rounded-md">
-							<LuSettings2 />
-							<p className="">Filters</p>
+						<div className="flex flex-col">
+							{
+								<SearchFilter
+									searchFilter={searchFilter}
+									setSearchFilter={setSearchFilter}
+									isSearchFilterOpen={isSearchFilterOpen}
+									setIsSearchFilterOpen={setIsSearchFilterOpen}
+								/>
+							}
 						</div>
 					</div>
 				</form>

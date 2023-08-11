@@ -9,27 +9,26 @@ import {
 import GenreBox from "../../components/GenreBox";
 import { GenreItemType, ArtistType } from "../../types";
 import ArtistBox from "../../components/ArtistBox";
-import { useDispatch } from "react-redux";
-import { addToken } from "../../redux/slices/Accountslice";
+import { useSelector } from "react-redux";
+import { userAccount } from "../../redux/slices/Accountslice";
 
 const HomePage: React.FC = () => {
 	// const [token, setToken] = useState("");
 	const [genres, setGenres] = useState<GenreItemType[]>([]);
 	const [artists, setArtists] = useState<any>([]);
-	const dispatch = useDispatch();
+	const { userToken } = useSelector(userAccount);
+
 	useEffect(() => {
-		populatePage();
+		if (userToken) {
+			populatePage();
+		}
 	}, []);
 
 	const populatePage = async () => {
-		const accessToken = await _getToken();
-		// setToken(accessToken);
-		dispatch(addToken(accessToken));
-
-		const genres = await _getGenres(accessToken);
+		const genres = await _getGenres(userToken);
 		setGenres(genres);
 
-		const { artists } = await _getArtists(accessToken);
+		const { artists } = await _getArtists(userToken);
 		setArtists(artists);
 		console.log(artists);
 	};
