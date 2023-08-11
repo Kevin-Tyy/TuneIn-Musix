@@ -1,17 +1,24 @@
+import { useNavigate } from "react-router-dom";
 import useAvatar from "../../../../hooks/useAvatar";
 import useCurrentUser from "../../../../hooks/useCurrentUser";
 import { UserType } from "../../../../types";
 import { settings } from "../../../../utils/constants";
 const Profile = () => {
 	const user: UserType = useCurrentUser();
+	const navigate = useNavigate();
 
+	const handleNavigate = () => {
+		navigate("/auth");
+	};
 	if (!user) {
 		return (
-			<div className="flex space-x-6">
-				<button className="bg-transparent text-white whitespace-nowrap">
+			<div className="flex space-x-4">
+				<button className="bg-transparent transition rounded-full px-5 py-2 text-white whitespace-nowrap hover:ring-1 hover:ring-white">
 					Sign up
 				</button>
-				<button className="bg-white px-5 py-2 whitespace-nowrap rounded-full text-black">
+				<button
+					className="bg-white px-5 py-2 whitespace-nowrap rounded-full text-black"
+					onClick={handleNavigate}>
 					Login
 				</button>
 			</div>
