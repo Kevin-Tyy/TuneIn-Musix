@@ -1,6 +1,5 @@
 import React from "react";
 import Profile from "./components/profile";
-import Header from "../Header";
 
 const Navbar: React.FC = () => {
 	return (

@@ -13,7 +13,9 @@ const Profile = () => {
 	if (!user) {
 		return (
 			<div className="flex space-x-4">
-				<button className="bg-transparent transition rounded-full px-5 py-2 text-white whitespace-nowrap hover:ring-1 hover:ring-white">
+				<button
+					className="bg-transparent transition rounded-full px-5 py-2 text-white whitespace-nowrap hover:ring-1 hover:ring-white"
+					onClick={handleNavigate}>
 					Sign up
 				</button>
 				<button
