@@ -107,6 +107,30 @@ const _getArtistAlbumsById = async (token: string, artistId: string) => {
 	const data = result.json();
 	return data;
 };
+const _getArtistTracksById = async (token : string , artistId: string) => {
+	const result = await fetch(
+		`${BaseUrl}/artists/${artistId}/top-tracks`, {
+			method: 'GET',
+			headers: {
+				Authorization: "Bearer " + token,
+			},
+		}
+	)
+	const data = await result.json();
+	return data
+}
+const _getArtistRelated = async (token : string , artistId: string) => {
+	const result = await fetch(
+		`${BaseUrl}/artists/${artistId}/related-artists`, {
+			method: 'GET',
+			headers: {
+				Authorization: "Bearer " + token,
+			},
+		}
+	)
+	const data = await result.json();
+	return data
+}
 export {
 	_getGenres,
 	_getToken,
@@ -115,5 +139,7 @@ export {
 	_getTracks,
 	_getArtists,
 	_getArtistById,
-	_getArtistAlbumsById
+	_getArtistAlbumsById,
+	_getArtistTracksById,
+	_getArtistRelated
 };

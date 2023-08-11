@@ -10,7 +10,7 @@ import GenreBox from "../../components/GenreBox";
 import { GenreItemType, ArtistType } from "../../types";
 import ArtistBox from "../../components/ArtistBox";
 import { useDispatch } from "react-redux";
-import { addToken } from "../../redux/slices/AccountSlice";
+import { addToken } from "../../redux/slices/Accountslice";
 
 const HomePage: React.FC = () => {
 	// const [token, setToken] = useState("");
@@ -35,21 +35,27 @@ const HomePage: React.FC = () => {
 	};
 
 	return (
-		<div className="mt-4">
-			{genres && (
-				<div className="flex flex-wrap gap-4">
-					{genres.slice(0, 7).map((genre) => (
-						<GenreBox genre={genre} key={genre.id} />
-					))}
-				</div>
-			)}
-			{artists && (
-				<div className="flex flex-wrap gap-4">
-					{artists.map((artist: any) => (
-						<ArtistBox artist={artist} key={artist.id} />
-					))}
-				</div>
-			)}
+		<div className="mt-4 w-full">
+			<div>
+				<h1 className="text-xl">Explore Famous Hits</h1>
+				{genres && (
+					<div className="mt-5 flex flex-wrap gap-4">
+						{genres.slice(0, 7).map((genre) => (
+							<GenreBox genre={genre} key={genre.id} />
+						))}
+					</div>
+				)}
+			</div>
+			<div className="mt-10">
+				<h1 className="text-xl">Popular Artists</h1>
+				{artists && (
+					<div className="mt-5 flex flex-wrap justify-stretch gap-4 w-full">
+						{artists.map((artist: any) => (
+							<ArtistBox artist={artist} key={artist.id} />
+						))}
+					</div>
+				)}
+			</div>
 		</div>
 	);
 };

@@ -9,15 +9,20 @@ import SearchPage from "./pages/search";
 import LikedSongs from "./pages/liked";
 import PlayLists from "./pages/playlists";
 import Artist from "./pages/artist";
+import { useSelector } from "react-redux";
+import { loggedInUser } from "./redux/slices/Authslice";
 const App = () => {
+	const user = useSelector(loggedInUser)
+	console.log(user);
+	
 	const routes = useRoutes([
 		{
 			path: "/auth",
-			element: <AuthPage />,
+			element: user.isLoggeIn ? <Navigate to="/"/> : <AuthPage />,
 		},
 		{
 			path: "/",
-			element: <HomeLayout />,
+			element: user.isLoggedIn ? <HomeLayout /> : <Navigate to="/auth"/>,
 			children: [
 				{
 					index: true,
@@ -63,7 +68,7 @@ const App = () => {
 	// 	withCredentials : true,
 
 	// })
-	return <div className="h-screen">{routes}</div>;
+	return <div className="min-h-screen h-full bg-black">{routes}</div>;
 };
 
 export default App;
