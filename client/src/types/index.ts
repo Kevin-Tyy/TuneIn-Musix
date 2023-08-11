@@ -52,7 +52,7 @@ type ArtistFollowerType = {
 // 	total: number;
 // };
 
-interface AlbumType {
+export interface AlbumType {
 	album_group: string;
 	album_type: string;
 	artists: ArtistType[];

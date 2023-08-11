@@ -4,6 +4,7 @@ import SideNav from "../components/navigation/sideNavigation";
 import Navbar from "../components/navigation/navBar";
 
 const HomeLayout: React.FC = () => {
+	document.title = "Tune In"
 	return (
 		<div className="flex min-h-screen p-3 gap-4 text-sm relative">
 			<SideNav />

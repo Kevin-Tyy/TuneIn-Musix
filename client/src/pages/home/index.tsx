@@ -35,7 +35,7 @@ const HomePage: React.FC = () => {
 	};
 
 	return (
-		<div className="mt-4 w-full">
+		<div className="mt-10 w-full space-y-10">
 			<div>
 				<h1 className="text-xl">Explore Famous Hits</h1>
 				{genres && (
@@ -45,6 +45,9 @@ const HomePage: React.FC = () => {
 						))}
 					</div>
 				)}
+			</div>
+			<div>
+				<h1 className="text-xl">Newest Music</h1>
 			</div>
 			<div className="mt-10">
 				<h1 className="text-xl">Popular Artists</h1>

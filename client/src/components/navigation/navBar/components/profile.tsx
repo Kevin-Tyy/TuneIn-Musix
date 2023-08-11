@@ -8,8 +8,10 @@ const Profile = () => {
 	if (!user) {
 		return (
 			<div className="flex space-x-6">
-				<button className="bg-transparent text-white">Sign up</button>
-				<button className="bg-white px-5 py-2  rounded-full text-black">
+				<button className="bg-transparent text-white whitespace-nowrap">
+					Sign up
+				</button>
+				<button className="bg-white px-5 py-2 whitespace-nowrap rounded-full text-black">
 					Login
 				</button>
 			</div>

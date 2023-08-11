@@ -1,6 +1,4 @@
-// import axios from "axios";
 
-import axios from "axios";
 
 // type FuncProps = (value: string) => any;
 const clientId = "a370aafac3f84b53a50cc0600aa2f531";
@@ -82,55 +80,55 @@ const _getArtists = async (token: string) => {
 	return data;
 };
 const _getArtistById = async (token: string, artistId: string) => {
-	const result = await fetch(
-		`${BaseUrl}/artists/${artistId}`,
-		{
-			method: "GET",
-			headers: {
-				Authorization: "Bearer " + token,
-			},
-		}
-	);
+	const result = await fetch(`${BaseUrl}/artists/${artistId}`, {
+		method: "GET",
+		headers: {
+			Authorization: "Bearer " + token,
+		},
+	});
 	const data = result.json();
 	return data;
 };
 const _getArtistAlbumsById = async (token: string, artistId: string) => {
-	const result = await fetch(
-		`${BaseUrl}/artists/${artistId}/albums`,
-		{
-			method: "GET",
-			headers: {
-				Authorization: "Bearer " + token,
-			},
-		}
-	);
+	const result = await fetch(`${BaseUrl}/artists/${artistId}/albums`, {
+		method: "GET",
+		headers: {
+			Authorization: "Bearer " + token,
+		},
+	});
 	const data = result.json();
 	return data;
 };
-const _getArtistTracksById = async (token : string , artistId: string) => {
-	const result = await fetch(
-		`${BaseUrl}/artists/${artistId}/top-tracks`, {
-			method: 'GET',
-			headers: {
-				Authorization: "Bearer " + token,
-			},
-		}
-	)
+const _getArtistTracksById = async (token: string, artistId: string) => {
+	const result = await fetch(`${BaseUrl}/artists/${artistId}/top-tracks`, {
+		method: "GET",
+		headers: {
+			Authorization: "Bearer " + token,
+		},
+	});
 	const data = await result.json();
-	return data
-}
-const _getArtistRelated = async (token : string , artistId: string) => {
-	const result = await fetch(
-		`${BaseUrl}/artists/${artistId}/related-artists`, {
-			method: 'GET',
-			headers: {
-				Authorization: "Bearer " + token,
-			},
-		}
-	)
+	return data;
+};
+const _getArtistRelated = async (token: string, artistId: string) => {
+	const result = await fetch(`${BaseUrl}/artists/${artistId}/related-artists`, {
+		method: "GET",
+		headers: {
+			Authorization: "Bearer " + token,
+		},
+	});
 	const data = await result.json();
-	return data
-}
+	return data;
+};
+const _searchItems = async (token: string, query: string) => {
+	const result = await fetch(`${BaseUrl}/search?q=${query}&type=album`, {
+		method: "GET",
+		headers: {
+			Authorization: "Bearer " + token,
+		},
+	});
+	const data = await result.json();
+	return data;
+};
 export {
 	_getGenres,
 	_getToken,
@@ -141,5 +139,6 @@ export {
 	_getArtistById,
 	_getArtistAlbumsById,
 	_getArtistTracksById,
-	_getArtistRelated
+	_getArtistRelated,
+	_searchItems,
 };
