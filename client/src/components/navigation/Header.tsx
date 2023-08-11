@@ -1,11 +1,6 @@
 import { MdNavigateNext, MdNavigateBefore } from "react-icons/md";
-import ListBox from "./ListBox";
-import { BsHeart } from "react-icons/bs";
-import { useLocation } from "react-router-dom";
-
+import Navbar from "./navBar";
 const Header = ({ children }: { children: React.ReactNode }) => {
-	const location = useLocation();
-
 	const handleNext = () => {
 		window.history.forward();
 	};
@@ -28,25 +23,11 @@ const Header = ({ children }: { children: React.ReactNode }) => {
 						<MdNavigateNext size={25} />
 					</button>
 				</div>
-				<div className="">{children}</div>
+				<div>
+					<Navbar />
+				</div>
 			</div>
-			{location.pathname === "/search" && (
-				<div className="h-16 flex items-end">
-					<h1 className="text-xl">Browse your favorite music</h1>
-				</div>
-			)}
-			{location.pathname === "/" && (
-				<div className="space-y-10">
-					<h1 className="text-white text-3xl font-semibold">Welcome back</h1>
-					<div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
-						{Array(6)
-							.fill(null)
-							.map((_, index) => (
-								<ListBox name="Liked songs" icon={BsHeart} key={index} />
-							))}
-					</div>
-				</div>
-			)}
+			<div>{children}</div>
 		</div>
 	);
 };

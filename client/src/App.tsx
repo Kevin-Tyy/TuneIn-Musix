@@ -41,7 +41,7 @@ const App = () => {
 					element: <SearchPage />,
 				},
 				{
-					path: "liked",
+					path: "saved",
 					element: <LikedSongs />,
 				},
 				{

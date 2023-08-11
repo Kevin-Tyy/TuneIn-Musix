@@ -25,7 +25,7 @@ export const sidenav: sidenavOptions[] = [
 	{
 		icon: AiOutlineHeart,
 		title: "Liked Songs",
-		link: "/liked",
+		link: "/saved",
 	},
 	{
 		icon: ImSafari,

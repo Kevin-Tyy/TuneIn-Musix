@@ -6,6 +6,7 @@ import { _searchItems } from "../../api/fetch/config";
 import { SearchResult } from "../../types";
 import SearchBox from "./components/SearchBox";
 import SearchFilter from "../../components/modals/SearchFilter";
+import Header from "../../components/navigation/Header";
 const SearchPage: React.FC = () => {
 	const { recentMusic } = useSelector(userAccount);
 	const [queryString, setQueryString] = useState<string>("");
@@ -28,51 +29,58 @@ const SearchPage: React.FC = () => {
 	console.log(searchResults);
 
 	return (
-		<div className="mt-5">
-			<div className=" p-3 rounded-3xl w-full  max-w-2xl space-y-6">
-				<form onSubmit={handleSearch}>
-					<div className=" bg-neutral-100/10 focus-within:ring-1 ring-inset ring-gray-600 px-4 py-2 rounded-md flex items-center gap-3">
-						<button className=" text-white rounded-full">
-							<FiSearch size={15} />
-						</button>
-						<input
-							className=" w-full bg-transparent text-sm outline-none"
-							placeholder="Search"
-							value={queryString as string}
-							onChange={(e) => setQueryString(e.target.value)}
-						/>
-						<div className="flex flex-col">
-							{
-								<SearchFilter
-									searchFilter={searchFilter}
-									setSearchFilter={setSearchFilter}
-									isSearchFilterOpen={isSearchFilterOpen}
-									setIsSearchFilterOpen={setIsSearchFilterOpen}
-								/>
-							}
+		<div>
+			<Header>
+				<div className="h-16 flex items-end">
+					<h1 className="text-xl">Browse your favorite music</h1>
+				</div>
+			</Header>
+			<div className="mt-5">
+				<div className=" p-3 rounded-3xl w-full  max-w-2xl space-y-6">
+					<form onSubmit={handleSearch}>
+						<div className=" bg-neutral-100/10 focus-within:ring-1 ring-inset ring-gray-600 px-4 py-2 rounded-md flex items-center gap-3">
+							<button className=" text-white rounded-full">
+								<FiSearch size={15} />
+							</button>
+							<input
+								className=" w-full bg-transparent text-sm outline-none"
+								placeholder="Search"
+								value={queryString as string}
+								onChange={(e) => setQueryString(e.target.value)}
+							/>
+							<div className="flex flex-col">
+								{
+									<SearchFilter
+										searchFilter={searchFilter}
+										setSearchFilter={setSearchFilter}
+										isSearchFilterOpen={isSearchFilterOpen}
+										setIsSearchFilterOpen={setIsSearchFilterOpen}
+									/>
+								}
+							</div>
 						</div>
-					</div>
-				</form>
-			</div>
-			{recentMusic.length > 0 ? (
-				<div>
-					{recentMusic.map((_: any, index: number) => (
-						<p key={index}>RecentMusic at {index}</p>
-					))}
+					</form>
 				</div>
-			) : (
-				<div className="flex justify-center items-center">
-					<h1 className="text-xl">No Recent Music</h1>
-				</div>
-			)}
-			<div className="px-4">
-				{searchResults && (
-					<div className="flex flex-col gap-3">
-						{searchResults?.items.map((item, index) => (
-							<SearchBox item={item} key={index} />
+				{recentMusic.length > 0 ? (
+					<div>
+						{recentMusic.map((_: any, index: number) => (
+							<p key={index}>RecentMusic at {index}</p>
 						))}
 					</div>
+				) : (
+					<div className="flex justify-center items-center">
+						<h1 className="text-xl">No Recent Music</h1>
+					</div>
 				)}
+				<div className="px-4">
+					{searchResults && (
+						<div className="flex flex-col gap-3">
+							{searchResults?.items.map((item, index) => (
+								<SearchBox item={item} key={index} />
+							))}
+						</div>
+					)}
+				</div>
 			</div>
 		</div>
 	);

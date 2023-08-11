@@ -11,6 +11,9 @@ import { GenreItemType } from "../../types";
 import ArtistBox from "../../components/ArtistBox";
 import { useSelector } from "react-redux";
 import { userAccount } from "../../redux/slices/Accountslice";
+import Header from "../../components/navigation/Header";
+import ListBox from "../../components/navigation/ListBox";
+import { BsHeart } from "react-icons/bs";
 
 const HomePage: React.FC = () => {
 	// const [token, setToken] = useState("");
@@ -34,7 +37,19 @@ const HomePage: React.FC = () => {
 	};
 
 	return (
-		<div className="mt-10 w-full space-y-10">
+		<div className=" w-full space-y-10">
+			<Header>
+				<div className="space-y-10">
+					<h1 className="text-white text-3xl font-semibold">Welcome back</h1>
+					<div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
+						{Array(6)
+							.fill(null)
+							.map((_, index) => (
+								<ListBox name="Liked songs" icon={BsHeart} key={index} />
+							))}
+					</div>
+				</div>
+			</Header>
 			<div>
 				<h1 className="text-xl">Explore Famous Hits</h1>
 				{genres && (

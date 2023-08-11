@@ -127,6 +127,17 @@ const _searchItems = async (token: string, query: string, filter: string) => {
 	const data = await result.json();
 	return data;
 };
+
+const _getAlbums = async (token: string , ids : string) => {
+	const result = await fetch(`${BaseUrl}/albums?ids=${ids}`, {
+		method: "GET",
+		headers: {
+			Authorization: "Bearer " + token,
+		},
+	});
+	const data = await result.json();
+	return data;
+};
 export {
 	_getGenres,
 	_getToken,
@@ -139,4 +150,5 @@ export {
 	_getArtistTracksById,
 	_getArtistRelated,
 	_searchItems,
+	_getAlbums
 };
