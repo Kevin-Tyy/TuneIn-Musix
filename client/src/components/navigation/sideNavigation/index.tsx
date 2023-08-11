@@ -9,7 +9,7 @@ const SideNav = () => {
 					{sidenav.map((item) => (
 						<NavLink
 							key={item.title}
-							to={item.link}
+							to={item.link!}
 							className={({
 								isActive,
 							}) => `flex gap-5 items-center text-white rounded-full ring-1 ring-inset ring-neutral-800 p-[13px] transition duration-500 "

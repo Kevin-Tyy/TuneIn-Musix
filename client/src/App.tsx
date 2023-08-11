@@ -12,17 +12,17 @@ import Artist from "./pages/artist";
 import { useSelector } from "react-redux";
 import { loggedInUser } from "./redux/slices/Authslice";
 const App = () => {
-	const user = useSelector(loggedInUser)
+	const user = useSelector(loggedInUser);
 	console.log(user);
-	
+
 	const routes = useRoutes([
 		{
 			path: "/auth",
-			element: user.isLoggeIn ? <Navigate to="/"/> : <AuthPage />,
+			element: user.isLoggeIn ? <Navigate to="/" /> : <AuthPage />,
 		},
 		{
 			path: "/",
-			element: user.isLoggedIn ? <HomeLayout /> : <Navigate to="/auth"/>,
+			element: <HomeLayout />,
 			children: [
 				{
 					index: true,
@@ -49,13 +49,13 @@ const App = () => {
 					element: <PlayLists />,
 				},
 				{
-					path : 'explore',
-					element : <HomePage/>
+					path: "explore",
+					element: <HomePage />,
 				},
 				{
-					path : '/artist/:id',
-					element : <Artist/>
-				}
+					path: "/artist/:id",
+					element: <Artist />,
+				},
 			],
 		},
 		{

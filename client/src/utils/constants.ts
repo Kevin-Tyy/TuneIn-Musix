@@ -4,6 +4,8 @@ import { IconType } from "react-icons";
 import { LuLibrary } from "react-icons/lu";
 import { AiOutlineHeart } from "react-icons/ai";
 import { ImSafari } from "react-icons/im";
+import { LuBell, LuFlag, LuSettings, LuVerified } from "react-icons/lu";
+
 export const sidenav: sidenavOptions[] = [
 	{
 		icon: GoHome,
@@ -33,6 +35,21 @@ export const sidenav: sidenavOptions[] = [
 ];
 interface sidenavOptions {
 	icon: IconType;
-	title: string;
-	link: string;
+	title?: string;
+	link?: string;
 }
+
+export const settings: sidenavOptions[] = [
+	{
+		icon: LuVerified,
+	},
+	{
+		icon: LuFlag,
+	},
+	{
+		icon: LuSettings,
+	},
+	{
+		icon: LuBell,
+	},
+];

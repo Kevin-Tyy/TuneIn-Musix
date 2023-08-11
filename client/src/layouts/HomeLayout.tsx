@@ -7,7 +7,7 @@ const HomeLayout: React.FC = () => {
 	return (
 		<div className="flex min-h-screen p-3 gap-4 text-sm relative">
 			<SideNav />
-			<div className="w-full h-full text-white relative">
+			<div className="w-full h-full text-white relative rounded-lg">
 				<Navbar />
 				<Outlet />
 			</div>
