@@ -7,7 +7,7 @@ import {
 	_getTracks,
 } from "../../api/fetch/config";
 import GenreBox from "../../components/GenreBox";
-import { GenreItemType, ArtistType } from "../../types";
+import { GenreItemType } from "../../types";
 import ArtistBox from "../../components/ArtistBox";
 import { useSelector } from "react-redux";
 import { userAccount } from "../../redux/slices/Accountslice";

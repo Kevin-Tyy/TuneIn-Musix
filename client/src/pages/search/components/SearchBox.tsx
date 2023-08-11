@@ -3,10 +3,23 @@ import { AlbumType } from "../../../types";
 import { FaPlay } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { BiDotsVerticalRounded, BiHeart } from "react-icons/bi";
+import { BsHeartFill } from "react-icons/bs";
+import { useDispatch, useSelector } from "react-redux";
+import { removeMusic, saveMusic, userAccount } from "../../../redux/slices/Accountslice";
 type SearchBoxProps = {
 	item: AlbumType;
 };
 const SearchBox: React.FC<SearchBoxProps> = ({ item }) => {
+	const { savedMusic } = useSelector(userAccount);
+	const dispatch = useDispatch();
+	const addToLikes = (musicId: string) => {
+		if (savedMusic.includes(musicId)) {
+			dispatch(removeMusic(musicId))
+		}
+		else{
+			dispatch(saveMusic(musicId));
+		}
+	};
 	return (
 		<div className="flex justify-between w-full h-[90px] bg-neutral-900 p-2 group rounded-lg hover:bg-neutral-800/80 transition cursor-pointer">
 			<div className="flex gap-4">
@@ -31,12 +44,20 @@ const SearchBox: React.FC<SearchBoxProps> = ({ item }) => {
 					</p>
 				</div>
 			</div>
-			<div className="flex items-center">
-				<BiHeart
-					size={22}
-					className="opacity-50 hover:opacity-100 hidden group-hover:block"
-					onClick={() => {}}
-				/>
+			<div className="flex gap-5 items-center px-3">
+				{!savedMusic.includes(item.id) ? (
+					<BiHeart
+						size={22}
+						className="opacity-50 hover:opacity-100 hidden group-hover:block"
+						onClick={() => addToLikes(item.id)}
+					/>
+				) : (
+					<BsHeartFill
+						size={22}
+						className="opacity-50 hover:opacity-100 hidden group-hover:block"
+						onClick={() => addToLikes(item.id)}
+					/>
+				)}
 				<BiDotsVerticalRounded
 					onClick={() => {}}
 					size={25}
