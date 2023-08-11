@@ -3,7 +3,6 @@ import { AlbumType } from "../../../types";
 import { FaPlay } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { BiDotsVerticalRounded, BiHeart } from "react-icons/bi";
-import PlayButton from "../../../components/PlayButton";
 type SearchBoxProps = {
 	item: AlbumType;
 };
@@ -13,7 +12,7 @@ const SearchBox: React.FC<SearchBoxProps> = ({ item }) => {
 			<div className="flex gap-4">
 				<div className="relative ">
 					<img src={item.images[0].url!} className="h-full rounded-lg" />
-					<div className="h-full w-full rounded-lg opacity-0 bg-black/0 group-hover:bg-black/70 transition scale-50 group-hover:scale-100 group-hover:opacity-100 absolute inset-0 flex items-center justify-center">
+					<div className="h-full w-full rounded-lg opacity-0 bg-black/0 group-hover:bg-black/70 transition duration-200 group-hover:opacity-100 absolute inset-0 flex items-center justify-center">
 						<FaPlay />
 					</div>
 				</div>
@@ -36,13 +35,14 @@ const SearchBox: React.FC<SearchBoxProps> = ({ item }) => {
 				<BiHeart
 					size={22}
 					className="opacity-50 hover:opacity-100 hidden group-hover:block"
+					onClick={() => {}}
 				/>
 				<BiDotsVerticalRounded
+					onClick={() => {}}
 					size={25}
 					className="opacity-50 hover:opacity-100 hidden group-hover:block"
 				/>
 			</div>
-            <PlayButton/>
 		</div>
 	);
 };

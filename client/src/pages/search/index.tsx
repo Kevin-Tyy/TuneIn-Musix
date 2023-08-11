@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { userAccount } from "../../redux/slices/Accountslice";
-import Header from "../../components/navigation/Header";
 import { FiSearch } from "react-icons/fi";
 import { LuSettings2 } from "react-icons/lu";
 import { _searchItems } from "../../api/fetch/config";

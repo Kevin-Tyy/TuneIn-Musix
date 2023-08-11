@@ -5,7 +5,7 @@ export interface UserType {
 	savedMusic: Array<any>;
 	avatar: string;
 }
-interface MusicType {}
+// interface MusicType {}
 export interface GenreItemType {
 	href: string;
 	icons: Array<ImageType>;
