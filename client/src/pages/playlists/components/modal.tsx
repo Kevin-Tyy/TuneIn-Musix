@@ -40,6 +40,7 @@ const PlaylistModal = ({ onClose, isOpen }: any) => {
 			.post(`${ApiRoot}/playlist/create`, { ...data, userId: _id })
 			.then((response: AxiosResponse) => {
 				toast.success(response.data.msg);
+				onClose();
 			})
 			.catch((error) => {
 				if (error.response) {
@@ -49,7 +50,6 @@ const PlaylistModal = ({ onClose, isOpen }: any) => {
 				}
 			})
 			.finally(() => {
-				onClose()
 				setLoading(false);
 			});
 	};
@@ -88,7 +88,7 @@ const PlaylistModal = ({ onClose, isOpen }: any) => {
 						/>
 						<div className="flex-1 space-y-3 flex flex-col items-end">
 							<input
-								placeholder="Placeholder name"
+								placeholder="Playlist name *"
 								id="playlistName"
 								{...register("playlistName")}
 								disabled={loading}

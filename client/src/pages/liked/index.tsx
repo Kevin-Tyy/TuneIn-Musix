@@ -58,7 +58,7 @@ const LikedSongs: React.FC = () => {
 												title={user.username}
 											/>
 										) : (
-											<div className="bg-purple-400 rounded-full w-6 h-6 flex items-center justify-center text-xs select-none">
+											<div className="bg-gradient-to-br from-purple-400 to-pink-500 rounded-full w-6 h-6 flex items-center justify-center text-xs select-none">
 												{placeholderUrl}
 											</div>
 										)}
@@ -97,7 +97,7 @@ const LikedSongs: React.FC = () => {
 								<div className="flex flex-col justify-center items-center h-96 gap-4">
 									<h1 className="text-4xl">You have no music saved</h1>
 									<button
-										className="bg-primary-300/70 py-4 px-6 rounded-full hover:bg-primary-300 transition hover:scale-105"
+										className="bg-gradient-to-br  from-primary-400 via-purple-600 to-pink-400 py-4 px-6 rounded-full hover:bg-primary-300 transition hover:scale-105"
 										onClick={() => navigate("/")}>
 										Explore more
 									</button>

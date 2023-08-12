@@ -81,3 +81,10 @@ export interface SearchResult {
 	previous: string | null;
 	total: number;
 }
+export interface PlaylistItem {
+	playlistImage: string;
+	playlistName: string;
+	playlistDescription: string;
+	user: UserType;
+	songIds: String[];
+}

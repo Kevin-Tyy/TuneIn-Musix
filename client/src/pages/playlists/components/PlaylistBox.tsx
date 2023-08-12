@@ -1,16 +1,10 @@
 import React from "react";
 import { FaPlay } from "react-icons/fa";
-import { UserType } from "../../../types";
+import { PlaylistItem } from "../../../types";
 import { TfiMusicAlt } from "react-icons/tfi";
-interface PlaylistBoxItem {
-	playlistImage: string;
-	playlistName: string;
-	playlistDescription: string;
-	user: UserType;
-	songIds: String[];
-}
+
 interface PlaylistBoxProps {
-	item: PlaylistBoxItem;
+	item: PlaylistItem;
 }
 
 const PlaylistBox: React.FC<PlaylistBoxProps> = ({ item }) => {
@@ -20,10 +14,7 @@ const PlaylistBox: React.FC<PlaylistBoxProps> = ({ item }) => {
 				<button className="relative w-full group flex items-center rounded-md overflow-hidden gap-x-4 bg-neutral-100/10 cursor-pointer hover:bg-neutral-100/20 transition pr-4">
 					<div className="relative h-28 w-28 bg-gradient-to-br from-purple-700 to-gray-400 flex items-center justify-center">
 						{item.playlistImage ? (
-							<img
-								src={item.playlistImage}
-								className="w-full object-cover"
-							/>
+							<img src={item.playlistImage} className="w-full object-cover" />
 						) : (
 							<TfiMusicAlt size={30} />
 						)}
