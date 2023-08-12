@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../../components/navigation/Header";
 import { TfiMusicAlt } from "react-icons/tfi";
 import { useSelector } from "react-redux";
@@ -6,13 +6,27 @@ import { loggedInUser } from "../../redux/slices/Authslice";
 import { UserType } from "../../types";
 import useAvatar from "../../hooks/useAvatar";
 import PlaylistModal from "./components/modal";
+import axios from "axios";
+import { ApiRoot } from "../../api/config/apiRoot";
+import PlaylistBox from "./components/PlaylistBox";
 const PlayLists: React.FC = () => {
 	const { user } = useSelector(loggedInUser) as { user: UserType };
 	const [isModalOpen, setisModalOpen] = useState(false);
+	const [playlists, setPlaylists] = useState([]);
 	let placeholderUrl;
 	if (user) {
 		placeholderUrl = useAvatar(user.username);
 	}
+	useEffect(() => {
+		axios
+			.get(`${ApiRoot}/playlist/${user._id}`)
+			.then((response) => {
+				setPlaylists(response.data);
+			})
+			.catch((error) => {
+				console.log(error);
+			});
+	}, []);
 	return (
 		<>
 			<div className="space-y-10">
@@ -47,8 +61,8 @@ const PlayLists: React.FC = () => {
 												<span className="hover:underline cursor-pointer">
 													{user.username.split(" ")[0]}
 												</span>{" "}
-												{/* • {likedMusic.length} song
-											{likedMusic.length !== 1 && "s"} */}
+												• {playlists.length} playlist
+												{playlists.length !== 1 && "s"}
 											</p>
 										</div>
 									)}
@@ -56,8 +70,8 @@ const PlayLists: React.FC = () => {
 							</div>
 						</div>
 						<div className="">
-							<div className="flex flex-col items-start gap-2">
-								<h1>
+							<div className="flex flex-col items-start gap-4">
+								<h1 className="text-gray-500">
 									Your playlists can only be seen by you unless you make them
 									public
 								</h1>
@@ -70,8 +84,16 @@ const PlayLists: React.FC = () => {
 						</div>
 					</div>
 				</Header>
+				<div className="grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-3 gap-4">
+					{playlists.map((item, index) => (
+						<PlaylistBox item={item} key={index} />
+					))}
+				</div>
 			</div>
-			<PlaylistModal onClose={() => setisModalOpen(false)} isOpen={isModalOpen}/>
+			<PlaylistModal
+				onClose={() => setisModalOpen(false)}
+				isOpen={isModalOpen}
+			/>
 		</>
 	);
 };

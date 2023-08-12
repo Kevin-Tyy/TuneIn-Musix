@@ -29,7 +29,7 @@ const UserSchema = new Schema({
 		type: String,
 		enum: ["google", "github", "facebook", "twitter"],
 	},
-});
+}, { timestamps : true});
 
 const UserModel = model("Users", UserSchema);
 export default UserModel;

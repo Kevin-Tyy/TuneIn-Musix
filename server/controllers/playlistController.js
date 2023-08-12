@@ -21,6 +21,17 @@ class PlayListController {
 			}
 		}
 	};
+	getPlaylists = async (req, res) => {
+		try {
+			const playlists = await playlistService.getPlaylists(req.params)
+			if(playlists){
+				res.status(200).json(playlists)
+			}
+			console.log(playlists);
+		} catch (error) {
+			res.status(500).json({ msg: "Something went wrong" });
+		}
+	}
 }
 
 export default new PlayListController();

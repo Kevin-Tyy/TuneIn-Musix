@@ -3,7 +3,7 @@ import mongoose, { model, Schema } from "mongoose";
 const PlaylistSchema = new Schema({
 	user: {
 		type: Schema.Types.ObjectId,
-		ref: "users",
+		ref: "Users",
 	},
 	playlistName: {
 		type: String,
@@ -20,6 +20,6 @@ const PlaylistSchema = new Schema({
 			type: String,
 		},
 	],
-});
+}, { timestamps : true },);
 const PlaylistModel = model("PlayList", PlaylistSchema);
 export default PlaylistModel;
