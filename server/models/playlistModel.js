@@ -10,6 +10,12 @@ const PlaylistSchema = new Schema({
 		required: true,
 		unique: true,
 	},
+	playlistDescription: {
+		type: String,
+	},
+	playlistImage : {
+		
+	},
 	songIds: [
 		{
 			type: String,

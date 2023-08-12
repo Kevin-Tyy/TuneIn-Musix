@@ -55,7 +55,7 @@ const AuthForm = () => {
 		}
 		if (variant === "LOGIN") {
 			axios
-				.post(`${ApiRoot}/auth//signin/email`, data)
+				.post(`${ApiRoot}/auth/signin/email`, data)
 				.then((response: AxiosResponse) => {
 					toast.success(response.data.msg);
 					dispatch(login(response.data.user));
