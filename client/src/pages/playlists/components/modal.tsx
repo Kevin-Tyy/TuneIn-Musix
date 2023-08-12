@@ -20,9 +20,10 @@ const PlaylistModal = ({ onClose, isOpen }: any) => {
 		defaultValues: {
 			playlistName: "",
 			playlistDescription: "",
+			playlistImage: "",
 		},
 	});
-	const selectedImage = watch("image");
+	const selectedImage = watch("playlistImage");
 	const handleImageUpload = (e: any) => {
 		const file = e.target.files[0];
 		const reader = new FileReader();
@@ -30,7 +31,7 @@ const PlaylistModal = ({ onClose, isOpen }: any) => {
 		reader.onloadend = () => {
 			const result = reader.result;
 			setPreviewImage(result);
-			setValue("image", result);
+			setValue("playlistImage", result);
 		};
 	};
 	const onSubmit: SubmitHandler<FieldValues> = (data: any) => {
@@ -47,7 +48,10 @@ const PlaylistModal = ({ onClose, isOpen }: any) => {
 					toast.error("Something went wrong");
 				}
 			})
-			.finally(() => setLoading(false));
+			.finally(() => {
+				onClose()
+				setLoading(false);
+			});
 	};
 	return (
 		<Modal isOpen={isOpen} onClose={onClose}>
@@ -57,7 +61,7 @@ const PlaylistModal = ({ onClose, isOpen }: any) => {
 				</div>
 				<form onSubmit={handleSubmit(onSubmit)} className="">
 					<div className="flex gap-4">
-						<label htmlFor="image" className="h-44 w-44 group relative">
+						<label htmlFor="profileImage" className="h-44 w-44 group relative">
 							{selectedImage && previewImage ? (
 								<img
 									src={previewImage}
@@ -77,7 +81,7 @@ const PlaylistModal = ({ onClose, isOpen }: any) => {
 						</label>
 						<input
 							type="file"
-							id="image"
+							id="profileImage"
 							className="hidden"
 							onChange={handleImageUpload}
 							disabled={loading}
