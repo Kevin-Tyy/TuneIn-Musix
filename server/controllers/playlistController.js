@@ -7,10 +7,11 @@ class PlayListController {
 			return res.status(400).json({ msg: error.details[0].message });
 		} else {
 			try {
+                console.log(req.body);
 				const newPlayList = await playlistService.createPlaylist(req.body);
                 console.log(newPlayList);
 				if (newPlayList) {
-					return res
+					return res  
 						.status(200)
 						.json({ msg: "Playlist created successfully", data: newPlayList });
 				} else {

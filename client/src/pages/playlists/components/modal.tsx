@@ -6,9 +6,16 @@ import { BiPencil } from "react-icons/bi";
 import axios, { AxiosResponse } from "axios";
 import { ApiRoot } from "../../../api/config/apiRoot";
 import { toast } from "react-hot-toast";
+import { useSelector } from "react-redux";
+import { loggedInUser } from "../../../redux/slices/Authslice";
+import clsx from "clsx";
+import { ClipLoader } from "react-spinners";
 const PlaylistModal = ({ onClose, isOpen }: any) => {
 	const [loading, setLoading] = useState(false);
 	const [previewImage, setPreviewImage] = useState<any>(null);
+	const {
+		user: { _id },
+	} = useSelector(loggedInUser);
 	const { register, handleSubmit, watch, setValue } = useForm<FieldValues>({
 		defaultValues: {
 			playlistName: "",
@@ -27,8 +34,9 @@ const PlaylistModal = ({ onClose, isOpen }: any) => {
 		};
 	};
 	const onSubmit: SubmitHandler<FieldValues> = (data: any) => {
+		setLoading(true);
 		axios
-			.post(`${ApiRoot}/auth/signin/email`, data)
+			.post(`${ApiRoot}/playlist/create`, { ...data, userId: _id })
 			.then((response: AxiosResponse) => {
 				toast.success(response.data.msg);
 			})
@@ -72,6 +80,7 @@ const PlaylistModal = ({ onClose, isOpen }: any) => {
 							id="image"
 							className="hidden"
 							onChange={handleImageUpload}
+							disabled={loading}
 						/>
 						<div className="flex-1 space-y-3 flex flex-col items-end">
 							<input
@@ -80,16 +89,27 @@ const PlaylistModal = ({ onClose, isOpen }: any) => {
 								{...register("playlistName")}
 								disabled={loading}
 								type="text"
-								className="bg-gray-900 text-xs w-full p-3 text-white outline-none rounded-md focus:ring-1 focus:ring-inset focus:ring-gray-700"
+								className={clsx(
+									"bg-gray-900 text-xs w-full p-3 text-white outline-none rounded-md focus:ring-1 focus:ring-inset focus:ring-gray-700",
+									loading && "opacity-60"
+								)}
 							/>
 							<textarea
-								className="h-32 resize-none bg-gray-900 w-full p-3 text-white outline-none rounded-md focus:ring-1 focus:ring-inset focus:ring-gray-700 text-xs"
+								className={clsx(
+									"h-32 resize-none bg-gray-900 w-full p-3 text-white outline-none rounded-md focus:ring-1 focus:ring-inset focus:ring-gray-700 text-xs",
+									loading && "opacity-60"
+								)}
 								{...register("playlistDescription")}
+								disabled={loading}
 								placeholder="Add an optional dscription"></textarea>
 							<button
+								disabled={loading}
 								type="submit"
-								className="button text-black px-10 py-3 justify-end rounded-full text-sm font-bold">
-								Save
+								className={clsx(
+									"button text-black w-28 py-3 rounded-full text-sm font-bold flex justify-center items-center",
+									loading && "opacity-60"
+								)}>
+								{loading ? <ClipLoader size={20} /> : "Save"}
 							</button>
 						</div>
 					</div>

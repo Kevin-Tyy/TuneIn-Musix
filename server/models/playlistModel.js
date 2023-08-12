@@ -8,19 +8,16 @@ const PlaylistSchema = new Schema({
 	playlistName: {
 		type: String,
 		required: true,
-		unique: true,
 	},
 	playlistDescription: {
 		type: String,
 	},
-	playlistImage : {
-		
-	},
+	playlistImage: {},
 	songIds: [
 		{
 			type: String,
 		},
 	],
 });
-const PlaylistModel = model("PlayList", PlaylistSchema );
+const PlaylistModel = model("PlayList", PlaylistSchema);
 export default PlaylistModel;
