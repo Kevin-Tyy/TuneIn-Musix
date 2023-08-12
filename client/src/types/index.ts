@@ -87,4 +87,6 @@ export interface PlaylistItem {
 	playlistDescription: string;
 	user: UserType;
 	songIds: String[];
+	createdAt: Date;
+	updatedAt: Date;
 }

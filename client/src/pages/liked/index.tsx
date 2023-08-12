@@ -11,6 +11,7 @@ import { loggedInUser } from "../../redux/slices/Authslice";
 import { UserType } from "../../types";
 import useAvatar from "../../hooks/useAvatar";
 import PlayButton from "../../components/PlayButton";
+import { TfiMusicAlt } from "react-icons/tfi";
 const LikedSongs: React.FC = () => {
 	const { userToken, savedMusic } = useSelector(userAccount);
 	const { user } = useSelector(loggedInUser) as { user: UserType };
@@ -76,7 +77,7 @@ const LikedSongs: React.FC = () => {
 					</div>
 				</div>
 			</Header>
-			<section className="h-fit mt-10 bg-gradient-to-b from-black to-primary-500/30">
+			<section className="h-fit mt-10">
 				<div className="px-6">
 					<PlayButton/>
 				</div>
@@ -94,8 +95,9 @@ const LikedSongs: React.FC = () => {
 									))}
 								</div>
 							) : (
-								<div className="flex flex-col justify-center items-center h-96 gap-4">
-									<h1 className="text-4xl">You have no music saved</h1>
+								<div className="flex flex-col justify-center items-center h-96 gap-5">
+									<TfiMusicAlt size={50}/>
+									<h1 className="text-xl select-none">You haven't liked anything yet</h1>
 									<button
 										className="bg-gradient-to-br  from-primary-400 via-purple-600 to-pink-400 py-4 px-6 rounded-full hover:bg-primary-300 transition hover:scale-105"
 										onClick={() => navigate("/")}>
@@ -110,5 +112,6 @@ const LikedSongs: React.FC = () => {
 		</div>
 	);
 };
+
 
 export default LikedSongs;

@@ -2,6 +2,7 @@ import React from "react";
 import { FaPlay } from "react-icons/fa";
 import { PlaylistItem } from "../../../types";
 import { TfiMusicAlt } from "react-icons/tfi";
+import moment from "moment";
 
 interface PlaylistBoxProps {
 	item: PlaylistItem;
@@ -10,7 +11,7 @@ interface PlaylistBoxProps {
 const PlaylistBox: React.FC<PlaylistBoxProps> = ({ item }) => {
 	return (
 		<div>
-			<div className="w-full">
+			<div className="w-full relative">
 				<button className="relative w-full group flex items-center rounded-md overflow-hidden gap-x-4 bg-neutral-100/10 cursor-pointer hover:bg-neutral-100/20 transition pr-4">
 					<div className="relative h-28 w-28 bg-gradient-to-br from-purple-700 to-gray-400 flex items-center justify-center">
 						{item.playlistImage ? (
@@ -27,6 +28,9 @@ const PlaylistBox: React.FC<PlaylistBoxProps> = ({ item }) => {
 							{item.songIds.length !== 1 && "s"}
 						</p>
 						<p className="text-xs text-gray-400">{item?.playlistDescription}</p>
+					</div>
+					<div className="absolute top-1 right-2">
+						<p className="capitalize text-[11px] text-gray-500">{moment(item.createdAt).fromNow()}</p>
 					</div>
 					<div className="absolute transition opacity-0 rounded-full flex items-center justify-center bg-green-500 p-4 drop-shadow-md right-5 group-hover:opacity-100 hover:scale-110">
 						<FaPlay className="text-black" />
