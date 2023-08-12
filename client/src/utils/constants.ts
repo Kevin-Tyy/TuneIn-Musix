@@ -42,14 +42,18 @@ interface sidenavOptions {
 export const settings: sidenavOptions[] = [
 	{
 		icon: LuVerified,
+		title : 'Get verified'
 	},
 	{
 		icon: LuFlag,
+		title : 'Flags'
 	},
 	{
 		icon: LuSettings,
+		title : 'Settings'
 	},
 	{
 		icon: LuBell,
+		title : 'Notifications'
 	},
 ];

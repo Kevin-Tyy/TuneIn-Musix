@@ -17,14 +17,13 @@ const UserSchema = new Schema({
 	},
 	savedMusic: [
 		{
-			type: Schema.Types.ObjectId,
-			ref: "Music",
+			type: String,
 		},
 	],
 	authenticationmethod: {
 		type: String,
 		enum: ["oauth", "email_password"],
-		default : 'email_password'
+		default: "email_password",
 	},
 	provider: {
 		type: String,
