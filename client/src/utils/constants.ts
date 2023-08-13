@@ -20,7 +20,7 @@ export const sidenav: sidenavOptions[] = [
 	{
 		icon: LuLibrary,
 		title: "Playlist",
-		link: "/playlist",
+		link: "/playlists",
 	},
 	{
 		icon: AiOutlineHeart,

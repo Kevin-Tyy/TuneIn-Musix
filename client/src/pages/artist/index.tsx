@@ -24,7 +24,7 @@ const Artist = () => {
 	const [artist, setArtist] = useState<ArtistType>();
 	const [relatedArtists, setRelatedArtists] = useState<ArtistType[]>([]);
 	const [albums, setAlbums] = useState<SearchResult | null>(null);
-	// const [topTracks, setTopTracks] = useState<SearchResult | null>(null);
+	const [topTracks, setTopTracks] = useState<SearchResult | null>(null);
 	const handleNext = () => {
 		window.history.forward();
 	};

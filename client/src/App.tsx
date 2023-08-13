@@ -11,6 +11,7 @@ import PlayLists from "./pages/playlists";
 import Artist from "./pages/artist";
 import { useSelector } from "react-redux";
 import { loggedInUser } from "./redux/slices/Authslice";
+import Playlist from "./pages/playlists/playlist";
 const App = () => {
 	const user = useSelector(loggedInUser);
 	console.log(user);
@@ -45,7 +46,7 @@ const App = () => {
 					element: <LikedSongs />,
 				},
 				{
-					path: "playlist",
+					path: "playlists",
 					element: <PlayLists />,
 				},
 				{
@@ -55,6 +56,10 @@ const App = () => {
 				{
 					path: "/artist/:id",
 					element: <Artist />,
+				},
+				{
+					path: "/playlist/:id",
+					element: <Playlist />,
 				},
 			],
 		},
