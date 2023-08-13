@@ -40,7 +40,7 @@ const SearchBox: React.FC<SearchBoxProps> = ({ item, index }) => {
 						<p className="text-gray-400">
 							{item?.artists.map((artist) => (
 								<span key={artist.id}>
-									<Link to={"/"} className="hover:underline">
+									<Link to={`/artist/${artist.id}`} className="hover:underline">
 										{artist.name}
 									</Link>
 									{item.artists.indexOf(artist) !== item.artists.length - 1 &&

@@ -19,10 +19,12 @@ import PlayButton from "../../components/PlayButton";
 const Artist = () => {
 	const { id } = useParams();
 	const [limit, setLimit] = useState(5);
+	const [artistlimit, setartistLimit] = useState(10);
 	const { userToken } = useSelector(userAccount);
 	const [artist, setArtist] = useState<ArtistType>();
 	const [relatedArtists, setRelatedArtists] = useState<ArtistType[]>([]);
 	const [albums, setAlbums] = useState<SearchResult | null>(null);
+	// const [topTracks, setTopTracks] = useState<SearchResult | null>(null);
 	const handleNext = () => {
 		window.history.forward();
 	};
@@ -36,17 +38,30 @@ const Artist = () => {
 				setArtist(artistData);
 				const albumsResult = await _getArtistData(userToken, id, "albums");
 				setAlbums(albumsResult);
+				const trackResult = await _getArtistData(userToken, id, "top-tracks");
+				setTopTracks(trackResult);
 				const relatedArtists = await _getArtistRelated(userToken, id);
 				setRelatedArtists(relatedArtists.artists);
 			}
 		};
 		populatePage();
+		resetPage();
 	}, [id]);
+
+	const resetPage = () => {
+		setLimit(5);
+		setartistLimit(10);
+		window.scrollTo({
+			top: 0,
+			behavior: "smooth",
+		});
+	};
 	const disabled = limit === albums?.items.length;
+	const artistdisabled = artistlimit === relatedArtists.length;
 	return (
 		<section className="relative overflow-auto">
 			<div
-				className="h-fit overflow-hidden bg-cover bg-no-repeat bg-fixed relative rounded-xl"
+				className="h-fit overflow-hidden bg-cover bg-no-repeat bg-fixed bg-center relative rounded-xl"
 				style={{ backgroundImage: `url(${artist?.images[0].url!})` }}>
 				<div className="flex p-4 justify-between items-center bg-transparent">
 					<BackButtons
@@ -76,10 +91,10 @@ const Artist = () => {
 						</p>
 					</div>
 				</div>
-				<div className="absolute inset-0 bg-gradient-to-b from-black/20 to to-black"></div>
+				<div className="absolute inset-0 bg-gradient-to-b from-black/20 to to-black backdrop-blur-md"></div>
 			</div>
 			<div className="px-10 flex items-center space-x-6">
-				<PlayButton/>
+				<PlayButton />
 				<button className="px-6 py-2 ring-1 ring-gray-500 hover:ring-white transition rounded-full">
 					Follow
 				</button>
@@ -92,24 +107,56 @@ const Artist = () => {
 							<SearchBox item={item} index={index} key={index} />
 						))}
 					</div>
-					<button
-						onClick={() => setLimit((prev) => prev + 5)}
-						disabled={disabled}
-						className={clsx(
-							" max-w-[] px-6 py-3 bg-gradient-to-br whitespace-nowrap from-primary-400 via-purple-600 to-pink-400 rounded-full hover:scale-105 transition active:scale-95 select-none",
-							disabled && "opacity-50 hover:scale-100 active:scale-100"
-						)}>
-						See more
-					</button>
+					<div className="pl-2 flex items-center gap-5">
+						<button
+							onClick={() => setLimit((prev) => prev + 5)}
+							disabled={disabled}
+							className={clsx(
+								" max-w-[] px-6 py-3 bg-gradient-to-br whitespace-nowrap from-primary-400 via-purple-600 to-pink-400 rounded-full hover:scale-105 transition active:scale-95 select-none",
+								disabled && "opacity-50 hover:scale-100 active:scale-100"
+							)}>
+							See more
+						</button>
+						{disabled && (
+							<p
+								className="hover:underline text-white cursor-pointer"
+								onClick={() => setLimit(5)}>
+								Show less
+							</p>
+						)}
+					</div>
 				</div>
 			)}
 			<div className="mt-10 ">
 				<h1 className="text-xl">Popular Artists</h1>
 				{relatedArtists && (
-					<div className="mt-5 flex flex-wrap justify-stretch gap-4 w-full">
-						{relatedArtists.slice(0, 10).map((artist: ArtistType) => (
-							<ArtistBox artist={artist} key={artist.id} />
-						))}
+					<div className="space-y-5">
+						<div className="mt-5 flex flex-wrap justify-stretch gap-4 w-full">
+							{relatedArtists
+								.slice(0, artistlimit)
+								.map((artist: ArtistType) => (
+									<ArtistBox artist={artist} key={artist.id} />
+								))}
+						</div>
+						<div className="pl-2 flex items-center gap-5">
+							<button
+								onClick={() => setartistLimit((prev) => prev + 5)}
+								disabled={artistdisabled}
+								className={clsx(
+									" max-w-[] px-6 py-3 bg-gradient-to-br whitespace-nowrap from-primary-400 via-purple-600 to-pink-400 rounded-full hover:scale-105 transition active:scale-95 select-none",
+									artistdisabled &&
+										"opacity-50 hover:scale-100 active:scale-100"
+								)}>
+								See more
+							</button>
+							{artistdisabled && (
+								<p
+									className="hover:underline text-white cursor-pointer"
+									onClick={() => setartistLimit(5)}>
+									Show less
+								</p>
+							)}
+						</div>
 					</div>
 				)}
 			</div>

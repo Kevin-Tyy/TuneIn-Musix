@@ -21,7 +21,7 @@ const SearchPage: React.FC = () => {
 		e.preventDefault();
 		if (queryString) {
 			setLoading(true);
-			setSearchResults(null)
+			setSearchResults(null);
 			_searchItems(userToken, queryString as string, "album")
 				.then((response) => {
 					const { albums } = response;
@@ -42,9 +42,7 @@ const SearchPage: React.FC = () => {
 				<div className="h-16 flex items-end">
 					<h1 className="text-xl">Browse your favorite music</h1>
 				</div>
-			</Header>
-			<div className="mt-5">
-				<div className=" p-3 rounded-3xl w-full  max-w-2xl space-y-6">
+				<div className="mt-10  rounded-3xl w-full  max-w-2xl space-y-6">
 					<form onSubmit={handleSearch}>
 						<div className=" bg-neutral-100/10 focus-within:ring-1 ring-inset ring-gray-600 px-4 py-2 rounded-md flex items-center gap-3">
 							<button className=" text-white rounded-full">
@@ -69,6 +67,8 @@ const SearchPage: React.FC = () => {
 						</div>
 					</form>
 				</div>
+			</Header>
+			<div className="mt-5">
 				{!searchResults && (
 					<>
 						{recentMusic.length > 0 ? (
@@ -95,7 +95,7 @@ const SearchPage: React.FC = () => {
 							<h1 className="text-2xl font-semibold">Top Results</h1>
 							<div className="flex flex-col gap-3">
 								{searchResults?.items.map((item, index) => (
-									<SearchBox item={item} key={index} />
+									<SearchBox item={item} key={index} index={index} />
 								))}
 							</div>
 						</div>
