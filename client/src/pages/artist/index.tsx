@@ -24,7 +24,7 @@ const Artist = () => {
 	const [artist, setArtist] = useState<ArtistType>();
 	const [relatedArtists, setRelatedArtists] = useState<ArtistType[]>([]);
 	const [albums, setAlbums] = useState<SearchResult | null>(null);
-	const [topTracks, setTopTracks] = useState<SearchResult | null>(null);
+	// const [topTracks, setTopTracks] = useState<SearchResult | null>(null);
 	const handleNext = () => {
 		window.history.forward();
 	};
@@ -38,8 +38,8 @@ const Artist = () => {
 				setArtist(artistData);
 				const albumsResult = await _getArtistData(userToken, id, "albums");
 				setAlbums(albumsResult);
-				const trackResult = await _getArtistData(userToken, id, "top-tracks");
-				setTopTracks(trackResult);
+				// const trackResult = await _getArtistData(userToken, id, "top-tracks");
+				// setTopTracks(trackResult);
 				const relatedArtists = await _getArtistRelated(userToken, id);
 				setRelatedArtists(relatedArtists.artists);
 			}
@@ -112,7 +112,7 @@ const Artist = () => {
 							onClick={() => setLimit((prev) => prev + 5)}
 							disabled={disabled}
 							className={clsx(
-								" max-w-[] px-6 py-3 bg-gradient-to-br whitespace-nowrap from-primary-400 via-purple-600 to-pink-400 rounded-full hover:scale-105 transition active:scale-95 select-none",
+								"  px-6 py-3 bg-gradient-to-br whitespace-nowrap from-primary-400 via-purple-600 to-pink-400 rounded-full hover:scale-105 transition active:scale-95 select-none",
 								disabled && "opacity-50 hover:scale-100 active:scale-100"
 							)}>
 							See more
