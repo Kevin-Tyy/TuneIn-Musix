@@ -10,7 +10,7 @@ interface PlaylistBoxProps {
 
 const PlaylistBox: React.FC<PlaylistBoxProps> = ({ item }) => {
 	return (
-		<div>
+		<div className="animate-slideup">
 			<div className="w-full relative">
 				<button className="relative w-full group flex items-center rounded-md overflow-hidden gap-x-4 bg-neutral-100/10 cursor-pointer hover:bg-neutral-100/20 transition pr-4">
 					<div className="relative h-28 w-28 bg-gradient-to-br from-purple-700 to-gray-400 flex items-center justify-center">

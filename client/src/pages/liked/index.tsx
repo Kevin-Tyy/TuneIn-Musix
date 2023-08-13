@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { userAccount } from "../../redux/slices/Accountslice";
-import { _getAlbums, _getArtistAlbumsById } from "../../api/fetch/config";
+import { _getAlbums } from "../../api/fetch/config";
 import SearchBox from "../search/components/SearchBox";
 import Header from "../../components/navigation/Header";
 import { BounceLoader } from "react-spinners";
@@ -91,7 +91,7 @@ const LikedSongs: React.FC = () => {
 							{likedMusic.length > 0 ? (
 								<div className="flex flex-col gap-3 px-4 mt-10">
 									{likedMusic.map((item, index) => (
-										<SearchBox item={item} key={index} />
+										<SearchBox item={item} index={index} key={index} />
 									))}
 								</div>
 							) : (

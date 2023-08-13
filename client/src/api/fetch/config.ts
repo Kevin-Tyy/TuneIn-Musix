@@ -87,24 +87,14 @@ const _getArtistById = async (token: string, artistId: string) => {
 	const data = result.json();
 	return data;
 };
-const _getArtistAlbumsById = async (token: string, artistId: string) => {
-	const result = await fetch(`${BaseUrl}/artists/${artistId}/albums`, {
+const _getArtistData = async (token: string, artistId: string , feed : string) => {
+	const result = await fetch(`${BaseUrl}/artists/${artistId}/${feed}`, {
 		method: "GET",
 		headers: {
 			Authorization: "Bearer " + token,
 		},
 	});
 	const data = result.json();
-	return data;
-};
-const _getArtistTracksById = async (token: string, artistId: string) => {
-	const result = await fetch(`${BaseUrl}/artists/${artistId}/top-tracks`, {
-		method: "GET",
-		headers: {
-			Authorization: "Bearer " + token,
-		},
-	});
-	const data = await result.json();
 	return data;
 };
 const _getArtistRelated = async (token: string, artistId: string) => {
@@ -138,6 +128,7 @@ const _getAlbums = async (token: string , ids : string) => {
 	const data = await result.json();
 	return data;
 };
+
 export {
 	_getGenres,
 	_getToken,
@@ -146,8 +137,7 @@ export {
 	_getTracks,
 	_getArtists,
 	_getArtistById,
-	_getArtistAlbumsById,
-	_getArtistTracksById,
+	_getArtistData,
 	_getArtistRelated,
 	_searchItems,
 	_getAlbums
