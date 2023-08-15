@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useRef } from "react";
 import { TrackType } from "../types";
 import { FaPlay } from "react-icons/fa";
 import { Link } from "react-router-dom";
@@ -11,11 +11,14 @@ import {
 	userAccount,
 } from "../redux/slices/Accountslice";
 import useDuration from "../hooks/useDuration";
+import SettingsModal from "../pages/playlists/playlist/components/SettingsModal";
 type TrackBoxProps = {
 	item: TrackType;
 	index?: number;
 };
 const TrackBox: React.FC<TrackBoxProps> = ({ item, index }) => {
+	const settingsRef = useRef<HTMLDivElement>(null);
+	const [isSettingsOpen, setIsSettingsOpen] = useState(false);
 	const { savedMusic } = useSelector(userAccount);
 	const dispatch = useDispatch();
 	const addToLikes = (musicId: string) => {
@@ -25,8 +28,15 @@ const TrackBox: React.FC<TrackBoxProps> = ({ item, index }) => {
 			dispatch(saveMusic(musicId));
 		}
 	};
+	const handleSettingsOutsideClick = (e: any) => {
+		if (settingsRef.current && !settingsRef.current.contains(e.target)) {
+			setIsSettingsOpen(false);
+		}
+	};
+	document.addEventListener("mousedown", handleSettingsOutsideClick);
+
 	const duration = useDuration(item?.duration_ms);
-	if(!item){
+	if (!item) {
 		return;
 	}
 	return (
@@ -80,6 +90,11 @@ const TrackBox: React.FC<TrackBoxProps> = ({ item, index }) => {
 						size={25}
 						className="opacity-0 hover:opacity-100  group-hover:opacity-50"
 					/>
+					{isSettingsOpen && (
+						<div ref={settingsRef}>
+							<SettingsModal show={isSettingsOpen} />
+						</div>
+					)}
 				</div>
 			</div>
 		</div>

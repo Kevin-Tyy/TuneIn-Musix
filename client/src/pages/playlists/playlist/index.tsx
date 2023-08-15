@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import { ApiRoot } from "../../../api/config/apiRoot";
@@ -17,6 +17,7 @@ import { HiDotsHorizontal } from "react-icons/hi";
 import { _getRecommended, _getTracks } from "../../../api/fetch/config";
 import { userAccount } from "../../../redux/slices/Accountslice";
 import Trackbox from "../../../components/TrackBox";
+import SettingsModal from "./components/SettingsModal";
 const Playlist = () => {
 	const { id } = useParams();
 	const { userToken } = useSelector(userAccount);
@@ -24,18 +25,19 @@ const Playlist = () => {
 	const [loading, setLoading] = useState<boolean>(false);
 	const [tracks, setTracks] = useState<TrackType[] | null>(null);
 	const [isExpanded, setIsExpanded] = useState(false);
+	const [isSettingsOpen, setIsSettingsOpen] = useState(false);
 	const { user } = useSelector(loggedInUser);
 	const searchRef = useRef<HTMLDivElement>(null);
+	const settingsRef = useRef<HTMLDivElement>(null);
+	const navigate = useNavigate();
 	useEffect(() => {
 		getPlaylist();
-		_getTracks(
-			userToken,
-			"7ouMYWpwJ422jRcDASZB7P,4VqPOruhp5EdPBeR92t6lQ,2takcwOaAZWiXQijPHIx7B"
-		).then((response) => {
+		if (!playlistData) return;
+		_getTracks(userToken, playlistData?.songIds.join(",")).then((response) => {
+			console.log(response);
 			setTracks(response.tracks);
 		});
 	}, [id]);
-
 	const getPlaylist = () => {
 		setLoading(true);
 		axios
@@ -67,12 +69,18 @@ const Playlist = () => {
 	const toggleSearchBar = () => {
 		setIsExpanded(!isExpanded);
 	};
-	const handleOutsideClick = (e: any) => {
+	const handleSettingsOutsideClick = (e: any) => {
+		if (settingsRef.current && !settingsRef.current.contains(e.target)) {
+			setIsSettingsOpen(false);
+		}
+	};
+	const handleSearchOutsideClick = (e: any) => {
 		if (searchRef.current && !searchRef.current.contains(e.target)) {
 			setIsExpanded(false);
 		}
 	};
-	document.addEventListener("mousedown", handleOutsideClick);
+	document.addEventListener("mousedown", handleSearchOutsideClick);
+	document.addEventListener("mousedown", handleSettingsOutsideClick);
 	return (
 		<div>
 			<Header>
@@ -121,11 +129,18 @@ const Playlist = () => {
 					<div className="flex items-center justify-between gap-10 pb-10 pt-5 border-t border-gray-700">
 						<div className="flex items-center gap-10">
 							<PlayButton />
-							<HiDotsHorizontal
-								size={38}
-								onClick={() => {}}
-								className="p-1.5 hover:bg-gray-800/60 rounded-full cursor-pointer active:bg-gray-600/60 transition duration-300"
-							/>
+							<div className="relative">
+								<HiDotsHorizontal
+									size={38}
+									onClick={() => setIsSettingsOpen(true)}
+									className="p-1.5 hover:bg-gray-800/60 rounded-full cursor-pointer active:bg-gray-600/60 transition duration-300"
+								/>
+								{isSettingsOpen && (
+									<div ref={settingsRef}>
+										<SettingsModal show={isSettingsOpen} />
+									</div>
+								)}
+							</div>
 						</div>
 						<div className="flex items-center relative">
 							<div
@@ -154,11 +169,29 @@ const Playlist = () => {
 				</div>
 			</Header>
 			<div>
+				{!playlistData?.songIds.length && (
+					<div className="flex flex-col justify-center items-center h-96 gap-5">
+						<TfiMusicAlt size={50} />
+						<div className="flex flex-col items-center gap-2">
+							<h1 className="text-xl select-none">This playlist is empty</h1>
+							<p className="text-gray-500">Add some music into this playlist</p>
+						</div>
+						<button
+							className="bg-gradient-to-br  from-primary-400 via-purple-600 to-pink-400 py-4 px-6 rounded-full hover:bg-primary-300 transition hover:scale-105"
+							onClick={() => navigate("/")}>
+							Explore more
+						</button>
+					</div>
+				)}
 				{tracks && (
 					<div>
-						{tracks.map((track, index) => (
-							<Trackbox item={track} key={index}/>
-))}
+						{tracks.length > 0 && (
+							<div>
+								{tracks.map((track, index) => (
+									<Trackbox item={track} key={index} index={index} />
+								))}
+							</div>
+						)}
 					</div>
 				)}
 			</div>
