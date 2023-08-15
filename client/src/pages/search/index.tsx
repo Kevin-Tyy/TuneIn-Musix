@@ -3,16 +3,34 @@ import { useSelector } from "react-redux";
 import { userAccount } from "../../redux/slices/Accountslice";
 import { FiSearch } from "react-icons/fi";
 import { _searchItems } from "../../api/fetch/config";
-import { SearchResult } from "../../types";
-import SearchBox from "../../components/AlbumBox";
+import { AlbumType, TrackType } from "../../types";
 import SearchFilter from "../../components/modals/SearchFilter";
 import Header from "../../components/navigation/Header";
 import { toast } from "react-hot-toast";
 import { BounceLoader } from "react-spinners";
+import TrackBox from "../../components/TrackBox";
+import AlbumBox from "../../components/AlbumBox";
+
+interface SearchResult<T> {
+	href: string;
+	items: T[];
+	limit: null;
+	next: string | null;
+	offset: number;
+	previous: string | null;
+	total: number;
+}
+
+type AlbumSearchResult = SearchResult<AlbumType>;
+type TrackSearchResult = SearchResult<TrackType>;
+
 const SearchPage: React.FC = () => {
 	const { recentMusic } = useSelector(userAccount);
 	const [queryString, setQueryString] = useState<string>("");
-	const [searchResults, setSearchResults] = useState<SearchResult | null>(null);
+	// const [searchResults, setSearchResults] = useState<SearchResultType>(null);
+	const [TrackSearchResults, setTrackSearchResults] = useState<TrackSearchResult | null>(null);
+	const [AlbumSearchResults, setAlumSearchResults] = useState<AlbumSearchResult | null>(null);
+
 	const [searchFilter, setSearchFilter] = useState("track");
 	const [isSearchFilterOpen, setIsSearchFilterOpen] = useState(false);
 	const [loading, setLoading] = useState(false);
@@ -21,11 +39,18 @@ const SearchPage: React.FC = () => {
 		e.preventDefault();
 		if (queryString) {
 			setLoading(true);
-			setSearchResults(null);
-			_searchItems(userToken, queryString as string, "track")
+			setAlumSearchResults(null);
+			setTrackSearchResults(null)
+			_searchItems(userToken, queryString as string, searchFilter)
 				.then((response) => {
-					const { tracks } = response;
-					setSearchResults(tracks);
+					if (searchFilter === "track") {
+						const { tracks } = response;
+						return setTrackSearchResults(tracks);
+					}
+					if (searchFilter === "album") {
+						const { albums } = response;
+						return setAlumSearchResults(albums);
+					}
 				})
 				.catch((error) => {
 					toast.error("Something went wrong");
@@ -36,6 +61,7 @@ const SearchPage: React.FC = () => {
 				});
 		}
 	};
+
 	return (
 		<div>
 			<Header>
@@ -69,7 +95,7 @@ const SearchPage: React.FC = () => {
 				</div>
 			</Header>
 			<div className="mt-5">
-				{!searchResults && (
+				{!AlbumSearchResults || !TrackSearchResults && (
 					<>
 						{recentMusic.length > 0 ? (
 							<div>
@@ -85,17 +111,27 @@ const SearchPage: React.FC = () => {
 					</>
 				)}
 				<div className="px-4 mt-5">
-					{loading && !searchResults && (
+					{loading && !AlbumSearchResults || !TrackSearchResults && (
 						<div className="flex items-center justify-center h-96">
 							<BounceLoader size={140} color="#36d7b7" />
 						</div>
 					)}
-					{searchResults && (
+					{AlbumSearchResults && (
 						<div className="space-y-10">
 							<h1 className="text-2xl font-semibold">Top Results</h1>
 							<div className="flex flex-col gap-3">
-								{searchResults?.items.map((item, index) => (
-									<SearchBox item={item} key={index} index={index} />
+								{AlbumSearchResults?.items.map((item, index) => (
+									<AlbumBox item={item} key={index} index={index} />
+								))}
+							</div>
+						</div>
+					)}
+					{TrackSearchResults && (
+						<div className="space-y-10">
+							<h1 className="text-2xl font-semibold">Top Results</h1>
+							<div className="flex flex-col gap-3">
+								{TrackSearchResults?.items.map((item, index) => (
+									<TrackBox item={item} key={index} index={index} />
 								))}
 							</div>
 						</div>

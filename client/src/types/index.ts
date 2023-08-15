@@ -78,9 +78,18 @@ export interface AlbumType {
 	uri: string;
 }
 
-export interface SearchResult {
+export interface SearchAlbumResult {
 	href: string;
 	items: AlbumType[];
+	limit: null;
+	next: string | null;
+	offset: number;
+	previous: string | null;
+	total: number;
+}
+export interface SearchTrackResult {
+	href: string;
+	items: TrackType[];
 	limit: null;
 	next: string | null;
 	offset: number;

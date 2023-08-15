@@ -33,10 +33,10 @@ const SearchFilter: React.FC<SearchFilterProps> = ({
 				</Listbox.Button>
 				<Transition
 					as={Fragment}
-					enter="transition ease-in duration-100"
+					enter="transition ease-in duration-200"
 					enterFrom="opacity-0"
 					enterTo="opacity-100"
-					leave="transition ease-in duration-100"
+					leave="transition ease-in duration-200"
 					leaveFrom="opacity-100"
 					leaveTo="opacity-0">
 					<Listbox.Options className="absolute">
