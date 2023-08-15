@@ -4,7 +4,7 @@ import { userAccount } from "../../redux/slices/Accountslice";
 import { FiSearch } from "react-icons/fi";
 import { _searchItems } from "../../api/fetch/config";
 import { SearchResult } from "../../types";
-import SearchBox from "./components/SearchBox";
+import SearchBox from "../../components/AlbumBox";
 import SearchFilter from "../../components/modals/SearchFilter";
 import Header from "../../components/navigation/Header";
 import { toast } from "react-hot-toast";
@@ -13,7 +13,7 @@ const SearchPage: React.FC = () => {
 	const { recentMusic } = useSelector(userAccount);
 	const [queryString, setQueryString] = useState<string>("");
 	const [searchResults, setSearchResults] = useState<SearchResult | null>(null);
-	const [searchFilter, setSearchFilter] = useState("album");
+	const [searchFilter, setSearchFilter] = useState("track");
 	const [isSearchFilterOpen, setIsSearchFilterOpen] = useState(false);
 	const [loading, setLoading] = useState(false);
 	const { userToken } = useSelector(userAccount);
@@ -22,10 +22,10 @@ const SearchPage: React.FC = () => {
 		if (queryString) {
 			setLoading(true);
 			setSearchResults(null);
-			_searchItems(userToken, queryString as string, "album")
+			_searchItems(userToken, queryString as string, "track")
 				.then((response) => {
-					const { albums } = response;
-					setSearchResults(albums);
+					const { tracks } = response;
+					setSearchResults(tracks);
 				})
 				.catch((error) => {
 					toast.error("Something went wrong");

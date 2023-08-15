@@ -22,7 +22,6 @@ const _getGenres = async (token: string) => {
 		method: "GET",
 		headers: { Authorization: "Bearer " + token },
 	});
-
 	const data = await result.json();
 	return data.categories.items;
 };
@@ -39,23 +38,11 @@ const _getPlaylistByGenre = async (token: string, genreId: string) => {
 	);
 
 	const data = await result.json();
-	return data.playlists.items;
+	return data;
 };
 
-const _getTracks = async (token: string, tracksEndPoint: string) => {
-	const limit = 10;
-
-	const result = await fetch(`${tracksEndPoint}?limit=${limit}`, {
-		method: "GET",
-		headers: { Authorization: "Bearer " + token },
-	});
-
-	const data = await result.json();
-	return data.items;
-};
-
-const _getTrack = async (token: string, trackEndPoint: string) => {
-	const result = await fetch(`${trackEndPoint}`, {
+const _getTracks = async (token: string, ids: string) => {
+	const result = await fetch(`${BaseUrl}/tracks?ids=${ids}`, {
 		method: "GET",
 		headers: { Authorization: "Bearer " + token },
 	});
@@ -128,11 +115,20 @@ const _getAlbums = async (token: string , ids : string) => {
 	const data = await result.json();
 	return data;
 };
-
+const _getRecommended = async (token : string) => {
+	const result = await fetch(`${BaseUrl}/recommendations
+	`, {
+		method: "GET",
+		headers: {
+			Authorization: "Bearer " + token,
+		},
+	});
+	const data = await result.json();
+	return data;
+}
 export {
 	_getGenres,
 	_getToken,
-	_getTrack,
 	_getPlaylistByGenre,
 	_getTracks,
 	_getArtists,
@@ -140,5 +136,6 @@ export {
 	_getArtistData,
 	_getArtistRelated,
 	_searchItems,
-	_getAlbums
+	_getAlbums,
+	_getRecommended
 };

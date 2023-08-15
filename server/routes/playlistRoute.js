@@ -1,7 +1,8 @@
 import { Router } from "express";
 import PlaylistController from '../controllers/playlistController.js'
-const PlayListRoute = Router()
+const PlaylistRoute = Router()
 
-PlayListRoute.post('/create', PlaylistController.createPlayList);
-PlayListRoute.get('/:id', PlaylistController.getPlaylists);
-export default PlayListRoute;
+PlaylistRoute.post('/create', PlaylistController.createPlayList);
+PlaylistRoute.get('/:id', PlaylistController.getPlaylists);
+PlaylistRoute.get('/single/:id', PlaylistController.getSinglePlaylist);
+export default PlaylistRoute;

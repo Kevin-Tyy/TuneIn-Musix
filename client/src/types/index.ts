@@ -1,5 +1,11 @@
+export enum SearchFilterType {
+	Album = "album",
+	Artist = "artist",
+	Track = "track",
+}
+
 export interface UserType {
-	_id : string;
+	_id: string;
 	username: string;
 	email: string;
 	authenticationmethod: "email_password" | "oauth";
@@ -82,6 +88,7 @@ export interface SearchResult {
 	total: number;
 }
 export interface PlaylistItem {
+	_id: string;
 	playlistImage: string;
 	playlistName: string;
 	playlistDescription: string;
@@ -89,4 +96,33 @@ export interface PlaylistItem {
 	songIds: String[];
 	createdAt: Date;
 	updatedAt: Date;
+}
+
+export interface TrackType {
+	album: AlbumType;
+	artists: ArtistType[];
+	available_markets?: string[];
+	disc_number: number;
+	duration_ms: number;
+	explicit: boolean;
+	external_urls: {
+		spotify: string;
+	};
+	external_ids: {
+		isrc: string;
+		ean: string;
+		upc: string;
+	};
+	href: string;
+	id: string;
+	is_playable: boolean;
+	linked_from: object;
+	restriction: { reason: string };
+	name: string;
+	popularity: number;
+	preview_url: string | null;
+	track_number: number;
+	type: 'track';
+	uri: string;
+	is_local: boolean;
 }

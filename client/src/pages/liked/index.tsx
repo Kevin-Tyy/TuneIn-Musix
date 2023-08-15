@@ -1,39 +1,35 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { userAccount } from "../../redux/slices/Accountslice";
-import { _getAlbums } from "../../api/fetch/config";
-import SearchBox from "../search/components/SearchBox";
+import { _getAlbums, _getTracks } from "../../api/fetch/config";
 import Header from "../../components/navigation/Header";
 import { BounceLoader } from "react-spinners";
 import { useNavigate } from "react-router-dom";
 import { BsHeartFill } from "react-icons/bs";
 import { loggedInUser } from "../../redux/slices/Authslice";
-import { UserType } from "../../types";
+import { TrackType, UserType } from "../../types";
 import useAvatar from "../../hooks/useAvatar";
 import PlayButton from "../../components/PlayButton";
 import { TfiMusicAlt } from "react-icons/tfi";
+import TrackBox from "../../components/TrackBox";
 const LikedSongs: React.FC = () => {
 	const { userToken, savedMusic } = useSelector(userAccount);
 	const { user } = useSelector(loggedInUser) as { user: UserType };
-	const [likedMusic, setLikedMusic] = useState([]);
-	const [loading, setLoading] = useState(false);
+	const [likedMusic, setLikedMusic] = useState<TrackType[]>([]);
 	const navigate = useNavigate();
 	useEffect(() => {
 		if (savedMusic.length > 0) {
-			setLoading(true);
-			_getAlbums(userToken, savedMusic.join(","))
-				.then((res) => {
-					setLikedMusic(res.albums);
-				})
-				.finally(() => {
-					setLoading(false);
-				});
+			_getTracks(userToken, savedMusic.join(",")).then((res) => {
+				console.log(res.tracks);
+				setLikedMusic(res.tracks);
+			});
 		}
 	}, [savedMusic]);
-	let placeholderUrl
-	if(user){
-		placeholderUrl = useAvatar(user.username);
+	console.log(savedMusic);
 
+	let placeholderUrl;
+	if (user) {
+		placeholderUrl = useAvatar(user.username);
 	}
 
 	return (
@@ -79,39 +75,34 @@ const LikedSongs: React.FC = () => {
 			</Header>
 			<section className="h-fit mt-10">
 				<div className="px-6">
-					<PlayButton/>
+					<PlayButton />
 				</div>
 				<div>
-					{loading ? (
-						<div className="flex justify-center items-center h-96">
-							<BounceLoader color="#36d7b7" />
-						</div>
-					) : (
-						<div>
-							{likedMusic.length > 0 ? (
-								<div className="flex flex-col gap-3 px-4 mt-10">
-									{likedMusic.map((item, index) => (
-										<SearchBox item={item} index={index} key={index} />
-									))}
-								</div>
-							) : (
-								<div className="flex flex-col justify-center items-center h-96 gap-5">
-									<TfiMusicAlt size={50}/>
-									<h1 className="text-xl select-none">You haven't liked anything yet</h1>
-									<button
-										className="bg-gradient-to-br  from-primary-400 via-purple-600 to-pink-400 py-4 px-6 rounded-full hover:bg-primary-300 transition hover:scale-105"
-										onClick={() => navigate("/")}>
-										Explore more
-									</button>
-								</div>
-							)}
-						</div>
-					)}
+					<div>
+						{savedMusic.length !== 0 ? (
+							<div className="flex flex-col gap-3 px-4 mt-10">
+								{likedMusic.map((item, index) => (
+									<TrackBox item={item} index={index} key={index} />
+								))}
+							</div>
+						) : (
+							<div className="flex flex-col justify-center items-center h-96 gap-5">
+								<TfiMusicAlt size={50} />
+								<h1 className="text-xl select-none">
+									You haven't liked anything yet
+								</h1>
+								<button
+									className="bg-gradient-to-br  from-primary-400 via-purple-600 to-pink-400 py-4 px-6 rounded-full hover:bg-primary-300 transition hover:scale-105"
+									onClick={() => navigate("/")}>
+									Explore more
+								</button>
+							</div>
+						)}
+					</div>
 				</div>
 			</section>
 		</div>
 	);
 };
-
 
 export default LikedSongs;

@@ -27,9 +27,22 @@ class PlayListController {
 			if (playlists) {
 				res.status(200).json(playlists);
 			}
-			console.log(playlists);
 		} catch (error) {
 			res.status(500).json({ msg: "Something went wrong" });
+		}
+	};
+	getSinglePlaylist = async (req, res) => {
+		try {
+			const playlist = await playlistService.getPlaylist(req.params)
+			if (playlist) {
+				return res.status(200).json(playlist);
+			}
+			else{
+				return res.json('Playlist not found')
+			}
+		} catch (error) {
+			res.status(500).json({ msg: "Something went wrong" });
+			
 		}
 	};
 }

@@ -15,14 +15,14 @@ const PlayLists: React.FC = () => {
 	const [isModalOpen, setisModalOpen] = useState(false);
 	const [playlists, setPlaylists] = useState<PlaylistItem[]>([]);
 	const [filteredPlaylists, setFilteredPlaylists] = useState<PlaylistItem[]>([]);
-
+	
 	let placeholderUrl;
 	if (user) {
 		placeholderUrl = useAvatar(user.username);
 	}
 	useEffect(() => {
 		axios
-			.get(`${ApiRoot}/playlist/${user._id}`)
+			.get(`${ApiRoot}/playlist/${user?._id}`)
 			.then((response) => {
 				setPlaylists(response.data);
 				setFilteredPlaylists(response.data)

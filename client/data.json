@@ -1,29 +1,158 @@
 {
-    "album_type" : "single",
-    w
-    "available_markets" : [ "AD", "AE", "AG", "AL", "AM", "AO", "AR", "AT", "AU", "AZ", "BA", "BB", "BD", "BE", "BF", "BG", "BH", "BI", "BJ", "BN", "BO", "BR", "BS", "BT", "BW", "BY", "BZ", "CA", "CD", "CG", "CH", "CI", "CL", "CM", "CO", "CR", "CV", "CW", "CY", "CZ", "DE", "DJ", "DK", "DM", "DO", "DZ", "EC", "EE", "EG", "ES", "ET", "FI", "FJ", "FM", "FR", "GA", "GB", "GD", "GE", "GH", "GM", "GN", "GQ", "GR", "GT", "GW", "GY", "HK", "HN", "HR", "HT", "HU", "ID", "IE", "IL", "IN", "IQ", "IS", "IT", "JM", "JO", "JP", "KE", "KG", "KH", "KI", "KM", "KN", "KR", "KW", "KZ", "LA", "LB", "LC", "LI", "LK", "LR", "LS", "LT", "LU", "LV", "LY", "MA", "MC", "MD", "ME", "MG", "MH", "MK", "ML", "MN", "MO", "MR", "MT", "MU", "MV", "MW", "MX", "MY", "MZ", "NA", "NE", "NG", "NI", "NL", "NO", "NP", "NR", "NZ", "OM", "PA", "PE", "PG", "PH", "PK", "PL", "PS", "PT", "PW", "PY", "QA", "RO", "RS", "RW", "SA", "SB", "SC", "SE", "SG", "SI", "SK", "SL", "SM", "SN", "SR", "ST", "SV", "SZ", "TD", "TG", "TH", "TJ", "TL", "TN", "TO", "TR", "TT", "TV", "TW", "TZ", "UA", "UG", "US", "UY", "UZ", "VC", "VE", "VN", "VU", "WS", "XK", "ZA", "ZM", "ZW" ],
-    "external_urls" : {
-      "spotify" : "https://open.spotify.com/album/0GFW3qlnSMKjNV1tgcj8pQ"
+  "tracks": [
+    {
+      "album": {
+        "album_type": "album",
+        "total_tracks": 15,
+        "available_markets": ["AD", "AE", "AG", "AL", "AM", "AO", "AR", "AT", "AU", "AZ", "BA", "BB", "BD", "BE", "BF", "BG", "BH", "BI", "BJ", "BN", "BO", "BR", "BS", "BT", "BW", "BY", "BZ", "CA", "CD", "CG", "CH", "CI", "CL", "CM", "CO", "CR", "CV", "CW", "CY", "CZ", "DE", "DJ", "DK", "DM", "DO", "DZ", "EC", "EE", "EG", "ES", "ET", "FI", "FJ", "FM", "FR", "GA", "GB", "GD", "GE", "GH", "GM", "GN", "GQ", "GR", "GT", "GW", "GY", "HK", "HN", "HR", "HT", "HU", "ID", "IE", "IL", "IN", "IQ", "IS", "IT", "JM", "JO", "JP", "KE", "KG", "KH", "KI", "KM", "KN", "KR", "KW", "KZ", "LA", "LB", "LC", "LI", "LK", "LR", "LS", "LT", "LU", "LV", "LY", "MA", "MC", "MD", "ME", "MG", "MH", "MK", "ML", "MN", "MO", "MR", "MT", "MU", "MV", "MW", "MX", "MY", "MZ", "NA", "NE", "NG", "NI", "NL", "NO", "NP", "NR", "NZ", "OM", "PA", "PE", "PG", "PH", "PK", "PL", "PS", "PT", "PW", "PY", "QA", "RO", "RS", "RW", "SA", "SB", "SC", "SE", "SG", "SI", "SK", "SL", "SM", "SN", "SR", "ST", "SV", "SZ", "TD", "TG", "TH", "TJ", "TL", "TN", "TO", "TR", "TT", "TV", "TW", "TZ", "UA", "UG", "US", "UY", "UZ", "VC", "VE", "VN", "VU", "WS", "XK", "ZA", "ZM", "ZW"],
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/3nzuGtN3nXARvvecier4K0"
+        },
+        "href": "https://api.spotify.com/v1/albums/3nzuGtN3nXARvvecier4K0",
+        "id": "3nzuGtN3nXARvvecier4K0",
+        "images": [
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000b273a108e07c661f9fc54de9c43a",
+            "height": 640,
+            "width": 640
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00001e02a108e07c661f9fc54de9c43a",
+            "height": 300,
+            "width": 300
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00004851a108e07c661f9fc54de9c43a",
+            "height": 64,
+            "width": 64
+          }
+        ],
+        "name": "Different World",
+        "release_date": "2018-12-14",
+        "release_date_precision": "day",
+        "type": "album",
+        "uri": "spotify:album:3nzuGtN3nXARvvecier4K0",
+        "artists": [
+          {
+            "external_urls": {
+              "spotify": "https://open.spotify.com/artist/7vk5e3vY1uw9plTHJAMwjN"
+            },
+            "href": "https://api.spotify.com/v1/artists/7vk5e3vY1uw9plTHJAMwjN",
+            "id": "7vk5e3vY1uw9plTHJAMwjN",
+            "name": "Alan Walker",
+            "type": "artist",
+            "uri": "spotify:artist:7vk5e3vY1uw9plTHJAMwjN"
+          }
+        ]
+      },
+      "artists": [
+        {
+          "external_urls": {
+            "spotify": "https://open.spotify.com/artist/7vk5e3vY1uw9plTHJAMwjN"
+          },
+          "href": "https://api.spotify.com/v1/artists/7vk5e3vY1uw9plTHJAMwjN",
+          "id": "7vk5e3vY1uw9plTHJAMwjN",
+          "name": "Alan Walker",
+          "type": "artist",
+          "uri": "spotify:artist:7vk5e3vY1uw9plTHJAMwjN"
+        }
+      ],
+      "available_markets": ["AR", "AU", "AT", "BE", "BO", "BR", "BG", "CA", "CL", "CO", "CR", "CY", "CZ", "DK", "DO", "DE", "EC", "EE", "SV", "FI", "FR", "GR", "GT", "HN", "HK", "HU", "IS", "IE", "IT", "LV", "LT", "LU", "MY", "MT", "MX", "NL", "NZ", "NI", "NO", "PA", "PY", "PE", "PH", "PL", "PT", "SG", "SK", "ES", "SE", "CH", "TW", "TR", "UY", "US", "GB", "AD", "LI", "MC", "ID", "JP", "TH", "VN", "RO", "IL", "ZA", "SA", "AE", "BH", "QA", "OM", "KW", "EG", "MA", "DZ", "TN", "LB", "JO", "PS", "IN", "BY", "KZ", "MD", "UA", "AL", "BA", "HR", "ME", "MK", "RS", "SI", "KR", "BD", "PK", "LK", "GH", "KE", "NG", "TZ", "UG", "AG", "AM", "BS", "BB", "BZ", "BT", "BW", "BF", "CV", "CW", "DM", "FJ", "GM", "GE", "GD", "GW", "GY", "HT", "JM", "KI", "LS", "LR", "MW", "MV", "ML", "MH", "FM", "NA", "NR", "NE", "PW", "PG", "WS", "SM", "ST", "SN", "SC", "SL", "SB", "KN", "LC", "VC", "SR", "TL", "TO", "TT", "TV", "VU", "AZ", "BN", "BI", "KH", "CM", "TD", "KM", "GQ", "SZ", "GA", "GN", "KG", "LA", "MO", "MR", "MN", "NP", "RW", "TG", "UZ", "ZW", "BJ", "MG", "MU", "MZ", "AO", "CI", "DJ", "ZM", "CD", "CG", "IQ", "LY", "TJ", "VE", "ET", "XK"],
+      "disc_number": 1,
+      "duration_ms": 212106,
+      "explicit": false,
+      "external_ids": {
+        "isrc": "NOG841549010"
+      },
+      "external_urls": {
+        "spotify": "https://open.spotify.com/track/698ItKASDavgwZ3WjaWjtz"
+      },
+      "href": "https://api.spotify.com/v1/tracks/698ItKASDavgwZ3WjaWjtz",
+      "id": "698ItKASDavgwZ3WjaWjtz",
+      "name": "Faded",
+      "popularity": 82,
+      "preview_url": "https://p.scdn.co/mp3-preview/dd79198f4b4c43aef9c8e8e1c4708a402862dd0e?cid=a131d30883ec499d8715643c8e426a72",
+      "track_number": 15,
+      "type": "track",
+      "uri": "spotify:track:698ItKASDavgwZ3WjaWjtz",
+      "is_local": false
     },
-    "href" : "https://api.spotify.com/v1/albums/0GFW3qlnSMKjNV1tgcj8pQ",
-    "id" : "0GFW3qlnSMKjNV1tgcj8pQ",
-    "images" : [ {
-      "height" : 640,
-      "url" : "https://i.scdn.co/image/ab67616d0000b273e0beaaf3e85e0c0fc422ab2a",
-      "width" : 640
-    }, {
-      "height" : 300,
-      "url" : "https://i.scdn.co/image/ab67616d00001e02e0beaaf3e85e0c0fc422ab2a",
-      "width" : 300
-    }, {
-      "height" : 64,
-      "url" : "https://i.scdn.co/image/ab67616d00004851e0beaaf3e85e0c0fc422ab2a",
-      "width" : 64
-    } ],
-    "name" : "All of Me",
-    "release_date" : "2019-05-23",
-    "release_date_precision" : "day",
-    "total_tracks" : 1,
-    "type" : "album",
-    "uri" : "spotify:album:0GFW3qlnSMKjNV1tgcj8pQ"
-  }
+    {
+      "album": {
+        "album_type": "album",
+        "total_tracks": 15,
+        "available_markets": ["AD", "AE", "AG", "AL", "AM", "AO", "AR", "AT", "AU", "AZ", "BA", "BB", "BD", "BE", "BF", "BG", "BH", "BI", "BJ", "BN", "BO", "BR", "BS", "BT", "BW", "BY", "BZ", "CA", "CD", "CG", "CH", "CI", "CL", "CM", "CO", "CR", "CV", "CW", "CY", "CZ", "DE", "DJ", "DK", "DM", "DO", "DZ", "EC", "EE", "EG", "ES", "ET", "FI", "FJ", "FM", "FR", "GA", "GB", "GD", "GE", "GH", "GM", "GN", "GQ", "GR", "GT", "GW", "GY", "HK", "HN", "HR", "HT", "HU", "ID", "IE", "IL", "IN", "IQ", "IS", "IT", "JM", "JO", "JP", "KE", "KG", "KH", "KI", "KM", "KN", "KR", "KW", "KZ", "LA", "LB", "LC", "LI", "LK", "LR", "LS", "LT", "LU", "LV", "LY", "MA", "MC", "MD", "ME", "MG", "MH", "MK", "ML", "MN", "MO", "MR", "MT", "MU", "MV", "MW", "MX", "MY", "MZ", "NA", "NE", "NG", "NI", "NL", "NO", "NP", "NR", "NZ", "OM", "PA", "PE", "PG", "PH", "PK", "PL", "PS", "PT", "PW", "PY", "QA", "RO", "RS", "RW", "SA", "SB", "SC", "SE", "SG", "SI", "SK", "SL", "SM", "SN", "SR", "ST", "SV", "SZ", "TD", "TG", "TH", "TJ", "TL", "TN", "TO", "TR", "TT", "TV", "TW", "TZ", "UA", "UG", "US", "UY", "UZ", "VC", "VE", "VN", "VU", "WS", "XK", "ZA", "ZM", "ZW"],
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/3nzuGtN3nXARvvecier4K0"
+        },
+        "href": "https://api.spotify.com/v1/albums/3nzuGtN3nXARvvecier4K0",
+        "id": "3nzuGtN3nXARvvecier4K0",
+        "images": [
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000b273a108e07c661f9fc54de9c43a",
+            "height": 640,
+            "width": 640
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00001e02a108e07c661f9fc54de9c43a",
+            "height": 300,
+            "width": 300
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00004851a108e07c661f9fc54de9c43a",
+            "height": 64,
+            "width": 64
+          }
+        ],
+        "name": "Different World",
+        "release_date": "2018-12-14",
+        "release_date_precision": "day",
+        "type": "album",
+        "uri": "spotify:album:3nzuGtN3nXARvvecier4K0",
+        "artists": [
+          {
+            "external_urls": {
+              "spotify": "https://open.spotify.com/artist/7vk5e3vY1uw9plTHJAMwjN"
+            },
+            "href": "https://api.spotify.com/v1/artists/7vk5e3vY1uw9plTHJAMwjN",
+            "id": "7vk5e3vY1uw9plTHJAMwjN",
+            "name": "Alan Walker",
+            "type": "artist",
+            "uri": "spotify:artist:7vk5e3vY1uw9plTHJAMwjN"
+          }
+        ]
+      },
+      "artists": [
+        {
+          "external_urls": {
+            "spotify": "https://open.spotify.com/artist/7vk5e3vY1uw9plTHJAMwjN"
+          },
+          "href": "https://api.spotify.com/v1/artists/7vk5e3vY1uw9plTHJAMwjN",
+          "id": "7vk5e3vY1uw9plTHJAMwjN",
+          "name": "Alan Walker",
+          "type": "artist",
+          "uri": "spotify:artist:7vk5e3vY1uw9plTHJAMwjN"
+        }
+      ],
+      "available_markets": ["AR", "AU", "AT", "BE", "BO", "BR", "BG", "CA", "CL", "CO", "CR", "CY", "CZ", "DK", "DO", "DE", "EC", "EE", "SV", "FI", "FR", "GR", "GT", "HN", "HK", "HU", "IS", "IE", "IT", "LV", "LT", "LU", "MY", "MT", "MX", "NL", "NZ", "NI", "NO", "PA", "PY", "PE", "PH", "PL", "PT", "SG", "SK", "ES", "SE", "CH", "TW", "TR", "UY", "US", "GB", "AD", "LI", "MC", "ID", "JP", "TH", "VN", "RO", "IL", "ZA", "SA", "AE", "BH", "QA", "OM", "KW", "EG", "MA", "DZ", "TN", "LB", "JO", "PS", "IN", "BY", "KZ", "MD", "UA", "AL", "BA", "HR", "ME", "MK", "RS", "SI", "KR", "BD", "PK", "LK", "GH", "KE", "NG", "TZ", "UG", "AG", "AM", "BS", "BB", "BZ", "BT", "BW", "BF", "CV", "CW", "DM", "FJ", "GM", "GE", "GD", "GW", "GY", "HT", "JM", "KI", "LS", "LR", "MW", "MV", "ML", "MH", "FM", "NA", "NR", "NE", "PW", "PG", "WS", "SM", "ST", "SN", "SC", "SL", "SB", "KN", "LC", "VC", "SR", "TL", "TO", "TT", "TV", "VU", "AZ", "BN", "BI", "KH", "CM", "TD", "KM", "GQ", "SZ", "GA", "GN", "KG", "LA", "MO", "MR", "MN", "NP", "RW", "TG", "UZ", "ZW", "BJ", "MG", "MU", "MZ", "AO", "CI", "DJ", "ZM", "CD", "CG", "IQ", "LY", "TJ", "VE", "ET", "XK"],
+      "disc_number": 1,
+      "duration_ms": 160426,
+      "explicit": false,
+      "external_ids": {
+        "isrc": "NOG841617010"
+      },
+      "external_urls": {
+        "spotify": "https://open.spotify.com/track/3LlmKSHR3Rs0Y3KHQLAYDk"
+      },
+      "href": "https://api.spotify.com/v1/tracks/3LlmKSHR3Rs0Y3KHQLAYDk",
+      "id": "3LlmKSHR3Rs0Y3KHQLAYDk",
+      "name": "Alone",
+      "popularity": 77,
+      "preview_url": "https://p.scdn.co/mp3-preview/ab66780b7a2f22456185bfa811515eaef4f7254c?cid=a131d30883ec499d8715643c8e426a72",
+      "track_number": 12,
+      "type": "track",
+      "uri": "spotify:track:3LlmKSHR3Rs0Y3KHQLAYDk",
+      "is_local": false
+    }
+  ]
+}

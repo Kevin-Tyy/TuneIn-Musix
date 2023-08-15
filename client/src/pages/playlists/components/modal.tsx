@@ -10,12 +10,12 @@ import { useSelector } from "react-redux";
 import { loggedInUser } from "../../../redux/slices/Authslice";
 import clsx from "clsx";
 import { ClipLoader } from "react-spinners";
+import { useNavigate } from "react-router-dom";
 const PlaylistModal = ({ onClose, isOpen }: any) => {
+	const navigate = useNavigate();
 	const [loading, setLoading] = useState(false);
 	const [previewImage, setPreviewImage] = useState<any>(null);
-	const {
-		user: { _id },
-	} = useSelector(loggedInUser);
+	const { user } = useSelector(loggedInUser);
 	const { register, handleSubmit, watch, setValue } = useForm<FieldValues>({
 		defaultValues: {
 			playlistName: "",
@@ -23,6 +23,28 @@ const PlaylistModal = ({ onClose, isOpen }: any) => {
 			playlistImage: "",
 		},
 	});
+	if (!user) {
+		return (
+			<Modal isOpen={isOpen} onClose={onClose}>
+				<div className="space-y-6 flex flex-col justify-center">
+					<div className="border-b border-gray-700 pb-3">
+						<h1 className="text-xl text-white text-center">
+							Create a playlist
+						</h1>
+					</div>
+					<p className="text-white text-center">
+						Please login to create a playlist
+					</p>
+					<button
+						className="bg-white px-4 py-2 rounded-full text-sm self-end"
+						onClick={() => navigate("/auth")}>
+						Login Here
+					</button>
+				</div>
+			</Modal>
+		);
+	}
+	const { _id } = user;
 	const selectedImage = watch("playlistImage");
 	const handleImageUpload = (e: any) => {
 		const file = e.target.files[0];

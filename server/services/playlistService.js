@@ -29,10 +29,20 @@ class playlistService {
 	};
 	getPlaylists = async ({ id }) => {
 		try {
-			const playlists =  await PlaylistModel.find({ user : id}).populate('user');
-            if(playlists){
-                return playlists
-            }
+			const playlists = await PlaylistModel.find({ user: id }).populate("user");
+			if (playlists) {
+				return playlists;
+			}
+		} catch (error) {
+			throw new Error(error);
+		}
+	};
+	getPlaylist = async ({ id }) => {
+		try {
+			const playlists = await PlaylistModel.findById(id).populate("user");
+			if (playlists) {
+				return playlists;
+			}
 		} catch (error) {
 			throw new Error(error);
 		}

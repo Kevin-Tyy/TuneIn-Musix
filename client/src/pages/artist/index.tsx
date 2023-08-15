@@ -7,14 +7,15 @@ import {
 	_getArtistData,
 	_getArtistRelated,
 } from "../../api/fetch/config";
-import { ArtistType, SearchResult } from "../../types";
+import { ArtistType, SearchResult, TrackType } from "../../types";
 import ArtistBox from "../../components/ArtistBox";
-import SearchBox from "../search/components/SearchBox";
 import clsx from "clsx";
 import { VscVerifiedFilled } from "react-icons/vsc";
 import BackButtons from "../../components/buttons/BackButtons";
 import Navbar from "../../components/navigation/navBar";
 import PlayButton from "../../components/PlayButton";
+import AlbumBox from "../../components/AlbumBox";
+import TrackBox from "../../components/TrackBox";
 
 const Artist = () => {
 	const { id } = useParams();
@@ -24,7 +25,7 @@ const Artist = () => {
 	const [artist, setArtist] = useState<ArtistType>();
 	const [relatedArtists, setRelatedArtists] = useState<ArtistType[]>([]);
 	const [albums, setAlbums] = useState<SearchResult | null>(null);
-	// const [topTracks, setTopTracks] = useState<SearchResult | null>(null);
+	const [tracks, setTracks] = useState<TrackType[] | null>(null);
 	const handleNext = () => {
 		window.history.forward();
 	};
@@ -38,8 +39,12 @@ const Artist = () => {
 				setArtist(artistData);
 				const albumsResult = await _getArtistData(userToken, id, "albums");
 				setAlbums(albumsResult);
-				// const trackResult = await _getArtistData(userToken, id, "top-tracks");
-				// setTopTracks(trackResult);
+				const trackResult = await _getArtistData(
+					userToken,
+					id,
+					"top-tracks?market=ES"
+				);
+				setTracks(trackResult.tracks);
 				const relatedArtists = await _getArtistRelated(userToken, id);
 				setRelatedArtists(relatedArtists.artists);
 			}
@@ -56,13 +61,13 @@ const Artist = () => {
 			behavior: "smooth",
 		});
 	};
-	const disabled = limit === albums?.items.length;
+	const disabled = limit === tracks?.length;
 	const artistdisabled = artistlimit === relatedArtists.length;
 	return (
 		<section className="relative overflow-auto">
 			<div
 				className="h-fit overflow-hidden bg-cover bg-no-repeat bg-fixed bg-center relative rounded-xl"
-				style={{ backgroundImage: `url(${artist?.images[0].url!})` }}>
+				style={{ backgroundImage: `url(${artist?.images[0]?.url!})` }}>
 				<div className="flex p-4 justify-between items-center bg-transparent">
 					<BackButtons
 						handleNext={handleNext}
@@ -84,7 +89,7 @@ const Artist = () => {
 							<span>
 								{" "}
 								<span className="tracking-widest">
-									{artist?.followers.total!.toLocaleString()}
+									{artist?.followers?.total!.toLocaleString()}
 								</span>{" "}
 								Followers
 							</span>
@@ -99,12 +104,13 @@ const Artist = () => {
 					Follow
 				</button>
 			</div>
-			{albums && (
+
+			{tracks && (
 				<div className="space-y-4 mt-10">
 					<h1>Popular Songs</h1>
 					<div className="flex flex-col gap-3">
-						{albums.items.slice(0, limit).map((item, index) => (
-							<SearchBox item={item} index={index} key={index} />
+						{tracks.slice(0, limit).map((item, index) => (
+							<TrackBox item={item} index={index} key={index} />
 						))}
 					</div>
 					<div className="pl-2 flex items-center gap-5">
@@ -112,7 +118,7 @@ const Artist = () => {
 							onClick={() => setLimit((prev) => prev + 5)}
 							disabled={disabled}
 							className={clsx(
-								"  px-6 py-3 bg-gradient-to-br whitespace-nowrap from-primary-400 via-purple-600 to-pink-400 rounded-full hover:scale-105 transition active:scale-95 select-none",
+								"px-6 py-3 bg-gradient-to-br whitespace-nowrap from-primary-400 via-purple-600 to-pink-400 rounded-full hover:scale-105 transition active:scale-95 select-none",
 								disabled && "opacity-50 hover:scale-100 active:scale-100"
 							)}>
 							See more
@@ -127,6 +133,7 @@ const Artist = () => {
 					</div>
 				</div>
 			)}
+
 			<div className="mt-10 ">
 				<h1 className="text-xl">Popular Artists</h1>
 				{relatedArtists && (
@@ -156,6 +163,19 @@ const Artist = () => {
 									Show less
 								</p>
 							)}
+						</div>
+					</div>
+				)}
+				{albums && (
+					<div className="space-y-4 mt-10">
+						<h1 className="text-lg">Albums</h1>
+						<div className="bg-white px-3 py-2 inline-block text-black rounded-full">
+							Popular releases
+						</div>
+						<div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 2xl:grid-cols-7  gap-3">
+							{albums.items.slice(0, 7).map((item, index) => (
+								<AlbumBox item={item} index={index} key={index} />
+							))}
 						</div>
 					</div>
 				)}

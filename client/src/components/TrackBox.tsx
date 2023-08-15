@@ -1,5 +1,5 @@
 import React from "react";
-import { AlbumType } from "../../../types";
+import { TrackType } from "../types";
 import { FaPlay } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { BiDotsVerticalRounded, BiHeart } from "react-icons/bi";
@@ -9,12 +9,13 @@ import {
 	removeMusic,
 	saveMusic,
 	userAccount,
-} from "../../../redux/slices/Accountslice";
-type SearchBoxProps = {
-	item: AlbumType;
+} from "../redux/slices/Accountslice";
+import useDuration from "../hooks/useDuration";
+type TrackBoxProps = {
+	item: TrackType;
 	index?: number;
 };
-const SearchBox: React.FC<SearchBoxProps> = ({ item, index }) => {
+const TrackBox: React.FC<TrackBoxProps> = ({ item, index }) => {
 	const { savedMusic } = useSelector(userAccount);
 	const dispatch = useDispatch();
 	const addToLikes = (musicId: string) => {
@@ -24,13 +25,20 @@ const SearchBox: React.FC<SearchBoxProps> = ({ item, index }) => {
 			dispatch(saveMusic(musicId));
 		}
 	};
+	const duration = useDuration(item?.duration_ms);
+	if(!item){
+		return;
+	}
 	return (
 		<div className="flex items-center gap-5 select-none">
 			<p className="font-bold">{index! + 1}</p>
 			<div className="flex justify-between w-full h-[90px] bg-neutral-900 p-2 group rounded-lg hover:bg-neutral-800/80 transition cursor-pointer">
 				<div className="flex gap-4">
 					<div className="relative ">
-						<img src={item.images[0].url!} className="h-full rounded-lg" />
+						<img
+							src={item.album?.images[0].url!}
+							className="h-full rounded-lg"
+						/>
 						<div className="h-full w-full rounded-lg opacity-0 bg-black/0 group-hover:bg-black/70 transition duration-200 group-hover:opacity-100 absolute inset-0 flex items-center justify-center">
 							<FaPlay />
 						</div>
@@ -54,7 +62,7 @@ const SearchBox: React.FC<SearchBoxProps> = ({ item, index }) => {
 					{!savedMusic.includes(item.id) ? (
 						<BiHeart
 							size={22}
-							className="opacity-50 hover:opacity-100 hidden group-hover:block"
+							className="opacity-0 hover:opacity-100 group-hover:opacity-50"
 							onClick={() => addToLikes(item.id)}
 						/>
 					) : (
@@ -64,10 +72,13 @@ const SearchBox: React.FC<SearchBoxProps> = ({ item, index }) => {
 							onClick={() => addToLikes(item.id)}
 						/>
 					)}
+					<div>
+						<p className="text-gray-400">{duration} mins</p>
+					</div>
 					<BiDotsVerticalRounded
 						onClick={() => {}}
 						size={25}
-						className="opacity-50 hover:opacity-100 hidden group-hover:block"
+						className="opacity-0 hover:opacity-100  group-hover:opacity-50"
 					/>
 				</div>
 			</div>
@@ -75,4 +86,4 @@ const SearchBox: React.FC<SearchBoxProps> = ({ item, index }) => {
 	);
 };
 
-export default SearchBox;
+export default TrackBox;
