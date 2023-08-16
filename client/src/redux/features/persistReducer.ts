@@ -11,7 +11,6 @@ const rootReducer = combineReducers({
 	account: AccountReducer,
 	auth: AuthReducer,
 	player: PlayerReducer,
-	// Add other reducers here
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
