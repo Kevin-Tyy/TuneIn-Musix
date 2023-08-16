@@ -42,7 +42,7 @@ const PlayLists: React.FC = () => {
 			<div className="space-y-10">
 				<Header>
 					<div className="space-y-10 pl-5">
-						<div className="flex flex-col items-start space-y-10">
+						<div className="flex flex-col items-start space-y-5">
 							<h1 className="text-xl">Browse your favorite music</h1>
 							<div className="flex gap-4 items-end">
 								<div className="h-48 w-48 bg-gradient-to-br from-purple-700 to-gray-500 shadow flex items-center justify-center">

@@ -83,7 +83,7 @@ const TrackBox: React.FC<TrackBoxProps> = ({ item, index }) => {
 						/>
 					)}
 					<div>
-						<p className="text-gray-400">{duration} mins</p>
+						<p className="text-gray-400">{duration}</p>
 					</div>
 					<BiDotsVerticalRounded
 						onClick={() => {}}

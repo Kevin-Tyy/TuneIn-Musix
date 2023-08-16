@@ -28,8 +28,10 @@ const SearchPage: React.FC = () => {
 	const { recentMusic } = useSelector(userAccount);
 	const [queryString, setQueryString] = useState<string>("");
 	// const [searchResults, setSearchResults] = useState<SearchResultType>(null);
-	const [TrackSearchResults, setTrackSearchResults] = useState<TrackSearchResult | null>(null);
-	const [AlbumSearchResults, setAlumSearchResults] = useState<AlbumSearchResult | null>(null);
+	const [TrackSearchResults, setTrackSearchResults] =
+		useState<TrackSearchResult | null>(null);
+	const [AlbumSearchResults, setAlumSearchResults] =
+		useState<AlbumSearchResult | null>(null);
 
 	const [searchFilter, setSearchFilter] = useState("track");
 	const [isSearchFilterOpen, setIsSearchFilterOpen] = useState(false);
@@ -37,29 +39,29 @@ const SearchPage: React.FC = () => {
 	const { userToken } = useSelector(userAccount);
 	const handleSearch = (e: any) => {
 		e.preventDefault();
-		if (queryString) {
-			setLoading(true);
-			setAlumSearchResults(null);
-			setTrackSearchResults(null)
-			_searchItems(userToken, queryString as string, searchFilter)
-				.then((response) => {
-					if (searchFilter === "track") {
-						const { tracks } = response;
-						return setTrackSearchResults(tracks);
-					}
-					if (searchFilter === "album") {
-						const { albums } = response;
-						return setAlumSearchResults(albums);
-					}
-				})
-				.catch((error) => {
-					toast.error("Something went wrong");
-					console.log(error);
-				})
-				.finally(() => {
-					setLoading(false);
-				});
-		}
+		if (!queryString) return;
+
+		setLoading(true);
+		setAlumSearchResults(null);
+		setTrackSearchResults(null);
+		_searchItems(userToken, queryString as string, searchFilter)
+			.then((response) => {
+				if (searchFilter === "track") {
+					const { tracks } = response;
+					return setTrackSearchResults(tracks);
+				}
+				if (searchFilter === "album") {
+					const { albums } = response;
+					return setAlumSearchResults(albums);
+				}
+			})
+			.catch((error) => {
+				toast.error("Something went wrong");
+				console.log(error);
+			})
+			.finally(() => {
+				setLoading(false);
+			});
 	};
 
 	return (
@@ -95,27 +97,29 @@ const SearchPage: React.FC = () => {
 				</div>
 			</Header>
 			<div className="mt-5">
-				{!AlbumSearchResults || !TrackSearchResults && (
-					<>
-						{recentMusic.length > 0 ? (
-							<div>
-								{recentMusic.map((_: any, index: number) => (
-									<p key={index}>RecentMusic at {index}</p>
-								))}
-							</div>
-						) : (
-							<div className="flex justify-center items-center">
-								<h1 className="text-xl">No Recent Music</h1>
-							</div>
-						)}
-					</>
-				)}
+				{!AlbumSearchResults ||
+					(!TrackSearchResults && (
+						<>
+							{recentMusic.length > 0 ? (
+								<div>
+									{recentMusic.map((_: any, index: number) => (
+										<p key={index}>RecentMusic at {index}</p>
+									))}
+								</div>
+							) : (
+								<div className="flex justify-center items-center">
+									<h1 className="text-xl">No Recent Music</h1>
+								</div>
+							)}
+						</>
+					))}
 				<div className="px-4 mt-5">
-					{loading && !AlbumSearchResults || !TrackSearchResults && (
-						<div className="flex items-center justify-center h-96">
-							<BounceLoader size={140} color="#36d7b7" />
-						</div>
-					)}
+					{(loading && !AlbumSearchResults) ||
+						(!TrackSearchResults && loading && (
+							<div className="flex items-center justify-center h-96">
+								<BounceLoader size={140} color="#36d7b7" />
+							</div>
+						))}
 					{AlbumSearchResults && (
 						<div className="space-y-10">
 							<h1 className="text-2xl font-semibold">Top Results</h1>

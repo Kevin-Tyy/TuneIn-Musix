@@ -9,7 +9,7 @@ const Header = ({ children }: { children: React.ReactNode }) => {
 	};
 
 	return (
-		<div className="h-fit bg-gradient-to-b from-primary-300 p-3 rounded-xl space-y-6 min-h-96">
+		<div className="h-fit bg-gradient-to-b from-primary-300 p-3 rounded-xl space-y-2 min-h-96">
 			<div className="w-full mb-4 flex items-center justify-between">
 				<BackButtons handleNext={handleNext} handlePrevious={handlePrevious} />
 				<div>
