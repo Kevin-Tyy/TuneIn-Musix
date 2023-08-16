@@ -22,7 +22,7 @@ const PlayLists: React.FC = () => {
 	if (user) {
 		placeholderUrl = useAvatar(user.username);
 	}
-	useEffect(() => {
+	const fetchPlaylists = () => {
 		axios
 			.get(`${ApiRoot}/playlist/${user?._id}`)
 			.then((response) => {
@@ -32,6 +32,9 @@ const PlayLists: React.FC = () => {
 			.catch((error) => {
 				console.log(error);
 			});
+	};
+	useEffect(() => {
+		fetchPlaylists();
 	}, []);
 	const handleFilterChange = (filterText: string) => {
 		const filtered = playlists.filter((playlist) =>
@@ -110,9 +113,7 @@ const PlayLists: React.FC = () => {
 				{!playlists.length && (
 					<div className="flex flex-col justify-center items-center h-96 gap-3">
 						<TfiMusicAlt size={50} />
-						<h1 className="text-lg select-none">
-							You have no playlists yet !
-						</h1>
+						<h1 className="text-lg select-none">You have no playlists yet !</h1>
 						<button
 							className="bg-gradient-to-br  from-primary-400 via-purple-600 to-pink-400 py-3 px-6 rounded-full hover:bg-primary-300 transition hover:scale-105"
 							onClick={() => setisModalOpen(true)}>
@@ -124,6 +125,7 @@ const PlayLists: React.FC = () => {
 			<PlaylistModal
 				onClose={() => setisModalOpen(false)}
 				isOpen={isModalOpen}
+				fetchPlaylists={fetchPlaylists}
 			/>
 		</>
 	);

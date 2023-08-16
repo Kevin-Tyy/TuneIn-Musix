@@ -11,7 +11,16 @@ import { loggedInUser } from "../../../redux/slices/Authslice";
 import clsx from "clsx";
 import { ClipLoader } from "react-spinners";
 import { useNavigate } from "react-router-dom";
-const PlaylistModal = ({ onClose, isOpen }: any) => {
+interface PlaylistModalProps {
+	onClose: () => void;
+	isOpen: boolean;
+	fetchPlaylists: () => void;
+}
+const PlaylistModal = ({
+	onClose,
+	isOpen,
+	fetchPlaylists,
+}: PlaylistModalProps) => {
 	const navigate = useNavigate();
 	const [loading, setLoading] = useState(false);
 	const [previewImage, setPreviewImage] = useState<any>(null);
@@ -63,6 +72,7 @@ const PlaylistModal = ({ onClose, isOpen }: any) => {
 			.then((response: AxiosResponse) => {
 				toast.success(response.data.msg);
 				onClose();
+				fetchPlaylists()
 			})
 			.catch((error) => {
 				if (error.response) {
@@ -73,6 +83,7 @@ const PlaylistModal = ({ onClose, isOpen }: any) => {
 			})
 			.finally(() => {
 				setLoading(false);
+
 			});
 	};
 	return (
