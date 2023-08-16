@@ -3,7 +3,7 @@ import { sidenav } from "../../../utils/constants";
 
 const SideNav = () => {
 	return (
-			<div className="w-[270px] h-[93vh] hidden md:flex full rounded-xl bg-neutral-900 flex-col gap-10 sticky top-[12px]">
+			<div className="w-[270px] h-[89vh] hidden md:flex full rounded-xl bg-neutral-900 flex-col gap-10 sticky top-[12px]">
 				{/* <Logo /> */}
 				<div className="flex flex-col justify-center h-full mb-48 gap-3 p-4">
 					{sidenav.map((item) => (

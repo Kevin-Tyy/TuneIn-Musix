@@ -8,8 +8,8 @@ const PlayerSlice = createSlice({
 		currentPlaylist: null,
 	},
 	reducers: {
-		playPause: (state, { payload }) => {
-			state.isPlaying = payload;
+		playPause: (state) => {
+			state.isPlaying = !state.isPlaying;
 		},
 		setCurrentTrack: (state, { payload }) => {
 			state.currentTrack = payload;
@@ -19,4 +19,3 @@ const PlayerSlice = createSlice({
 export const { playPause, setCurrentTrack } = PlayerSlice.actions;
 export default PlayerSlice.reducer;
 export const playerStatus = (state: any) => state.player;
-gi
