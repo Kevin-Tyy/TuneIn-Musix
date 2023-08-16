@@ -4,11 +4,13 @@ import { persistConfig } from "./config/persistConfig";
 import { combineReducers } from "redux";
 import { persistReducer } from "redux-persist";
 import AuthReducer from "../slices/Authslice";
-import AccountReducer from "../slices/AccountSlice";
+import AccountReducer from "../slices/Accountslice";
+import PlayerReducer from "../slices/PlayerSlice";
 
 const rootReducer = combineReducers({
-	account : AccountReducer,
+	account: AccountReducer,
 	auth: AuthReducer,
+	player: PlayerReducer,
 	// Add other reducers here
 });
 
