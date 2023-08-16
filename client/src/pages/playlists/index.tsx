@@ -14,8 +14,10 @@ const PlayLists: React.FC = () => {
 	const { user } = useSelector(loggedInUser) as { user: UserType };
 	const [isModalOpen, setisModalOpen] = useState(false);
 	const [playlists, setPlaylists] = useState<PlaylistItem[]>([]);
-	const [filteredPlaylists, setFilteredPlaylists] = useState<PlaylistItem[]>([]);
-	
+	const [filteredPlaylists, setFilteredPlaylists] = useState<PlaylistItem[]>(
+		[]
+	);
+
 	let placeholderUrl;
 	if (user) {
 		placeholderUrl = useAvatar(user.username);
@@ -25,18 +27,18 @@ const PlayLists: React.FC = () => {
 			.get(`${ApiRoot}/playlist/${user?._id}`)
 			.then((response) => {
 				setPlaylists(response.data);
-				setFilteredPlaylists(response.data)
+				setFilteredPlaylists(response.data);
 			})
 			.catch((error) => {
 				console.log(error);
 			});
 	}, []);
-	const handleFilterChange = (filterText : string) => {
+	const handleFilterChange = (filterText: string) => {
 		const filtered = playlists.filter((playlist) =>
-		  playlist.playlistName.toLowerCase().includes(filterText.toLowerCase())
+			playlist.playlistName.toLowerCase().includes(filterText.toLowerCase())
 		);
 		setFilteredPlaylists(filtered);
-	  };
+	};
 	return (
 		<>
 			<div className="space-y-10">
@@ -45,7 +47,7 @@ const PlayLists: React.FC = () => {
 						<div className="flex flex-col items-start space-y-5">
 							<h1 className="text-xl">Browse your favorite music</h1>
 							<div className="flex gap-4 items-end">
-								<div className="h-48 w-48 bg-gradient-to-br from-purple-700 to-gray-500 shadow flex items-center justify-center">
+								<div className="h-44 w-44 bg-gradient-to-br from-purple-700 to-gray-500 shadow flex items-center justify-center">
 									<TfiMusicAlt size={40} />
 								</div>
 								<div className="space-y-4">
@@ -79,14 +81,17 @@ const PlayLists: React.FC = () => {
 								</div>
 							</div>
 						</div>
-						<div className="">
+						<div>
 							<div className="flex flex-col items-start gap-4">
 								<h1 className="text-gray-500">
 									Your playlists can only be seen by you unless you make them
 									public
 								</h1>
 								<div className="flex gap-3 items-center w-full justify-start">
-									<PlaylistSearch playlists={filteredPlaylists} onFilterChange={handleFilterChange}/>
+									<PlaylistSearch
+										playlists={filteredPlaylists}
+										onFilterChange={handleFilterChange}
+									/>
 									<button
 										onClick={() => setisModalOpen(true)}
 										className="px-6 py-3 bg-gradient-to-br whitespace-nowrap from-primary-400 via-purple-600 to-pink-400 rounded-full hover:scale-105 transition active:scale-95 select-none">
@@ -102,6 +107,19 @@ const PlayLists: React.FC = () => {
 						<PlaylistBox item={item} key={index} />
 					))}
 				</div>
+				{!playlists.length && (
+					<div className="flex flex-col justify-center items-center h-96 gap-3">
+						<TfiMusicAlt size={50} />
+						<h1 className="text-lg select-none">
+							You have no playlists yet !
+						</h1>
+						<button
+							className="bg-gradient-to-br  from-primary-400 via-purple-600 to-pink-400 py-3 px-6 rounded-full hover:bg-primary-300 transition hover:scale-105"
+							onClick={() => setisModalOpen(true)}>
+							Create one
+						</button>
+					</div>
+				)}
 			</div>
 			<PlaylistModal
 				onClose={() => setisModalOpen(false)}

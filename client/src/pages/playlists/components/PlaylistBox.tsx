@@ -17,7 +17,10 @@ const PlaylistBox: React.FC<PlaylistBoxProps> = ({ item }) => {
 					<button className="relative w-full group flex items-center rounded-md overflow-hidden gap-x-4 bg-neutral-100/10 cursor-pointer hover:bg-neutral-100/20 transition pr-4">
 						<div className="relative h-28 w-28 bg-gradient-to-br from-purple-700 to-gray-400 flex items-center justify-center">
 							{item.playlistImage ? (
-								<img src={item.playlistImage} className="w-full object-cover" />
+								<img
+									src={item.playlistImage}
+									className="w-full h-28 object-cover"
+								/>
 							) : (
 								<TfiMusicAlt size={30} />
 							)}
@@ -25,8 +28,10 @@ const PlaylistBox: React.FC<PlaylistBoxProps> = ({ item }) => {
 						<div className="flex flex-col items-start space-y-2">
 							<p className="font-bold truncate">{item.playlistName}</p>
 							<p>
-								<span className="hover:underline">{item.user.username}</span> •{" "}
-								{item.songIds.length} song
+								<span className="hover:underline">
+									{item.user.username.split(" ")[0]}
+								</span>{" "}
+								• {item.songIds.length} song
 								{item.songIds.length !== 1 && "s"}
 							</p>
 							<p className="text-xs text-gray-400">

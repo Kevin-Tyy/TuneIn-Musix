@@ -3,7 +3,6 @@ import { useSelector } from "react-redux";
 import { userAccount } from "../../redux/slices/Accountslice";
 import { _getAlbums, _getTracks } from "../../api/fetch/config";
 import Header from "../../components/navigation/Header";
-import { BounceLoader } from "react-spinners";
 import { useNavigate } from "react-router-dom";
 import { BsHeartFill } from "react-icons/bs";
 import { loggedInUser } from "../../redux/slices/Authslice";
@@ -33,13 +32,13 @@ const LikedSongs: React.FC = () => {
 	}
 
 	return (
-		<div className="space-y-10">
+		<div className="space-y-5">
 			<Header>
 				<div className="space-y-2 pl-5">
-					<div className="flex flex-col items-start space-y-10">
+					<div className="flex flex-col items-start space-y-5">
 						<h1 className="text-xl">Browse your favorite music</h1>
 						<div className="flex gap-4 items-end">
-							<div className="h-48 w-48 bg-gradient-to-br from-purple-700 to-gray-500 shadow flex items-center justify-center">
+							<div className="h-44 w-44 bg-gradient-to-br from-purple-700 to-gray-500 shadow flex items-center justify-center">
 								<BsHeartFill size={40} />
 							</div>
 							<div className="space-y-4">
@@ -86,13 +85,13 @@ const LikedSongs: React.FC = () => {
 								))}
 							</div>
 						) : (
-							<div className="flex flex-col justify-center items-center h-96 gap-5">
+							<div className="flex flex-col justify-center items-center h-96 gap-3">
 								<TfiMusicAlt size={50} />
-								<h1 className="text-xl select-none">
+								<h1 className="text-lg select-none">
 									You haven't liked anything yet
 								</h1>
 								<button
-									className="bg-gradient-to-br  from-primary-400 via-purple-600 to-pink-400 py-4 px-6 rounded-full hover:bg-primary-300 transition hover:scale-105"
+									className="bg-gradient-to-br  from-primary-400 via-purple-600 to-pink-400 py-3 px-6 rounded-full hover:bg-primary-300 transition hover:scale-105"
 									onClick={() => navigate("/")}>
 									Explore more
 								</button>

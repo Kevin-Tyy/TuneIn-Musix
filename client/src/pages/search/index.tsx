@@ -10,6 +10,7 @@ import { toast } from "react-hot-toast";
 import { BounceLoader } from "react-spinners";
 import TrackBox from "../../components/TrackBox";
 import AlbumBox from "../../components/AlbumBox";
+import { TfiMusicAlt } from "react-icons/tfi";
 
 interface SearchResult<T> {
 	href: string;
@@ -97,22 +98,22 @@ const SearchPage: React.FC = () => {
 				</div>
 			</Header>
 			<div className="mt-5">
-				{!AlbumSearchResults ||
-					(!TrackSearchResults && (
-						<>
-							{recentMusic.length > 0 ? (
-								<div>
-									{recentMusic.map((_: any, index: number) => (
-										<p key={index}>RecentMusic at {index}</p>
-									))}
-								</div>
-							) : (
-								<div className="flex justify-center items-center">
-									<h1 className="text-xl">No Recent Music</h1>
-								</div>
-							)}
-						</>
-					))}
+				{!(AlbumSearchResults || TrackSearchResults) && (
+					<>
+						{recentMusic.length > 0 ? (
+							<div>
+								{recentMusic.map((_: any, index: number) => (
+									<p key={index}>RecentMusic at {index}</p>
+								))}
+							</div>
+						) : (
+							<div className="flex flex-col gap-3 justify-center items-center">
+								<TfiMusicAlt size={30} />
+								<h1 className="text-xl">No Recent searches</h1>
+							</div>
+						)}
+					</>
+				)}
 				<div className="px-4 mt-5">
 					{(loading && !AlbumSearchResults) ||
 						(!TrackSearchResults && loading && (
