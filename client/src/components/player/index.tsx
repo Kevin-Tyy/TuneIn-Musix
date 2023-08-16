@@ -1,28 +1,26 @@
-import SpotifyPlayer from "react-spotify-web-playback";
 
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { userAccount } from "../../redux/slices/Accountslice";
 import axios from "axios";
+import { playerStatus } from "../../redux/slices/PlayerSlice";
+// import axios from "axios";
 
 const Player = () => {
 	const { userToken } = useSelector(userAccount);
+  const { currentTrack } = useSelector(playerStatus)
   
 	useEffect(() => {
-		// getPlayer();
 	}, []);
-	// const getPlayer = async () => {
-	// 	const player = await axios.get("https://api.spotify.com/v1/me/player", {
-	// 		headers: {
-	// 			Authorization: "Bearer " + userToken,
-	// 		},
-	// 	});
-	// 	console.log(player);
-	// };
+
 	return (
-		<div className="text-white fixed bottom-0">
-			
-		</div>
+		<div className="bg-black fixed bottom-0 w-full h-[5vh] ring-1 ring-fuchsia-600">
+      <div className="flex items-center justify-between h-full">
+        <div>Song details</div>
+        <div>Playback</div>
+        <div>Effects</div>
+      </div>  
+    </div>
 	);
 };
 

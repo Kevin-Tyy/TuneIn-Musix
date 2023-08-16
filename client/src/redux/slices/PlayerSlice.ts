@@ -18,4 +18,5 @@ const PlayerSlice = createSlice({
 });
 export const { playPause, setCurrentTrack } = PlayerSlice.actions;
 export default PlayerSlice.reducer;
-export const loggedInUser = (state: any) => state.auth;
+export const playerStatus = (state: any) => state.player;
+gi

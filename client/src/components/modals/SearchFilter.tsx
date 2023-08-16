@@ -11,11 +11,7 @@ import { LuSettings2 } from "react-icons/lu";
 const filterOptions: string[] = [
 	"album",
 	"artist",
-	"playlist",
 	"track",
-	"show",
-	"episode",
-	"audiobook",
 ];
 const SearchFilter: React.FC<SearchFilterProps> = ({
 	searchFilter,
