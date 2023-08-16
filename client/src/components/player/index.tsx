@@ -38,7 +38,7 @@ const Player = () => {
 		<div className="bg-black fixed bottom-0 w-full h-[10vh] p-3 ">
 			<div className="flex items-center justify-between h-full ring-1 ring-neutral-900 rounded-md">
 				{currentTrack && (
-					<div className="h-full p-3 flex items-center gap-3">
+					<div className="h-full p-3 flex items-center gap-4">
 						<div className="h-full group relative">
 							<img
 								src={currentTrack.album.images[0].url!}
@@ -64,17 +64,17 @@ const Player = () => {
 								))}
 							</p>{" "}
 						</div>
-						<div>
+						<div className="ml-3">
 							{!savedMusic.includes(currentTrack.id) ? (
 								<BiHeart
 									size={22}
-									className="opacity-50 hover:opacity-100 cursor-pointer text-fuchsia-500 transition duration-500"
+									className="opacity-50 hover:opacity-100 cursor-pointer text-fuchsia-500 transition duration-500 active:animate-ping"
 									onClick={() => addToLikes(currentTrack.id)}
 								/>
 							) : (
 								<BsHeartFill
 									size={22}
-									className="opacity-50 hover:opacity-100 cursor-pointer text-fuchsia-500 transition duration-500"
+									className="opacity-50 hover:opacity-100 cursor-pointer text-fuchsia-500 transition duration-500 active:animate-ping"
 									onClick={() => addToLikes(currentTrack.id)}
 								/>
 							)}
