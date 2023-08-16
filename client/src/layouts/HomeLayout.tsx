@@ -23,7 +23,7 @@ const HomeLayout: React.FC = () => {
 		<div className="relative">
 			<div className="flex min-h-screen pt-3 px-3 gap-4 text-sm relative">
 				<SideNav />
-				<div className="w-full h-full text-white relative rounded-lg">
+				<div className="w-full h-full text-white relative rounded-lg pb-52">
 					<Outlet />
 				</div>
 			</div>

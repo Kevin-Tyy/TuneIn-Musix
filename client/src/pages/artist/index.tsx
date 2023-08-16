@@ -64,7 +64,7 @@ const Artist = () => {
 	const disabled = limit === tracks?.length;
 	const artistdisabled = artistlimit === relatedArtists.length;
 	return (
-		<section className="relative overflow-auto">
+		<section className="relative">
 			<div
 				className="h-fit overflow-hidden bg-cover bg-no-repeat bg-fixed bg-center relative rounded-xl"
 				style={{ backgroundImage: `url(${artist?.images[0]?.url!})` }}>
