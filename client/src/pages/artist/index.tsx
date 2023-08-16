@@ -7,7 +7,7 @@ import {
 	_getArtistData,
 	_getArtistRelated,
 } from "../../api/fetch/config";
-import { ArtistType, SearchResult, TrackType } from "../../types";
+import {ArtistType, SearchAlbumResult, TrackType } from "../../types";
 import ArtistBox from "../../components/ArtistBox";
 import clsx from "clsx";
 import { VscVerifiedFilled } from "react-icons/vsc";
@@ -24,7 +24,7 @@ const Artist = () => {
 	const { userToken } = useSelector(userAccount);
 	const [artist, setArtist] = useState<ArtistType>();
 	const [relatedArtists, setRelatedArtists] = useState<ArtistType[]>([]);
-	const [albums, setAlbums] = useState<SearchResult | null>(null);
+	const [albums, setAlbums] = useState<SearchAlbumResult | null>(null);
 	const [tracks, setTracks] = useState<TrackType[] | null>(null);
 	const handleNext = () => {
 		window.history.forward();
@@ -77,7 +77,7 @@ const Artist = () => {
 						<Navbar />
 					</div>
 				</div>
-				<div className="h-[600px] flex items-end">
+				<div className="h-[500px] flex items-end">
 					<div className="z-[10] p-10 space-y-5">
 						<div className="flex items-center">
 							<VscVerifiedFilled className="text-blue-500" size={20} />

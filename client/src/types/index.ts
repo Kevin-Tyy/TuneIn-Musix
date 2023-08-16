@@ -71,6 +71,7 @@ export interface AlbumType {
 	id: string;
 	images: ImageType[];
 	name: string;
+	total?: number
 	release_date: string;
 	release_date_precision: string;
 	total_tracks: number;

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import { useSelector } from "react-redux";
 import { userAccount } from "../../redux/slices/Accountslice";
 import { FiSearch } from "react-icons/fi";
@@ -38,10 +38,13 @@ const SearchPage: React.FC = () => {
 	const [isSearchFilterOpen, setIsSearchFilterOpen] = useState(false);
 	const [loading, setLoading] = useState(false);
 	const { userToken } = useSelector(userAccount);
+	const [limit, setLimit] = useState<number>(10);
 	const handleSearch = (e: any) => {
 		e.preventDefault();
 		if (!queryString) return;
-
+		searchResults();
+	};
+	const searchResults = useCallback(() => {
 		setLoading(true);
 		setAlumSearchResults(null);
 		setTrackSearchResults(null);
@@ -63,7 +66,7 @@ const SearchPage: React.FC = () => {
 			.finally(() => {
 				setLoading(false);
 			});
-	};
+	}, [queryString, searchFilter]);
 
 	return (
 		<div>
@@ -71,14 +74,14 @@ const SearchPage: React.FC = () => {
 				<div className="h-16 flex items-end">
 					<h1 className="text-xl">Browse your favorite music</h1>
 				</div>
-				<div className="mt-10  rounded-3xl w-full  max-w-2xl space-y-6">
+				<div className="mt-10  rounded-3xl w-full  max-w-xl space-y-6">
 					<form onSubmit={handleSearch}>
-						<div className=" bg-neutral-100/10 focus-within:ring-1 ring-inset ring-gray-600 px-4 py-2 rounded-md flex items-center gap-3">
+						<div className=" bg-neutral-100/10 focus-within:ring-1 ring-inset ring-fuchsia-600 transition duration-300 px-1 pl-3 py-1 rounded-md flex items-center gap-3">
 							<button className=" text-white rounded-full">
 								<FiSearch size={15} />
 							</button>
 							<input
-								className=" w-full bg-transparent text-sm outline-none"
+								className=" w-full bg-transparent text-xs outline-none"
 								placeholder="Search"
 								value={queryString as string}
 								onChange={(e) => setQueryString(e.target.value)}
@@ -135,10 +138,19 @@ const SearchPage: React.FC = () => {
 						<div className="space-y-10">
 							<h1 className="text-2xl font-semibold">Top Results</h1>
 							<div className="flex flex-col gap-3">
-								{TrackSearchResults?.items.map((item, index) => (
-									<TrackBox item={item} key={index} index={index} />
-								))}
+								{TrackSearchResults?.items
+									.slice(0, limit)
+									.map((item, index) => (
+										<TrackBox item={item} key={index} index={index} />
+									))}
 							</div>
+
+							<button
+								className="bg-gradient-to-br  from-primary-400 via-purple-600 to-pink-400 py-3 px-6 rounded-full hover:bg-primary-300 transition hover:scale-105"
+								onClick={() => setLimit(limit + 10)}
+								disabled={limit >= TrackSearchResults?.items.length}>
+								View more
+							</button>
 						</div>
 					)}
 				</div>
