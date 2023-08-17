@@ -13,7 +13,7 @@ const Logo = ({
 			<img src={logo} alt="logo" className="w-7 h-7" />
 			<p
 				className={clsx(
-					"text-xl -tracking-[1px] text-white whitespace-nowrap overflow-hidden transition-all",
+					"text-xl -tracking-[1px] text-white whitespace-nowrap overflow-hidden transition-all duration-500",
 					isExpanded ? "w-20" : "w-0"
 				)}>
 				Tune In

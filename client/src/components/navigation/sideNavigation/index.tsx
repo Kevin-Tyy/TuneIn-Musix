@@ -12,7 +12,7 @@ import {
 } from "react-icons/tb";
 import clsx from "clsx";
 const SideNav = () => {
-	const [isExpanded, setIsExpanded] = useState(true);
+ 	const [isExpanded, setIsExpanded] = useState(true);
 	const { user } = useSelector(loggedInUser) as { user: UserType };
 	let placeholderUrl;
 	if (user) {
@@ -24,7 +24,7 @@ const SideNav = () => {
 	return (
 		<div
 			className={clsx(
-				" h-[89vh] z-50 hidden md:flex full rounded-xl bg-neutral-950 flex-col gap-10 sticky top-[12px] p-3 transition-all",
+				" h-[89vh] z-50 hidden md:flex full rounded-xl bg-neutral-950 flex-col gap-10 sticky top-[12px] p-3 transition-all duration-500",
 				isExpanded ? "w-[350px]" : "w-20"
 			)}>
 			<div className="flex justify-between">
@@ -40,19 +40,19 @@ const SideNav = () => {
 						to={item.link!}
 						className={({
 							isActive,
-						}) => `group flex gap-5 items-center justify-center text-white rounded-md ring-1 ring-inset ring-neutral-800/50  transition-all "
+						}) => `group flex gap-5 items-center justify-center text-white rounded-md ring-1 ring-inset ring-neutral-800/50  transition-all duration-500 "
 							${isActive && "ring-1  ring-neutral-700 bg-primary-400"}
 							${isExpanded ? "p-[13px]" : "py-3 gap-0"}
 						`}>
 						{<item.icon size={23} />}
 						<p
-							className={`overflow-hidden whitespace-nowrap transition-all ${
+							className={`overflow-hidden whitespace-nowrap transition-all duration-500 ${
 								isExpanded ? "w-52" : "w-0"
 							}`}>
 							{item.title}
 						</p>
 						{!isExpanded && (
-							<div className="absolute left-full z-[999] rounded-md px-5 py-3 ring-1 ring-inset ring-neutral-700 ml-6 whitespace-nowrap bg-neutral-800 invisible opacity-0 -translate-x-3 duration-300 transition-all group-hover:visible group-hover:opacity-100 group-hover:translate-x-0">
+							<div className="absolute left-full z-[999] rounded-md px-5 py-3 ring-1 ring-inset ring-neutral-700 ml-6 whitespace-nowrap bg-neutral-800 invisible opacity-0 -translate-x-3 transition-all duration-500 group-hover:visible group-hover:opacity-100 group-hover:translate-x-0">
 								{item.title}
 							</div>
 						)}
@@ -70,7 +70,7 @@ const SideNav = () => {
 					)}
 					<div
 						className={clsx(
-							"flex justify-between items-center transition-all overflow-hidden",
+							"flex justify-between items-center transition-all duration-500 overflow-hidden",
 							isExpanded ? "w-52 ml-3" : "w-0"
 						)}>
 						<div className="leading-8 text-white">

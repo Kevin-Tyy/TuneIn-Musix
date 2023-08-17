@@ -99,13 +99,13 @@ const TrackBox: React.FC<TrackBoxProps> = ({ item, index }) => {
 					{!savedMusic.includes(item.id) ? (
 						<BiHeart
 							size={22}
-							className="opacity-0 hover:opacity-100 group-hover:opacity-50 text-fuchsia-500 transition duration-500"
+							className="opacity-0 hover:opacity-100 group-hover:opacity-50 text-fuchsia-500 transition duration-500 active:animate-ping"
 							onClick={() => addToLikes(item.id)}
 						/>
 					) : (
 						<BsHeartFill
 							size={22}
-							className="opacity-50 hover:opacity-100 hidden group-hover:block text-fuchsia-500 transition duration-500"
+							className="opacity-50 hover:opacity-100 hidden group-hover:block text-fuchsia-500 transition duration-500 active:animate-ping"
 							onClick={() => addToLikes(item.id)}
 						/>
 					)}

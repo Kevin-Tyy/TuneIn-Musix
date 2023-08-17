@@ -68,7 +68,6 @@ const Profile = () => {
 						{isModalOpen && (
 							<div ref={popUpRef}>
 								<ProfileModal
-									isOpen={isModalOpen}
 									onClose={() => setisModalOpen(false)}
 								/>
 							</div>
