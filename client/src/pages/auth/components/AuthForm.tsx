@@ -11,6 +11,7 @@ import { toast } from "react-hot-toast";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { login } from "../../../redux/slices/Authslice";
+import { ClipLoader } from "react-spinners";
 const AuthForm = () => {
 	const [variant, setVariant] = useState<"LOGIN" | "REGISTER">("LOGIN");
 	const [loading, setLoading] = useState<boolean>(false);
@@ -78,33 +79,31 @@ const AuthForm = () => {
 	};
 	useEffect(() => {
 		const token = new URLSearchParams(location.search).get("token");
-		console.log(token);
-		if (token) {
-			window.history.replaceState({}, document.title, "/");
+		if (!token) return;
 
-			setLoading(true);
-			axios
-				.get(`${ApiRoot}/user/getuser`, {
-					headers: {
-						Authorization: token,
-					},
-				})
-				.then((response: AxiosResponse) => {
-					toast.success(response.data.msg);
-					console.log(response.data.user);
+		window.history.replaceState({}, document.title, "/");
+		setLoading(true);
+		axios
+			.get(`${ApiRoot}/user/getuser`, {
+				headers: {
+					Authorization: token,
+				},
+			})
+			.then((response: AxiosResponse) => {
+				toast.success(response.data.msg);
+				console.log(response.data.user);
 
-					dispatch(login(response.data.user));
-					navigate("/");
-				})
-				.catch((error) => {
-					if (error.response) {
-						toast.error(error?.response?.data?.msg);
-					} else {
-						toast.error("Something went wrong");
-					}
-				})
-				.finally(() => setLoading(false));
-		}
+				dispatch(login(response.data.user));
+				navigate("/");
+			})
+			.catch((error) => {
+				if (error.response) {
+					toast.error(error?.response?.data?.msg);
+				} else {
+					toast.error("Something went wrong");
+				}
+			})
+			.finally(() => setLoading(false));
 	}, []);
 
 	return (
@@ -137,6 +136,7 @@ const AuthForm = () => {
 				/>
 				<div>
 					<Button disabled={loading}>
+						{loading && <ClipLoader size={20} color="#ffffff"/>}
 						{variant === "LOGIN" ? "Sign in " : "Register"}
 					</Button>
 				</div>

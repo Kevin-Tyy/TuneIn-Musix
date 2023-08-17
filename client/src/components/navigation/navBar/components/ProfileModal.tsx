@@ -1,19 +1,12 @@
 import { MdClose } from "react-icons/md";
-import { useDispatch } from "react-redux";
-import { logout } from "../../../../redux/slices/Authslice";
 
+const settings = [
+	{ title: "Profile", link: "#" },
+	{ title: "Your playlists", link: "#" },
+	{ title: "Your activity", link: "#" },
+	{ title: "Logout", link: "#" },
+];
 const ProfileModal = ({ onClose }: any) => {
-	const dispatch = useDispatch()
-	const handleLogout = () => {
-		dispatch(logout)
-	}
-	
-	const settings = [
-		{ title: "Profile", link: "#" },
-		{ title: "Your playlists", link: "#" },
-		{ title: "Your activity", link: "#" },
-		{ title: "Logout", onClick : handleLogout()},
-	];
 	return (
 		<div className="absolute right-0 overflow-hidden rounded-lg animate-slideup bg-neutral-900 px-1  pb-4  pt-5 text-left shadow-xl transition-all w-full sm:my-5 sm:w-full sm:max-w-lg">
 			<button
