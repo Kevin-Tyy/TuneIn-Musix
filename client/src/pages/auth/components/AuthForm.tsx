@@ -35,6 +35,7 @@ const AuthForm = () => {
 
 	const onSubmit: SubmitHandler<FieldValues> = (data) => {
 		setLoading(true);
+	
 		if (variant === "REGISTER") {
 			axios
 				.post(`${ApiRoot}/user/register`, data)
@@ -136,8 +137,11 @@ const AuthForm = () => {
 				/>
 				<div>
 					<Button disabled={loading}>
-						{loading && <ClipLoader size={20} color="#ffffff"/>}
-						{variant === "LOGIN" ? "Sign in " : "Register"}
+						{loading && <ClipLoader size={20} color="#ffffff" />}
+						{!loading && (
+							<span>{variant === "LOGIN" ? "Sign in " : "Register"}</span>
+						)}
+						{loading && "Processing..."}
 					</Button>
 				</div>
 			</form>
