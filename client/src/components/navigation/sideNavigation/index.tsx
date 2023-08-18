@@ -24,7 +24,7 @@ const SideNav = () => {
 	return (
 		<div
 			className={clsx(
-				" h-[89vh] z-50 hidden md:flex full rounded-xl bg-neutral-950 flex-col gap-10 sticky top-[12px] p-3 transition-all duration-500",
+				" h-[90vh] z-50 hidden lg:flex full rounded-xl bg-neutral-950 flex-col gap-10 sticky top-[12px] p-3 transition-all duration-500",
 				isExpanded ? "w-[350px]" : "w-20"
 			)}>
 			<div className="flex justify-between">
