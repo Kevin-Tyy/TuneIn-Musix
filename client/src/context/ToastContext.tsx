@@ -11,6 +11,7 @@ const ToasterContext: FC<ToastContextProps> = ({ children }) => {
 					style: {
 						fontSize: "14px",
 						padding : '13px',
+						textAlign : 'center'
 					},
 				}}
 			/>

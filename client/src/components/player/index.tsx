@@ -41,8 +41,8 @@ const Player = () => {
 
 	return (
 		<div className="bg-black fixed bottom-0 w-full h-[9vh] px-3 pt-3 pb-2">
-			<div className="flex items-center justify-between h-full ring-1 ring-neutral-900 rounded-md">
-				<div className="h-full p-3 flex items-center gap-4">
+			<div className="grid grid-cols-3 h-full ring-1 ring-neutral-900 rounded-md">
+				<div className="h-full p-3 flex items-center justify-start  gap-4">
 					{currentTrack && (
 						<div>
 							<div className="h-full group relative">
@@ -90,7 +90,7 @@ const Player = () => {
 				</div>
 				<div
 					className={clsx(
-						"self-center flex items-center space-x-10",
+						"justify-center flex items-center space-x-10",
 						disabled && "opacity-40"
 					)}>
 					<button disabled={disabled}>
@@ -116,7 +116,7 @@ const Player = () => {
 						<BsRepeat className="text-white" size={15} onClick={() => {}} />
 					</button>
 				</div>
-				<div className="text-white pr-10 flex items-center gap-10">
+				<div className="text-white pr-10 flex items-center justify-end gap-10">
 					<div className="cursor-pointer">
 						<TbMicrophone2 size={20} />
 					</div>

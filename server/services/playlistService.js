@@ -47,5 +47,23 @@ class playlistService {
 			throw new Error(error);
 		}
 	};
+	deletePlaylist = async ({ id }) => {
+		try {
+			const playlist = await PlaylistModel.findByIdAndDelete(id);
+			if (playlist) {
+				return playlist;
+			}
+		} catch (error) {
+			throw new Error(error);
+		}
+	};
+	updatePlaylist = async ({ id }, data) => {
+		try {
+			const playlist = await PlaylistModel.findByIdAndUpdate(id, { $set: { ...data } });
+			return playlist
+		} catch (error) {
+			throw new Error(error);
+		}
+	};
 }
 export default new playlistService();

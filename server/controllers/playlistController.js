@@ -33,16 +33,45 @@ class PlayListController {
 	};
 	getSinglePlaylist = async (req, res) => {
 		try {
-			const playlist = await playlistService.getPlaylist(req.params)
+			const playlist = await playlistService.getPlaylist(req.params);
 			if (playlist) {
 				return res.status(200).json(playlist);
-			}
-			else{
-				return res.json('Playlist not found')
+			} else {
+				return res.json("Playlist not found");
 			}
 		} catch (error) {
 			res.status(500).json({ msg: "Something went wrong" });
-			
+		}
+	};
+	deletePlaylist = async (req, res) => {
+		try {
+			const deletedPlaylist = await playlistService.deletePlaylist(req.params);
+			{
+				deletedPlaylist
+					? res.status(200).json({ msg: "playlist deleted" })
+					: res
+							.status(400)
+							.json({ msg: "Couldn't delete playlist\n Try again later" });
+			}
+		} catch (error) {
+			res.status(500).json({ msg: "Something went wrong" });
+		}
+	};
+	updatePlaylist = async (req, res) => {
+		try {
+			const updatedPlaylist = await playlistService.updatePlaylist(
+				req.params,
+				req.body
+			);
+			{
+				updatedPlaylist
+					? res.status(200).json({ msg: "playlist Updated" })
+					: res
+							.status(400)
+							.json({ msg: "Couldn't update playlist \n Try again later" });
+			}
+		} catch (error) {
+			res.status(500).json({ msg: "Something went wrong" });
 		}
 	};
 }

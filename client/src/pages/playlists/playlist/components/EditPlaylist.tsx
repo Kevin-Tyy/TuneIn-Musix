@@ -1,35 +1,36 @@
 import { TfiMusicAlt } from "react-icons/tfi";
-import Modal from "../../../components/modals/modal";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { useState } from "react";
 import { BiPencil } from "react-icons/bi";
 import axios, { AxiosResponse } from "axios";
-import { ApiRoot } from "../../../api/config/apiRoot";
 import { toast } from "react-hot-toast";
 import { useSelector } from "react-redux";
-import { loggedInUser } from "../../../redux/slices/Authslice";
 import clsx from "clsx";
 import { ClipLoader } from "react-spinners";
 import { useNavigate } from "react-router-dom";
-interface PlaylistModalProps {
+import { loggedInUser } from "../../../../redux/slices/Authslice";
+import { ApiRoot } from "../../../../api/config/apiRoot";
+import Modal from "../../../../components/modals/modal";
+import { PlaylistItem } from "../../../../types";
+interface EditPlayListModalProps {
 	onClose: () => void;
 	isOpen: boolean;
-	fetchPlaylists: () => void;
+	playlist: PlaylistItem | null;
 }
-const PlaylistModal = ({
+const EditPlayListModal = ({
 	onClose,
 	isOpen,
-	fetchPlaylists,
-}: PlaylistModalProps) => {
+	playlist,
+}: EditPlayListModalProps) => {
 	const navigate = useNavigate();
 	const [loading, setLoading] = useState(false);
 	const [previewImage, setPreviewImage] = useState<any>(null);
 	const { user } = useSelector(loggedInUser);
 	const { register, handleSubmit, watch, setValue } = useForm<FieldValues>({
 		defaultValues: {
-			playlistName: "",
-			playlistDescription: "",
-			playlistImage: "",
+			playlistName: playlist?.playlistName,
+			playlistDescription: playlist?.playlistDescription || "",
+			playlistImage: playlist?.playlistImage || "",
 		},
 	});
 	if (!user) {
@@ -42,7 +43,7 @@ const PlaylistModal = ({
 						</h1>
 					</div>
 					<p className="text-white text-center">
-						Please login to create a playlist
+						Please Edit to create a playlist
 					</p>
 					<button
 						className="bg-white px-4 py-2 rounded-full text-sm self-end"
@@ -53,7 +54,6 @@ const PlaylistModal = ({
 			</Modal>
 		);
 	}
-	const { _id } = user;
 	const selectedImage = watch("playlistImage");
 	const handleImageUpload = (e: any) => {
 		const file = e.target.files[0];
@@ -68,11 +68,10 @@ const PlaylistModal = ({
 	const onSubmit: SubmitHandler<FieldValues> = (data: any) => {
 		setLoading(true);
 		axios
-			.post(`${ApiRoot}/playlist/create`, { ...data, userId: _id })
+			.patch(`${ApiRoot}/playlist/single/${playlist?._id}`, { ...data })
 			.then((response: AxiosResponse) => {
 				toast.success(response.data.msg);
 				onClose();
-				fetchPlaylists()
 			})
 			.catch((error) => {
 				if (error.response) {
@@ -83,14 +82,13 @@ const PlaylistModal = ({
 			})
 			.finally(() => {
 				setLoading(false);
-
 			});
 	};
 	return (
 		<Modal isOpen={isOpen} onClose={onClose}>
 			<div className="space-y-4">
 				<div className="border-b border-gray-700 pb-3">
-					<h1 className="text-xl text-white text-center">Create a playlist</h1>
+					<h1 className="text-xl text-white text-center">Edit playlist</h1>
 				</div>
 				<form onSubmit={handleSubmit(onSubmit)} className="">
 					<div className="flex gap-4">
@@ -115,8 +113,8 @@ const PlaylistModal = ({
 						<input
 							type="file"
 							id="profileImage"
-							className="hidden"
 							accept="image/*"
+							className="hidden"
 							onChange={handleImageUpload}
 							disabled={loading}
 						/>
@@ -161,4 +159,4 @@ const PlaylistModal = ({
 	);
 };
 
-export default PlaylistModal;
+export default EditPlayListModal;

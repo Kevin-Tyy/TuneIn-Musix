@@ -30,7 +30,7 @@ const App = () => {
 					element: <HomePage />,
 				},
 				{
-					path: "profile",
+					path: "profile/:username",
 					element: <ProfilePage />,
 				},
 				{

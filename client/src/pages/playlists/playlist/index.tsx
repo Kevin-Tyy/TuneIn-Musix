@@ -1,32 +1,45 @@
+//import utils hooks, types and helpers
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import { ApiRoot } from "../../../api/config/apiRoot";
 import { PlaylistItem, TrackType } from "../../../types";
+import useAvatar from "../../../hooks/useAvatar";
+import { _getRecommended, _getTracks } from "../../../api/fetch/config";
+
+//import icons, loading and ui components
 import { toast } from "react-hot-toast";
 import { FiSearch } from "react-icons/fi";
-
 import { ClipLoader } from "react-spinners";
 import Header from "../../../components/navigation/Header";
 import { TfiMusicAlt } from "react-icons/tfi";
-import useAvatar from "../../../hooks/useAvatar";
-import { useSelector } from "react-redux";
-import { loggedInUser } from "../../../redux/slices/Authslice";
 import PlayButton from "../../../components/PlayButton";
 import { HiDotsHorizontal } from "react-icons/hi";
-import { _getRecommended, _getTracks } from "../../../api/fetch/config";
-import { userAccount } from "../../../redux/slices/Accountslice";
 import Trackbox from "../../../components/TrackBox";
+
+//import redux functions and toolkit functions
+import { loggedInUser } from "../../../redux/slices/Authslice";
+import { useSelector } from "react-redux";
+import { userAccount } from "../../../redux/slices/Accountslice";
+
+// import modals
 import SettingsModal from "./components/SettingsModal";
+import EditPlayListModal from "./components/EditPlaylist";
+import Delete from "./components/Delete";
+
 const Playlist = () => {
 	const { id } = useParams();
 	const { userToken } = useSelector(userAccount);
 	const [playlistData, setPlaylistData] = useState<PlaylistItem | null>(null);
 	const [loading, setLoading] = useState<boolean>(false);
 	const [tracks, setTracks] = useState<TrackType[] | null>(null);
+	const [isModalOpen, setisModalOpen] = useState(false);
+	const [deleteModal, setDeleteModal] = useState(false);
 	const [isExpanded, setIsExpanded] = useState(false);
 	const [isSettingsOpen, setIsSettingsOpen] = useState(false);
 	const { user } = useSelector(loggedInUser);
+	
+	//refs for popups
 	const searchRef = useRef<HTMLDivElement>(null);
 	const settingsRef = useRef<HTMLDivElement>(null);
 	const navigate = useNavigate();
@@ -83,6 +96,7 @@ const Playlist = () => {
 	document.addEventListener("mousedown", handleSettingsOutsideClick);
 	return (
 		<div>
+			{/* header component */}
 			<Header>
 				<div className="space-y-7">
 					<div className="flex gap-4 items-end">
@@ -137,7 +151,10 @@ const Playlist = () => {
 								/>
 								{isSettingsOpen && (
 									<div ref={settingsRef}>
-										<SettingsModal show={isSettingsOpen} />
+										<SettingsModal
+											viewEditModal={() => setisModalOpen(true)}
+											deletePlaylist={() => setDeleteModal(true)}
+										/>
 									</div>
 								)}
 							</div>
@@ -195,6 +212,16 @@ const Playlist = () => {
 					</div>
 				)}
 			</div>
+
+			
+			{/* functionality modals */}
+
+			<EditPlayListModal
+				isOpen={isModalOpen}
+				onClose={() => setisModalOpen(false)}
+				playlist={playlistData}
+			/>
+			<Delete isOpen={deleteModal} onClose={() => setDeleteModal(false)} playlistId={id!}/>
 		</div>
 	);
 };
