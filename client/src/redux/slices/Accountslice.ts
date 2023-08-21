@@ -29,6 +29,8 @@ const userAccountSlice = createSlice({
 		addRecentMusic: (state, { payload }) => {
 			state.recentMusic.push(payload);
 		},
+		
+		
 	},
 });
 

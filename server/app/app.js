@@ -18,7 +18,7 @@ app.use(json({ limit: "30mb" }));
 
 app.use(
 	session({
-		secret: "your-session-secret",
+		secret: process.env.SESSION_SECRET || 'session',
 		resave: false,
 		saveUninitialized: false,
 	})
@@ -35,5 +35,10 @@ passportAuth();
 
 //api endpoint route handlers
 app.use("/api/v1", router);
+
+//invalid api call
+app.all("*", (req, res) => {
+	res.status(404).json("Resource not found");
+});
 
 export default app;

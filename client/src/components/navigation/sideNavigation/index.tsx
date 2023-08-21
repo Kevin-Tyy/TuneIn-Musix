@@ -7,13 +7,13 @@ import { loggedInUser } from "../../../redux/slices/Authslice";
 import useAvatar from "../../../hooks/useAvatar";
 import { UserType } from "../../../types";
 import { FiMoreVertical } from "react-icons/fi";
-import {
-	TbLayoutSidebarRightExpand,
-} from "react-icons/tb";
+import { TbLayoutSidebarRightExpand } from "react-icons/tb";
 import clsx from "clsx";
+import { userAccount } from "../../../redux/slices/Accountslice";
 const SideNav = () => {
- 	const [isExpanded, setIsExpanded] = useState(true);
+	const [isExpanded, setIsExpanded] = useState(true);
 	const { user } = useSelector(loggedInUser) as { user: UserType };
+	const { savedMusic } = useSelector(userAccount);
 	let placeholderUrl;
 	if (user) {
 		placeholderUrl = useAvatar(user.username);
@@ -21,7 +21,7 @@ const SideNav = () => {
 	const handleToggle = () => {
 		setIsExpanded((currentState) => !currentState);
 	};
-	
+
 	return (
 		<div
 			className={clsx(
@@ -35,13 +35,13 @@ const SideNav = () => {
 				</span>
 			</div>
 			<div className="flex flex-col justify-center h-full mb-48 gap-3 ">
-				{sidenav.map((item) => (
+				{sidenav.map((item, index) => (
 					<NavLink
 						key={item.title}
 						to={item.link!}
 						className={({
 							isActive,
-						}) => `group flex gap-5 items-center justify-center text-white rounded-md ring-1 ring-inset ring-neutral-800/50  transition-all duration-500 "
+						}) => `group relative flex gap-5 items-center justify-center text-white rounded-md ring-1 ring-inset ring-neutral-800/50  transition-all duration-500 "
 							${isActive && "ring-1  ring-neutral-700 bg-primary-400"}
 							${isExpanded ? "p-[13px]" : "py-3 gap-0"}
 						`}>
@@ -52,6 +52,11 @@ const SideNav = () => {
 							}`}>
 							{item.title}
 						</p>
+						{index === 3 && savedMusic.length !== 0 && 
+							<p className="absolute bg-red-700 w-6 text-sm h-6 flex items-center justify-center rounded-full text-white -right-1 -top-1">
+								{savedMusic.length}
+							</p>
+						}
 						{!isExpanded && (
 							<div className="absolute left-full z-[999] rounded-md px-5 py-3 ring-1 ring-inset ring-neutral-700 ml-6 whitespace-nowrap bg-neutral-800 invisible opacity-0 -translate-x-3 transition-all duration-500 group-hover:visible group-hover:opacity-100 group-hover:translate-x-0">
 								{item.title}

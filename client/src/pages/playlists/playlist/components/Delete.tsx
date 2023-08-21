@@ -43,7 +43,7 @@ const Delete: React.FC<DeleteModalProps> = ({
 							"text-red-600 ring-1 px-6 py-2 ring-red-700 rounded-full hover:bg-red-700/10",
 							loading && "opacity-50"
 						)}>
-						{loading ? <ClipLoader size={20} /> : "Delete"}
+						{loading ? <ClipLoader size={20} color="white"/> : "Delete"}
 					</button>
 					<div
 						onClick={onClose}

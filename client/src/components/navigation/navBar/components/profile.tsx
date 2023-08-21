@@ -5,10 +5,13 @@ import { UserType } from "../../../../types";
 import { settings } from "../../../../utils/constants";
 import ProfileModal from "./ProfileModal";
 import { useState, useRef, useEffect } from "react";
+import LogoutModal from "./logoutModal";
 const Profile = () => {
 	const user: UserType = useCurrentUser();
 	const navigate = useNavigate();
 	const [isModalOpen, setisModalOpen] = useState(false);
+	const [viewLogoutModal, setViewLogoutModal] = useState(false);
+
 	const popUpRef = useRef<HTMLDivElement>(null);
 
 	const handleNavigate = () => {
@@ -67,11 +70,13 @@ const Profile = () => {
 						</div>
 						{isModalOpen && (
 							<div ref={popUpRef}>
-								<ProfileModal
-									onClose={() => setisModalOpen(false)}
-								/>
+								<ProfileModal setViewLogoutModal={setViewLogoutModal} />
 							</div>
 						)}
+						<LogoutModal
+							isOpen={viewLogoutModal}
+							onClose={() => setViewLogoutModal(false)}
+						/>
 					</div>
 				</div>
 			</>
