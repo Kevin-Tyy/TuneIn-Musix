@@ -30,7 +30,7 @@ const Input: FC<InputProps> = ({
 				type={type}
 				placeholder={placeholder}
 				className={clsx(
-					"bg-transparent outline-none text-white text-sm placeholder:text-gray-500 w-full"
+					"bg-transparent outline-none text-white placeholder:text-gray-500 w-full"
 				)}
 				{...register(id)}
 			/>

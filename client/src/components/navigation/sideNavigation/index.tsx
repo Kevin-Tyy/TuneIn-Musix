@@ -21,6 +21,7 @@ const SideNav = () => {
 	const handleToggle = () => {
 		setIsExpanded((currentState) => !currentState);
 	};
+	
 	return (
 		<div
 			className={clsx(

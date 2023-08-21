@@ -149,7 +149,7 @@ const AuthForm = () => {
 				<div className="flex items-center">
 					<div className="w-full border-t border-gray-500" />
 					<div className="w-full flex justify-center">
-						<span className="px-2 text-gray-500 text-sm text-center whitespace-nowrap">
+						<span className="px-2 text-gray-500 text-center whitespace-nowrap">
 							Or continue with
 						</span>
 					</div>
@@ -168,7 +168,7 @@ const AuthForm = () => {
 					/>
 				</div>
 			</div>
-			<div className="flex gap-2 justify-center text-sm px-2 mt-6 text-gray-500">
+			<div className="flex gap-2 justify-center  px-2 mt-6 text-gray-500">
 				<div className="flex flex-wrap gap-2">
 					<span>
 						{variant === "LOGIN"

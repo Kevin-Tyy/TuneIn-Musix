@@ -26,19 +26,24 @@ import { userAccount } from "../../../redux/slices/Accountslice";
 import SettingsModal from "./components/SettingsModal";
 import EditPlayListModal from "./components/EditPlaylist";
 import Delete from "./components/Delete";
+import ShareModal from "./components/ShareModal";
 
 const Playlist = () => {
 	const { id } = useParams();
 	const { userToken } = useSelector(userAccount);
 	const [playlistData, setPlaylistData] = useState<PlaylistItem | null>(null);
-	const [loading, setLoading] = useState<boolean>(false);
 	const [tracks, setTracks] = useState<TrackType[] | null>(null);
+	const { user } = useSelector(loggedInUser);
+
+	//loading states
+	const [loading, setLoading] = useState<boolean>(false);	
+	//modal states
 	const [isModalOpen, setisModalOpen] = useState(false);
 	const [deleteModal, setDeleteModal] = useState(false);
 	const [isExpanded, setIsExpanded] = useState(false);
+	const [shareModal, setShareModal] = useState(false);
 	const [isSettingsOpen, setIsSettingsOpen] = useState(false);
-	const { user } = useSelector(loggedInUser);
-	
+
 	//refs for popups
 	const searchRef = useRef<HTMLDivElement>(null);
 	const settingsRef = useRef<HTMLDivElement>(null);
@@ -152,8 +157,10 @@ const Playlist = () => {
 								{isSettingsOpen && (
 									<div ref={settingsRef}>
 										<SettingsModal
+											closeModal = {setIsSettingsOpen}
 											viewEditModal={() => setisModalOpen(true)}
 											deletePlaylist={() => setDeleteModal(true)}
+											viewShareModal={() => setShareModal(true)}
 										/>
 									</div>
 								)}
@@ -222,6 +229,7 @@ const Playlist = () => {
 				playlist={playlistData}
 			/>
 			<Delete isOpen={deleteModal} onClose={() => setDeleteModal(false)} playlistId={id!}/>
+			<ShareModal isOpen={shareModal} onClose={() => setShareModal(false)}/>
 		</div>
 	);
 };

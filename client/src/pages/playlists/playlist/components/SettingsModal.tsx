@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 
 type settingsType = {
 	name: string;
@@ -6,14 +7,26 @@ type settingsType = {
 interface SettingsModalProps {
 	viewEditModal: () => any;
 	deletePlaylist: () => any;
+	closeModal: (value: any) => void;
+	viewShareModal: () => any;
 }
 const SettingsModal = ({
 	viewEditModal,
 	deletePlaylist,
+	viewShareModal,
+	closeModal,
 }: SettingsModalProps) => {
+	const navigate = useNavigate()
 	const settings: settingsType[] = [
-		{ name: "View playlist" },
-		{ name: "Create a new playlist" },
+		{
+			name: "View playlist",
+			onClick: function () {
+				closeModal(false);
+			},
+		},
+		{ name: "Create a new playlist" , onClick : function () {
+			navigate('/playlists')
+		}},
 		{
 			name: "Delete playlist",
 			onClick: function () {
@@ -26,8 +39,18 @@ const SettingsModal = ({
 				viewEditModal();
 			},
 		},
-		{ name: "Share" },
-		{ name: "Add more songs" },
+		{
+			name: "Share",
+			onClick: function () {
+				viewShareModal();
+			},
+		},
+		{
+			name: "Add more songs",
+			onClick: function () {
+				closeModal(false);
+			},
+		},
 	];
 	return (
 		<div className="animate-slideup absolute -right-52 w-[240px] bg-neutral-800 p-1 rounded-md">
