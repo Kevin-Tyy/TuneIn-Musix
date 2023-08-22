@@ -41,7 +41,7 @@ const SideNav = () => {
 						to={item.link!}
 						className={({
 							isActive,
-						}) => `group relative flex gap-5 items-center justify-center text-white rounded-md ring-1 ring-inset ring-neutral-800/50  transition-all duration-500 "
+						}) => `group relative flex gap-5 items-center justify-center text-white rounded-md ring-1 ring-inset ring-neutral-800/50  transition-all duration-500 
 							${isActive && "ring-1  ring-neutral-700 bg-primary-400"}
 							${isExpanded ? "p-[13px]" : "py-3 gap-0"}
 						`}>
