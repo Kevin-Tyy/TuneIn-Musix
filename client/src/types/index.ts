@@ -11,6 +11,7 @@ export interface UserType {
 	authenticationmethod: "email_password" | "oauth";
 	savedMusic: Array<any>;
 	avatar: string;
+	createdAt: Date;
 }
 // interface MusicType {}
 export interface GenreItemType {

@@ -39,7 +39,33 @@ class UserController {
 			res.status(500).json({ msg: "Something went wrong" });
 		}
 	};
-
+	getProfiles = async (req, res) => {
+		try {
+			const { name } = req.params;
+			const userData = await UserModel.findOne({ username: name }).select(
+				"-password"
+			);
+			res.json({ user: userData });
+		} catch (error) {
+			console.log(error);
+			res.status(500).json({ msg: "Something went wrong" });
+		}
+	};
+	updateProfiles = async (req, res) => {
+		try {
+			const { _id } = req.user;
+			const updateUser = await userService.updateUser(_id, req.body);
+			if (updateUser) {
+				res.status(200).json({
+					user: updateUser,
+					msg: "Your account has been updated",
+				});
+			}
+		} catch (error) {
+			console.log(error);
+			res.status(500).json({ msg: "Something went wrong" });
+		}
+	};
 	getUser = async (req, res) => {
 		try {
 			const { _id } = req.user;

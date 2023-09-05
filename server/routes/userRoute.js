@@ -10,6 +10,8 @@ userRoute.post(
 	validate(RegisterValidationSchema),
 	userController.register
 );
+userRoute.get("/profile/:name", verifyToken, userController.getProfiles);
+userRoute.patch("/profile/:id", verifyToken, userController.updateProfiles);
 userRoute.get("/getUser", verifyToken, userController.getUser);
 
 export default userRoute;

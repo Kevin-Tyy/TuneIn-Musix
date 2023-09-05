@@ -5,7 +5,7 @@ import { UserType } from "../../../../types";
 import { settings } from "../../../../utils/constants";
 import ProfileModal from "./ProfileModal";
 import { useState, useRef, useEffect } from "react";
-import LogoutModal from "./logoutModal";
+import LogoutModal from "./LogoutModal";
 const Profile = () => {
 	const user: UserType = useCurrentUser();
 	const navigate = useNavigate();
@@ -61,7 +61,7 @@ const Profile = () => {
 					<div className="cursor-pointer w-10 ">
 						<div onClick={() => setisModalOpen(true)} title={user.username}>
 							{user?.avatar ? (
-								<img src={user.avatar} className="w-14 rounded-full" />
+								<img src={user.avatar} className="w-14 h-14 object-cover rounded-full" />
 							) : (
 								<div className="bg-purple-400 hover:bg-purple-500 rounded-full w-10 h-10 flex items-center justify-center text-xl">
 									{placeholderUrl}

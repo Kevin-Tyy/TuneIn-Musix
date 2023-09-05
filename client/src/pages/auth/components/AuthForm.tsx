@@ -60,6 +60,7 @@ const AuthForm = () => {
 				.post(`${ApiRoot}/auth/signin/email`, data)
 				.then((response: AxiosResponse) => {
 					toast.success(response.data.msg);
+					localStorage.setItem('token', response.data.token);
 					dispatch(login(response.data.user));
 					navigate("/");
 				})

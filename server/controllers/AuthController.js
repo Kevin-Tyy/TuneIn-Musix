@@ -28,17 +28,21 @@ class AuthController {
 					const authUser = await authService.emailSignIn(req.body);
 					if (authUser) {
 						const token = await createToken(authUser);
-						res.status(200).json({
-							msg: "Logged in successfully",
-							user: authUser,
-							token: token,
-						});
+						res
+							.status(200)
+							.cookie("token", token)
+							.setHeader("Authorization", "Bearer " + token)
+							.json({
+								msg: "Logged in successfully",
+								user: authUser,
+								token : token
+							})
 					} else {
-						res.status(404).json({ msg: "Incorrect password" });
+						res.status(400).json({ msg: "Incorrect password" });
 					}
 				}
 			} else {
-				return res.status(404).json({ msg: "User doesn't exist" });
+				return res.status(400).json({ msg: "User doesn't exist" });
 			}
 		} catch (error) {
 			res.status(500).json({ msg: "Something went wrong" });
