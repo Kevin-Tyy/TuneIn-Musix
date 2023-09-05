@@ -36,7 +36,7 @@ const Playlist = () => {
 	const { user } = useSelector(loggedInUser);
 
 	//loading states
-	const [loading, setLoading] = useState<boolean>(false);	
+	const [loading, setLoading] = useState<boolean>(false);
 	//modal states
 	const [isModalOpen, setisModalOpen] = useState(false);
 	const [deleteModal, setDeleteModal] = useState(false);
@@ -105,19 +105,19 @@ const Playlist = () => {
 			<Header>
 				<div className="space-y-7">
 					<div className="flex gap-4 items-end">
-						<div className="relative h-48 w-48 bg-gradient-to-br from-purple-700 to-gray-400 flex items-center justify-center">
+						<div className="relative min-[400px]:w-h-32 min-[400px]:w-32 h-28 w-28  sm:w-36 sm:h-36 md:h-48 md:w-48 lg:w-52 lg:h-52 bg-gradient-to-br from-purple-700 to-gray-400 flex items-center justify-center">
 							{playlistData?.playlistImage ? (
 								<img
 									src={playlistData?.playlistImage}
-									className="w-48 h-48 object-cover"
+									className="h-28 w-28 min-[400px]:w-h-32 min-[400px]:w-32  sm:h-36 sm:w-36 md:w-48 md:h-48 lg:w-52 lg:h-52 object-cover"
 								/>
 							) : (
 								<TfiMusicAlt size={30} />
 							)}
 						</div>
-						<div className="space-y-4">
+						<div className="space-y-1 md:space-y-4">
 							<p>Playlist</p>
-							<h1 className="text-6xl font-black font-sans select-none">
+							<h1 className="text-3xl sm:text-5xl md:text-6xl font-black font-sans select-none">
 								{playlistData?.playlistName}
 							</h1>
 							{user && (
@@ -126,16 +126,16 @@ const Playlist = () => {
 										<img
 											src={user.avatar}
 											alt="avatar"
-											className="w-6 h-6 rounded-full"
+											className="w-4 sm:w-6 h-4 sm:h-6 rounded-full"
 											title={user.username}
 										/>
 									) : (
-										<div className="bg-gradient-to-br from-purple-400 to-pink-500 rounded-full w-6 h-6 flex items-center justify-center text-xs select-none">
+										<div className="bg-gradient-to-br from-purple-400 to-pink-500 rounded-full w-4 sm:w-6 h-4 sm:h-6 flex items-center justify-center text-[10px] sm:text-xs select-none">
 											{placeholderUrl}
 										</div>
 									)}
-									<p>
-										<span className="hover:underline cursor-pointer">
+									<p className="text-sm sm:text-base">
+										<span className="hover:underline cursor-pointer text-sm sm:text-base">
 											{user.username.split(" ")[0]}
 										</span>{" "}
 										• {playlistData?.songIds.length} song
@@ -146,18 +146,18 @@ const Playlist = () => {
 						</div>
 					</div>
 					<div className="flex items-center justify-between gap-10 pb-10 pt-5 border-t border-gray-700">
-						<div className="flex items-center gap-10">
+						<div className="flex items-center gap-3 sm:gap-8 md:gap-10">
 							<PlayButton />
 							<div className="relative">
 								<HiDotsHorizontal
 									size={38}
 									onClick={() => setIsSettingsOpen(true)}
-									className="p-1.5 hover:bg-gray-800/60 rounded-full cursor-pointer active:bg-gray-600/60 transition duration-300"
+									className="p-2 sm:p-1.5 hover:bg-gray-800/60 rounded-full cursor-pointer active:bg-gray-600/60 transition duration-300"
 								/>
 								{isSettingsOpen && (
 									<div ref={settingsRef}>
 										<SettingsModal
-											closeModal = {setIsSettingsOpen}
+											closeModal={setIsSettingsOpen}
 											viewEditModal={() => setisModalOpen(true)}
 											deletePlaylist={() => setDeleteModal(true)}
 											viewShareModal={() => setShareModal(true)}
@@ -168,24 +168,25 @@ const Playlist = () => {
 						</div>
 						<div className="flex items-center relative">
 							<div
-								className=" w-60 p-3 bg-gray-800/40 ring-gray-400 transition-all duration-[1.2s] absolute right-0 flex gap-3 text-xs items-center justify-end text-white"
+								className=" w-60 bg-[#232131] ring-gray-400 transition-all rounded-md ease-in-out duration-1000 absolute right-0 z-10 text-white"
 								ref={searchRef}
 								style={{
 									maxWidth: isExpanded ? "999px" : "0",
-									opacity: isExpanded ? "1" : "0",
 								}}>
-								<FiSearch size={15} />
-								<input
-									type="text"
-									placeholder="Search in playlist"
-									className={`w-full bg-transparent outline-none placeholder:text-white`}
-								/>
+								<div className="p-3 flex z-10 gap-3 text-xs items-center justify-end">
+									<FiSearch size={15} />
+									<input
+										type="text"
+										placeholder="Search in playlist"
+										className={`w-full bg-transparent outline-none placeholder:text-white`}
+									/>
+								</div>
 							</div>
 							<FiSearch
 								size={38}
 								onClick={toggleSearchBar}
-								className={`cursor-pointer hover:bg-white/10 rounded-full p-2 z-10 transition-all duration-500 ${
-									isExpanded && "opacity-0"
+								className={`cursor-pointer hover:bg-white/10 rounded-full p-2 z-1 transition-all duration-100 ${
+									isExpanded && "opacity-0 "
 								}`}
 							/>
 						</div>
@@ -220,7 +221,6 @@ const Playlist = () => {
 				)}
 			</div>
 
-			
 			{/* functionality modals */}
 
 			<EditPlayListModal
@@ -228,8 +228,12 @@ const Playlist = () => {
 				onClose={() => setisModalOpen(false)}
 				playlist={playlistData}
 			/>
-			<Delete isOpen={deleteModal} onClose={() => setDeleteModal(false)} playlistId={id!}/>
-			<ShareModal isOpen={shareModal} onClose={() => setShareModal(false)}/>
+			<Delete
+				isOpen={deleteModal}
+				onClose={() => setDeleteModal(false)}
+				playlistId={id!}
+			/>
+			<ShareModal isOpen={shareModal} onClose={() => setShareModal(false)} />
 		</div>
 	);
 };

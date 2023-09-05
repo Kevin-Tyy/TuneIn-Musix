@@ -43,7 +43,7 @@ const EditPlayListModal = ({
 						</h1>
 					</div>
 					<p className="text-white text-center">
-						Please Edit to create a playlist
+						Please login to edit a playlist
 					</p>
 					<button
 						className="bg-white px-4 py-2 rounded-full text-sm self-end"

@@ -34,16 +34,16 @@ const LikedSongs: React.FC = () => {
 	return (
 		<div className="space-y-5">
 			<Header>
-				<div className="space-y-2 pl-5">
+				<div className="space-y-5 sm:space-y-10 md:pl-5">
 					<div className="flex flex-col items-start space-y-5">
 						<h1 className="text-xl">Browse your favorite music</h1>
 						<div className="flex gap-4 items-end">
-							<div className="h-44 w-44 bg-gradient-to-br from-purple-700 to-gray-500 shadow flex items-center justify-center">
+							<div className="h-28 w-28 sm:h-36 sm:w-36 md:h-44 md:w-44 bg-gradient-to-br from-purple-700 to-fuchsia-200 shadow flex items-center justify-center">
 								<BsHeartFill size={40} />
 							</div>
-							<div className="space-y-4">
+							<div className="space-y-1 sm:space-y-3 md:space-y-4">
 								<p>Playlist</p>
-								<h1 className="text-6xl font-black select-none">Liked Songs</h1>
+								<h1 className="text-3xl sm:text-4xl md:text-6xl font-black select-none">Liked Songs</h1>
 								{user && (
 									<div className="flex items-center gap-2">
 										{user?.avatar ? (
@@ -58,8 +58,8 @@ const LikedSongs: React.FC = () => {
 												{placeholderUrl}
 											</div>
 										)}
-										<p>
-											<span className="hover:underline cursor-pointer">
+										<p className="text-sm sm:text-base">
+											<span className="text-sm sm:text-base hover:underline cursor-pointer">
 												{user.username.split(" ")[0]}
 											</span>{" "}
 											• {likedMusic.length} song
@@ -70,12 +70,12 @@ const LikedSongs: React.FC = () => {
 							</div>
 						</div>
 					</div>
+					<div>
+						<PlayButton />
+					</div>
 				</div>
 			</Header>
 			<section className="h-fit mt-10">
-				<div className="px-6">
-					<PlayButton />
-				</div>
 				<div>
 					<div>
 						{savedMusic.length !== 0 ? (

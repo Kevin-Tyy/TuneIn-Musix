@@ -1,4 +1,4 @@
-a{
+{
   "compilerOptions": {
     "composite": true,
     "skipLibCheck": true,

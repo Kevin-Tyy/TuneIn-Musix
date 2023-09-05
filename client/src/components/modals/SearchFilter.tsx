@@ -25,7 +25,7 @@ const SearchFilter: React.FC<SearchFilterProps> = ({
 					className="flex space-x-2 items-center text-gray-400 cursor-pointer hover:bg-gray-700/50 p-2 rounded-md"
 					onClick={() => setIsSearchFilterOpen(true)}>
 					<LuSettings2 />
-					<p className="capitalize">Filters</p>
+					<p className="capitalize">{searchFilter}</p>
 				</Listbox.Button>
 				<Transition
 					as={Fragment}
@@ -35,7 +35,7 @@ const SearchFilter: React.FC<SearchFilterProps> = ({
 					leave="transition ease-in duration-200"
 					leaveFrom="opacity-100"
 					leaveTo="opacity-0">
-					<Listbox.Options className="absolute">
+					<Listbox.Options className="absolute right-0 md:-right-32">
 						{filterOptions.map((option) => (
 							<Listbox.Option key={option} value={option} as={Fragment}>
 								{({ active, selected }) => (

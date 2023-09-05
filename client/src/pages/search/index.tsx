@@ -60,7 +60,9 @@ const SearchPage: React.FC = () => {
 				}
 			})
 			.catch((error) => {
-				toast.error("Something went wrong");
+				toast.error(
+					"Search failed: Check your internet connection and try again"
+				);
 				console.log(error);
 			})
 			.finally(() => {
@@ -84,7 +86,10 @@ const SearchPage: React.FC = () => {
 								className=" w-full bg-transparent text-xs outline-none"
 								placeholder="Search"
 								value={queryString as string}
-								onChange={(e) => setQueryString(e.target.value)}
+								onChange={(e) => {
+									handleSearch(e);
+									setQueryString(e.target.value);
+								}}
 							/>
 							<div className="flex flex-col">
 								{
