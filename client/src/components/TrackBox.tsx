@@ -117,11 +117,11 @@ const TrackBox: React.FC<TrackBoxProps> = ({ item, index }) => {
 						size={25}
 						className="opacity-0 hover:opacity-100  group-hover:opacity-50 text-green-500 transition duration-500"
 					/>
-					{isSettingsOpen && (
+					{/* {isSettingsOpen && (
 						<div ref={settingsRef}>
-							<SettingsModal show={isSettingsOpen} />
+							<SettingsModal />
 						</div>
-					)}
+					)} */}
 				</div>
 			</div>
 		</div>

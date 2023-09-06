@@ -33,7 +33,7 @@ const ProfileModal: React.FC<ProfileModalProps> = ({ setViewLogoutModal }) => {
 	];
 	return (
 		<>
-			<div className="absolute right-0 overflow-hidden rounded-lg animate-slideup bg-neutral-800 p-1 text-left shadow-xl transition-all w-full my-5 sm:w-full sm:max-w-sm">
+			<div className="absolute min-w-[250px] right-0 overflow-hidden rounded-lg animate-slideup bg-neutral-800 p-1 text-left shadow-xl transition-all w-full my-5 sm:w-full sm:max-w-sm">
 				<ul className="space-y-2">
 					{settings.map((item, index) => (
 						<li

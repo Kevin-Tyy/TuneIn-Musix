@@ -11,7 +11,7 @@ interface PlaylistBoxProps {
 
 const PlaylistBox: React.FC<PlaylistBoxProps> = ({ item }) => {
 	return (
-		<Link to={`/playlist/${item._id}`}>
+		<Link to={`/playlist/${item._id}`} draggable onDrop={() => console.log('dropped')}>
 			<div className="animate-slideup">
 				<div className="w-full relative">
 					<button className="relative w-full group flex items-center rounded-md overflow-hidden gap-x-4 bg-neutral-100/10 cursor-pointer hover:bg-neutral-100/20 transition pr-4">

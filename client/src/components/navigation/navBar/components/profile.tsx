@@ -48,20 +48,10 @@ const Profile = () => {
 		return (
 			<>
 				<div className=" bg-black p-1 rounded-full ring-1 ring-black ring-inset flex items-center space-x-7 h-12">
-					<div className="flex space-x-2">
-						{settings.map((item, index) => (
-							<div
-								className="cursor-pointer opacity-70 p-2 rounded-full hover:bg-black hover:opacity-100"
-								key={index}
-								title={item.title}>
-								{<item.icon size={23} />}
-							</div>
-						))}
-					</div>
 					<div className="cursor-pointer w-10 ">
 						<div onClick={() => setisModalOpen(true)} title={user.username}>
 							{user?.avatar ? (
-								<img src={user.avatar} className="w-14 h-14 object-cover rounded-full" />
+								<img src={user.avatar} className="w-10 h-10 object-cover rounded-full" />
 							) : (
 								<div className="bg-purple-400 hover:bg-purple-500 rounded-full w-10 h-10 flex items-center justify-center text-xl">
 									{placeholderUrl}
