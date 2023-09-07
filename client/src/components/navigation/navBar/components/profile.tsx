@@ -2,7 +2,6 @@ import { useNavigate } from "react-router-dom";
 import useAvatar from "../../../../hooks/useAvatar";
 import useCurrentUser from "../../../../hooks/useCurrentUser";
 import { UserType } from "../../../../types";
-import { settings } from "../../../../utils/constants";
 import ProfileModal from "./ProfileModal";
 import { useState, useRef, useEffect } from "react";
 import LogoutModal from "./LogoutModal";

@@ -132,6 +132,7 @@ const EditModal = ({ onClose, isOpen, fetchUser, userData }: Props) => {
 							disabled={loading}
 						/>
 						<div className="flex-1 space-y-3 pt-10 flex flex-col items-end w-full">
+							<h1 className="text-white text-sm self-start">Change your username</h1>
 							<input
 								placeholder="Username (optional)"
 								id="username"
@@ -139,7 +140,7 @@ const EditModal = ({ onClose, isOpen, fetchUser, userData }: Props) => {
 								disabled={loading}
 								type="text"
 								className={clsx(
-									"bg-gray-900 text-xs w-full p-3 text-white outline-none rounded-md focus:ring-1 focus:ring-inset focus:ring-gray-700",
+									"bg-gray-900 text-sm w-full p-3 text-white outline-none rounded-md focus:ring-1 focus:ring-inset focus:ring-gray-700",
 									loading && "opacity-60"
 								)}
 							/>

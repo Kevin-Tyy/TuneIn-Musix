@@ -9,7 +9,7 @@ const Logo = ({
 	handleToggle: () => void;
 }) => {
 	return (
-		<div className={`flex items-center cursor-pointer ${isExpanded && 'pl-4'} gap-3`} onClick={handleToggle}>
+		<div className={`flex items-center cursor-pointer gap-3`} onClick={handleToggle}>
 			<img src={logo} alt="logo" className="w-7 h-7" />
 			<p
 				className={clsx(

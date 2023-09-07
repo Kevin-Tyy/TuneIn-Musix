@@ -3,8 +3,8 @@ import { FiSearch } from "react-icons/fi";
 import { IconType } from "react-icons";
 import { LuLibrary } from "react-icons/lu";
 import { AiOutlineHeart } from "react-icons/ai";
-import { ImSafari } from "react-icons/im";
 import { LuBell, LuFlag, LuSettings, LuVerified } from "react-icons/lu";
+import { MdOutlineExplore } from "react-icons/md";
 
 export const sidenav: sidenavOptions[] = [
 	{
@@ -28,7 +28,7 @@ export const sidenav: sidenavOptions[] = [
 		link: "/saved",
 	},
 	{
-		icon: ImSafari,
+		icon: MdOutlineExplore,
 		title: "Explore",
 		link: "/explore",
 	},
@@ -42,18 +42,18 @@ interface sidenavOptions {
 export const settings: sidenavOptions[] = [
 	{
 		icon: LuVerified,
-		title : 'Get verified'
+		title: "Get verified",
 	},
 	{
 		icon: LuFlag,
-		title : 'Flags'
+		title: "Flags",
 	},
 	{
 		icon: LuSettings,
-		title : 'Settings'
+		title: "Settings",
 	},
 	{
 		icon: LuBell,
-		title : 'Notifications'
+		title: "Notifications",
 	},
 ];

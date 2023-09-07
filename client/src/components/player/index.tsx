@@ -15,6 +15,8 @@ import { BiShuffle, BiSkipNext, BiSkipPrevious } from "react-icons/bi";
 import { FaVolumeMute, FaVolumeOff } from "react-icons/fa";
 import { TbMicrophone2 } from "react-icons/tb";
 import clsx from "clsx";
+import {HiMenuAlt3 } from "react-icons/hi";
+import { TfiMusicAlt } from "react-icons/tfi";
 // import axios from "axios";
 
 const Player = () => {
@@ -42,9 +44,14 @@ const Player = () => {
 	};
 
 	return (
-		<div className="bg-black fixed bottom-0 w-full h-[9vh] px-3 pt-3 pb-2">
-			<div className="grid grid-cols-3 h-full ring-1 ring-neutral-900 rounded-md">
-				<div className="h-full p-3 flex items-center justify-start  gap-4">
+		<div className="bg-black fixed bottom-0 w-full h-[8vh] min-h-[90px] px-3 py-1">
+			<div className=" ring-1 grid grid-cols-4 h-full ring-neutral-900 rounded-md">
+				<div className="h-full p-3 w-full flex items-center gap-4">
+					{!currentTrack &&
+						<div className="text-white bg-neutral-800 h-full w-full max-w-[60px] grid place-content-center rounded-sm">
+							<TfiMusicAlt/>
+						</div>
+					}
 					{currentTrack && (
 						<div>
 							<div className="h-full group relative">
@@ -90,7 +97,7 @@ const Player = () => {
 						</div>
 					)}
 				</div>
-				<div className="flex justify-center items-center gap-2 flex-col">
+				<div className="flex col-span-2 w-full justify-center items-center gap-2 flex-col">
 					<div
 						className={clsx(
 							"justify-center flex items-center space-x-5",
@@ -134,20 +141,23 @@ const Player = () => {
 					<div
 						className={clsx(
 							"flex gap-3 items-center w-full max-w-xl select-none",
-							disabled && "opacity-50"
+							disabled && "opacity-40"
 						)}>
 						<h1 className="text-white text-xs">4:05</h1>
 						<div className="h-1 bg-white rounded-full flex-1"></div>
 						<h1 className="text-white text-xs">4:05</h1>
 					</div>
 				</div>
+				<div className="flex md:hidden text-white justify-end self-center pr-4">
+					<HiMenuAlt3 size={25}/>
+				</div>
 				<div
 					className={clsx(
-						"text-white pr-10 flex items-center justify-end gap-10",
-						disabled && "opacity-50"
+						"text-white pr-10 md:flex w-full justify-end items-center gap-6 hidden",
+						disabled && "opacity-40"
 				)}>
 					<div className="cursor-pointer">
-						<TbMicrophone2 size={20} />
+						<TbMicrophone2 size={18} />
 					</div>
 					<div className="flex items-center gap-3">
 						<div

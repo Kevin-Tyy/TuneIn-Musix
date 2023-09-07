@@ -4,9 +4,8 @@ import Header from "../../components/navigation/Header";
 import { useEffect, useState } from "react";
 import moment from "moment";
 import { fetchServerRequest } from "../../api/func/fetchHeaders";
-import { toast } from "react-hot-toast";
+import { LoaderIcon, toast } from "react-hot-toast";
 import { PlaylistItem, UserType } from "../../types";
-import { PuffLoader } from "react-spinners";
 import useAvatar from "../../hooks/useAvatar";
 import axios from "axios";
 import { ApiRoot } from "../../api/config/apiRoot";
@@ -16,7 +15,7 @@ import { TfiMusicAlt } from "react-icons/tfi";
 import EditModal from "./components/EditModal";
 import { useSelector } from "react-redux";
 import { loggedInUser } from "../../redux/slices/Authslice";
-import { BiEdit, BiPencil } from "react-icons/bi";
+import { BiPencil } from "react-icons/bi";
 import { FiEdit } from "react-icons/fi";
 const ProfilePage: React.FC = () => {
 	const {
@@ -80,17 +79,17 @@ const ProfilePage: React.FC = () => {
 		fetchPlaylists();
 	}, [userData]);
 
-	if (loading) {
+	if (loading || !userPlaylists) {
 		return (
 			<div className="min-h-[50vh] h-full w-full grid place-content-center">
-				<PuffLoader color="white" />
+				<LoaderIcon style={{ width: 50, height: 50 , borderWidth : 5}} />
 			</div>
 		);
 	}
 	if (!userData) {
 		return (
-			<div>
-				<h1>No user found</h1>
+			<div className="min-h-[50vh] h-full w-full grid place-content-center">
+				<h1 className="text-xl">No user found</h1>
 			</div>
 		);
 	}

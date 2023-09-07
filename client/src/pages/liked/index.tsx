@@ -32,7 +32,7 @@ const LikedSongs: React.FC = () => {
 	}
 
 	return (
-		<div className="space-y-5">
+		<div className="space-y-5 h-full">
 			<Header>
 				<div className="space-y-5 sm:space-y-10 md:pl-5">
 					<div className="flex flex-col items-start space-y-5">

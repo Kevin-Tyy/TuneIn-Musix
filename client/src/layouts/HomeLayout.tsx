@@ -10,24 +10,25 @@ const HomeLayout: React.FC = () => {
 	document.title = "Tune In";
 	const dispatch = useDispatch();
 	useEffect(() => {
-		populatePage();
+		requestToken();
 	}, []);
 
-	const populatePage = async () => {
+	const requestToken = async () => {
 		const accessToken = await _getToken();
-		// setToken(accessToken);
 		dispatch(addToken(accessToken));
 	};
 
 	return (
-		<div className="relative">
-			<div className="flex min-h-screen pt-3 px-3 gap-4 text-sm relative">
-				<SideNav />
-				<div className="w-full h-full text-white relative rounded-lg pb-52">
-					<Outlet />
+		<div className="relative flex flex-col">
+			<div className="flex-1">
+				<div className="flex pt-3 px-3 gap-4 text-sm relative">
+					<SideNav />
+					<div className="w-full h-full text-white relative rounded-lg pb-5">
+						<Outlet />
+					</div>
 				</div>
 			</div>
-			<Player/>
+			<Player />
 		</div>
 	);
 };

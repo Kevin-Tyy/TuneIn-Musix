@@ -7,7 +7,7 @@ import {
 	_getArtistData,
 	_getArtistRelated,
 } from "../../api/fetch/config";
-import {ArtistType, SearchAlbumResult, TrackType } from "../../types";
+import { ArtistType, SearchAlbumResult, TrackType } from "../../types";
 import ArtistBox from "../../components/ArtistBox";
 import clsx from "clsx";
 import { VscVerifiedFilled } from "react-icons/vsc";
@@ -16,6 +16,7 @@ import Navbar from "../../components/navigation/navBar";
 import PlayButton from "../../components/PlayButton";
 import AlbumBox from "../../components/AlbumBox";
 import TrackBox from "../../components/TrackBox";
+import { LoaderIcon } from "react-hot-toast";
 
 const Artist = () => {
 	const { id } = useParams();
@@ -63,6 +64,13 @@ const Artist = () => {
 	};
 	const disabled = limit === tracks?.length;
 	const artistdisabled = artistlimit === relatedArtists.length;
+	if (!artist) {
+		return (
+			<div className="h-full min-h-[60vh] w-full grid place-content-center">
+				<LoaderIcon style={{ width: 50, height: 50 , borderWidth : 5}} />
+			</div>
+		);
+	}
 	return (
 		<section className="relative">
 			<div
