@@ -44,6 +44,7 @@ const SideBarLayout = () => {
 				console.log(error);
 			});
 	};
+	playlists && console.log(playlists[0]?.songIds);
 
 	useEffect(() => {
 		fetchPlaylists();
