@@ -15,7 +15,7 @@ import { BiShuffle, BiSkipNext, BiSkipPrevious } from "react-icons/bi";
 import { FaVolumeMute, FaVolumeOff } from "react-icons/fa";
 import { TbMicrophone2 } from "react-icons/tb";
 import clsx from "clsx";
-import {HiMenuAlt3 } from "react-icons/hi";
+import { HiMenuAlt3, HiVolumeOff, HiVolumeUp } from "react-icons/hi";
 import { TfiMusicAlt } from "react-icons/tfi";
 // import axios from "axios";
 
@@ -42,19 +42,35 @@ const Player = () => {
 			dispatch(saveMusic(musicId));
 		}
 	};
-
+	const [audio] = useState<any>(new Audio(currentTrack?.preview_url!));
+	const [volume, setVolume] = useState(0.5);
+	const handleVolumeChange = (e: any) => {
+		const newVolume = e.target.value;
+		audio.volume = newVolume;
+		setVolume(newVolume);
+		newVolume == 0 ? setIsMuted(true) : setIsMuted(false);
+	};
+	const handleMute = () => {
+		setIsMuted(!isMuted);
+		if (isMuted) {
+			audio.volume = 0;
+		} else {
+			audio.volume = volume;
+		}
+	};
+	console.log(currentTrack.preview_url);
 	return (
 		<div className="bg-black fixed bottom-0 w-full h-[8vh] min-h-[90px] px-3 py-1">
 			<div className=" ring-1 grid grid-cols-4 h-full ring-neutral-900 rounded-md">
-				<div className="h-full p-3 w-full flex items-center gap-4">
-					{!currentTrack &&
+				<div className="h-full p-3 ">
+					{!currentTrack && (
 						<div className="text-white bg-neutral-800 h-full w-full max-w-[60px] grid place-content-center rounded-sm">
-							<TfiMusicAlt/>
+							<TfiMusicAlt />
 						</div>
-					}
+					)}
 					{currentTrack && (
-						<div>
-							<div className="h-full group relative">
+						<div className="w-full flex items-center gap-4 h-full">
+							<div className="h-full w-full max-w-[60px] group relative">
 								<img
 									src={currentTrack.album.images[0].url!}
 									className="h-full rounded-sm"
@@ -79,7 +95,7 @@ const Player = () => {
 									))}
 								</p>{" "}
 							</div>
-							<div className="ml-3">
+							<div className="ml-2">
 								{!savedMusic.includes(currentTrack.id) ? (
 									<BiHeart
 										size={22}
@@ -122,9 +138,9 @@ const Player = () => {
 							className="bg-white p-2 rounded-full self-center text-black flex items-center justify-center cursor-pointer active:scale-95 transition"
 							onClick={() => dispatch(playPause())}>
 							{isPlaying && currentTrack ? (
-								<HiMiniPause size={20} />
+								<HiMiniPause size={20} onClick={() => audio.pause()} />
 							) : (
-								<HiMiniPlay size={20} />
+								<HiMiniPlay size={20} onClick={() => audio.play()} />
 							)}
 						</button>
 						<button disabled={disabled}>
@@ -149,25 +165,28 @@ const Player = () => {
 					</div>
 				</div>
 				<div className="flex md:hidden text-white justify-end self-center pr-4">
-					<HiMenuAlt3 size={25}/>
+					<HiMenuAlt3 size={25} />
 				</div>
 				<div
 					className={clsx(
 						"text-white pr-10 md:flex w-full justify-end items-center gap-6 hidden",
 						disabled && "opacity-40"
-				)}>
+					)}>
 					<div className="cursor-pointer">
 						<TbMicrophone2 size={18} />
 					</div>
 					<div className="flex items-center gap-3">
-						<div
-							className="cursor-pointer"
-							onClick={() => setIsMuted(!isMuted)}>
-							{isMuted ? <FaVolumeMute size={15} /> : <FaVolumeOff size={15} />}
+						<div className="cursor-pointer" onClick={handleMute}>
+							{isMuted ? <HiVolumeUp size={20} /> : <HiVolumeOff size={20} />}
 						</div>
-						<div
-							aria-disabled={isMuted}
-							className="h-1 cursor-pointer flex-1 w-20 rounded-full bg-white"></div>
+						<input
+							type="range"
+							min="0"
+							max="1"
+							step="0.01"
+							value={volume}
+							onChange={handleVolumeChange}
+						/>
 					</div>
 				</div>
 			</div>

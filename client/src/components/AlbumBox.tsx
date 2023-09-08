@@ -8,7 +8,7 @@ type AlbumBoxProps = {
 const AlbumBox: React.FC<AlbumBoxProps> = ({ item }) => {
 	return (
 		<div className="flex items-center gap-5 select-none" title={item?.name}>
-			<div className="flex flex-col w-full bg-neutral-900 max-h-[300px] p-2 group rounded-lg hover:bg-neutral-800/80 transition cursor-pointer">
+			<div className="flex flex-col w-full bg-neutral-900 max-h-[350px] p-2 group rounded-lg hover:bg-neutral-800/80 transition cursor-pointer">
 				<div className="flex flex-col gap-4 p-4">
 					<div className="relative">
 						<img src={item?.images[0].url!} className="h-full rounded-lg" />

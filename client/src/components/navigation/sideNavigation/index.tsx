@@ -41,7 +41,7 @@ const SideNav = () => {
 						className={({
 							isActive,
 						}) => `group relative flex gap-4 items-center justify-start text-white rounded-md  transition-all duration-500 py-3
-							${isActive && " text-fuchsia-700"}
+							${isActive && " !text-fuchsia-700"}
 							${!isExpanded && 'gap-0'}
 						`}>
 						{<item.icon size={23} className="ml-4" />}
@@ -52,8 +52,8 @@ const SideNav = () => {
 							{item.title}
 						</p>
 						{index === 3 && savedMusic.length !== 0 && (
-							<p className="absolute bg-red-700 w-6 text-sm h-6 flex items-center justify-center rounded-full text-white -right-1 -top-1">
-								{savedMusic.length}
+							<p className="absolute bg-red-700 w-6 h-6 flex items-center justify-center rounded-full text-white text-xs -right-1 -top-1">
+								{savedMusic.length >= 10 ? '10+' : savedMusic.length}
 							</p>
 						)}
 						{!isExpanded && (
