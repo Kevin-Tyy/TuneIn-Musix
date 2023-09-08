@@ -31,7 +31,7 @@ const LogoutModal: React.FC<LogoutModalProps> = ({ isOpen, onClose }) => {
 			dispatch(logout());
 			navigate("/");
 			toast.success("Logged out");
-		}, 2000);
+		}, 1000);
 	};
 	return (
 		<Modal isOpen={isOpen} onClose={onClose}>

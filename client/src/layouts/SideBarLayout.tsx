@@ -78,7 +78,14 @@ const SideBarLayout = () => {
 						<div className="flex items-center mt-5">
 							<div className="w-full overflow-hidden">
 								<h1 className="text-xl text-white font-bold whitespace-nowrap w-full overflow-hidden text-ellipsis">
-									{currentTrack?.name}
+									{currentTrack?.name} -{" "}
+									{currentTrack?.artists.map((artist) => (
+										<span>
+											{artist.name}
+											{currentTrack.artists.indexOf(artist) !==
+												currentTrack.artists.length - 1 && ", "}
+										</span>
+									))}
 								</h1>
 							</div>
 							<div className="flex gap-4 items-center">
@@ -129,11 +136,16 @@ const SideBarLayout = () => {
 					</div>
 				</div>
 			)}
-			<div className="mt-7">
+			<div className="mt-4">
 				{playlists ? (
 					playlists.length ? (
 						<div className="flex flex-col gap-4">
-							<h1 className="text-white">your playlists</h1>
+							<div>
+								<h1 className="text-white text-sm">Your playlists </h1>
+								<span className="text-gray-500 text-sm">
+									(Drag and drop a song to add into your playlist)
+								</span>
+							</div>
 							{playlists.map((playlist, index) => (
 								<div
 									key={index}
@@ -167,7 +179,11 @@ const SideBarLayout = () => {
 							))}
 						</div>
 					) : (
-						<div>you have no playlists , create a new one</div>
+						<div className="w-full h-full min-h-[10vh] flex justify-center items-center gap-4 text-white">
+							<TfiMusicAlt size={25} />
+
+							<p className="text-sm max-w-[70%]">You have no playlists, create a new one to organize your favorite songs</p>
+						</div>
 					)
 				) : (
 					<div>
