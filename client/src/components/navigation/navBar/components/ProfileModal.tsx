@@ -18,7 +18,19 @@ const ProfileModal: React.FC<ProfileModalProps> = ({ setViewLogoutModal }) => {
 			},
 		},
 		{
+			title: "Account",
+			onClick: function () {
+				navigate(`/profile/${username}`);
+			},
+		},
+		{
 			title: "Your playlists",
+			onClick: function () {
+				navigate("/playlists");
+			},
+		},
+		{
+			title: "Settings",
 			onClick: function () {
 				navigate("/playlists");
 			},

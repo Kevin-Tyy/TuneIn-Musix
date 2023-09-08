@@ -27,6 +27,7 @@ import SettingsModal from "./components/SettingsModal";
 import EditPlayListModal from "./components/EditPlaylist";
 import Delete from "./components/Delete";
 import ShareModal from "./components/ShareModal";
+import { IoClose } from "react-icons/io5";
 
 const Playlist = () => {
 	const { id } = useParams();
@@ -34,6 +35,7 @@ const Playlist = () => {
 	const [playlistData, setPlaylistData] = useState<PlaylistItem | null>(null);
 	const [tracks, setTracks] = useState<TrackType[] | null>(null);
 	const { user } = useSelector(loggedInUser);
+	const [searchFilter, setSearchFilter] = useState<string | null>(null)
 
 	//loading states
 	const [loading, setLoading] = useState<boolean>(false);
@@ -105,11 +107,11 @@ const Playlist = () => {
 			<Header>
 				<div className="space-y-7">
 					<div className="flex gap-4 items-end">
-						<div className="relative min-[400px]:w-h-32 min-[400px]:w-32 h-28 w-28  sm:w-36 sm:h-36 md:h-48 md:w-48 lg:w-52 lg:h-52 bg-gradient-to-br from-purple-700 to-gray-400 flex items-center justify-center">
+						<div className="relative min-[400px]:w-h-32 min-[400px]:w-32 h-28 w-28  sm:w-36 sm:h-36 md:h-48 md:w-48 lg:w-52 lg:h-52 xl:w-60 xl:h-60 bg-gradient-to-br from-purple-700 to-gray-400 flex items-center justify-center">
 							{playlistData?.playlistImage ? (
 								<img
 									src={playlistData?.playlistImage}
-									className="h-28 w-28 min-[400px]:w-h-32 min-[400px]:w-32  sm:h-36 sm:w-36 md:w-48 md:h-48 lg:w-52 lg:h-52 object-cover"
+									className="h-28 w-28 min-[400px]:w-h-32 min-[400px]:w-32  sm:h-36 sm:w-36 md:w-48 md:h-48 lg:w-52 lg:h-52 xl:w-60 xl:h-60 object-cover"
 								/>
 							) : (
 								<TfiMusicAlt size={30} />
@@ -117,9 +119,12 @@ const Playlist = () => {
 						</div>
 						<div className="space-y-1 md:space-y-4">
 							<p>Playlist</p>
-							<h1 className="text-3xl sm:text-5xl md:text-6xl font-black font-sans select-none">
+							<h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-8xl font-black font-sans select-none">
 								{playlistData?.playlistName}
 							</h1>
+							<p className="text-sm text-gray-300">
+								{playlistData?.playlistDescription}
+							</p>
 							{user && (
 								<div className="flex items-center gap-2">
 									{user?.avatar ? (
@@ -168,25 +173,31 @@ const Playlist = () => {
 						</div>
 						<div className="flex items-center relative">
 							<div
-								className=" w-60 bg-[#232131] ring-gray-400 transition-all rounded-md ease-in-out duration-1000 absolute right-0 z-10 text-white"
+								className="w-40 sm:w-60 lg:w-72 bg-[#6967704d] max-h-10 delay-0 ring-gray-400 transition-all rounded-md ease-in-out duration-1000 absolute right-0 z-10 text-white"
 								ref={searchRef}
 								style={{
 									maxWidth: isExpanded ? "999px" : "0",
 								}}>
-								<div className="p-3 flex z-10 gap-3 text-xs items-center justify-end">
+								<div className="relative p-3 flex z-10 gap-3 text-xs items-center justify-end">
 									<FiSearch size={15} />
 									<input
 										type="text"
 										placeholder="Search in playlist"
+										onChange={(e) => setSearchFilter(e.target.value)}
 										className={`w-full bg-transparent outline-none placeholder:text-white`}
 									/>
+									{searchFilter && isExpanded && 
+										<div className="absolute right-2 hover:bg-gray-600/40 cursor-pointer transition rounded-md p-1.5" onClick={() => setIsExpanded(false)}>
+											<IoClose/>
+										</div>
+									}
 								</div>
 							</div>
 							<FiSearch
 								size={38}
 								onClick={toggleSearchBar}
 								className={`cursor-pointer hover:bg-white/10 rounded-full p-2 z-1 transition-all duration-100 ${
-									isExpanded && "opacity-0 "
+									isExpanded && "opacity-0 invisible"
 								}`}
 							/>
 						</div>

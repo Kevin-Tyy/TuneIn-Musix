@@ -71,7 +71,6 @@ const Artist = () => {
 			</div>
 		);
 	}
-	console.log(tracks)
 	return (
 		<section className="relative">
 			<div

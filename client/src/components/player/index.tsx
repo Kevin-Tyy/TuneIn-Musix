@@ -12,11 +12,11 @@ import { BiHeart } from "react-icons/bi";
 import { BsHeartFill, BsRepeat } from "react-icons/bs";
 import { HiMiniPause, HiMiniPlay } from "react-icons/hi2";
 import { BiShuffle, BiSkipNext, BiSkipPrevious } from "react-icons/bi";
-import { FaVolumeMute, FaVolumeOff } from "react-icons/fa";
 import { TbMicrophone2 } from "react-icons/tb";
 import clsx from "clsx";
 import { HiMenuAlt3, HiVolumeOff, HiVolumeUp } from "react-icons/hi";
 import { TfiMusicAlt } from "react-icons/tfi";
+import useDuration from "../../hooks/useDuration";
 // import axios from "axios";
 
 const Player = () => {
@@ -58,9 +58,8 @@ const Player = () => {
 			audio.volume = volume;
 		}
 	};
-	console.log(currentTrack.preview_url);
 	return (
-		<div className="bg-black fixed bottom-0 w-full h-[8vh] min-h-[90px] px-3 py-1">
+		<div className="bg-black z-50 fixed bottom-0 w-full h-[8vh] min-h-[90px] px-3 py-1">
 			<div className=" ring-1 grid grid-cols-4 h-full ring-neutral-900 rounded-md">
 				<div className="h-full p-3 ">
 					{!currentTrack && (
@@ -121,7 +120,7 @@ const Player = () => {
 						)}>
 						<button disabled={disabled}>
 							<BiShuffle
-								className={clsx("text-white", isShuffled && "text-green-600")}
+								className={clsx("text-white", isShuffled && "!text-green-500 ")}
 								size={18}
 								onClick={() => setIsShuffled(!isShuffled)}
 							/>
@@ -148,7 +147,7 @@ const Player = () => {
 						</button>
 						<button disabled={disabled}>
 							<BsRepeat
-								className={clsx("text-white", isRepeat && "text-green-600")}
+								className={clsx("text-white", isRepeat && "!text-green-600")}
 								size={18}
 								onClick={() => setIsRepeat(!isRepeat)}
 							/>
@@ -159,9 +158,11 @@ const Player = () => {
 							"flex gap-3 items-center w-full max-w-xl select-none",
 							disabled && "opacity-40"
 						)}>
-						<h1 className="text-white text-xs">4:05</h1>
+						<h1 className="text-white text-xs">1:05</h1>
 						<div className="h-1 bg-white rounded-full flex-1"></div>
-						<h1 className="text-white text-xs">4:05</h1>
+						<h1 className="text-white text-xs">
+							{useDuration(currentTrack?.duration_ms)}
+						</h1>
 					</div>
 				</div>
 				<div className="flex md:hidden text-white justify-end self-center pr-4">
@@ -177,11 +178,12 @@ const Player = () => {
 					</div>
 					<div className="flex items-center gap-3">
 						<div className="cursor-pointer" onClick={handleMute}>
-							{isMuted ? <HiVolumeUp size={20} /> : <HiVolumeOff size={20} />}
+							{isMuted ? <HiVolumeOff size={20} /> : <HiVolumeUp size={20} />}
 						</div>
 						<input
 							type="range"
 							min="0"
+							disabled={isMuted}
 							max="1"
 							step="0.01"
 							value={volume}

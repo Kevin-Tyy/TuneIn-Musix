@@ -14,7 +14,7 @@ const BackButtons = ({ handlePrevious, handleNext }: BackButtonProps) => {
 					<MdNavigateBefore size={25} />
 				</button>
 
-				<div className="bg-neutral-800 absolute -bottom-11 whitespace-nowrap -left-8 p-3 shadow-lg shadow-neutral-950 rounded-md transition duration-500 delay-150 invisible group-hover:visible opacity-0 group-hover:opacity-100">
+				<div className="bg-neutral-800 absolute -bottom-11 whitespace-nowrap -left-8 p-3 shadow-lg shadow-neutral-950 rounded-md transition duration-150 delay-150 invisible group-hover:visible opacity-0 group-hover:opacity-100">
 					Go back
 				</div>
 			</div>
@@ -24,7 +24,7 @@ const BackButtons = ({ handlePrevious, handleNext }: BackButtonProps) => {
 					className="p-1.5  bg-black/80 hover:bg-black rounded-full active:bg-black/80 transition">
 					<MdNavigateNext size={25} />
 				</button>
-				<div className="bg-neutral-800 absolute -bottom-10 whitespace-nowrap left-4 p-3 shadow-lg shadow-neutral-900 rounded-md transition duration-500 delay-150 invisible group-hover:visible opacity-0 group-hover:opacity-100">
+				<div className="bg-neutral-800 absolute -bottom-10 whitespace-nowrap left-4 p-3 shadow-lg shadow-neutral-900 rounded-md transition duration-150 delay-150 invisible group-hover:visible opacity-0 group-hover:opacity-100">
 					Go forward
 				</div>
 			</div>

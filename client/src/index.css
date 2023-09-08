@@ -10,3 +10,19 @@
 .button {
 	@apply bg-white
 }
+
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px !important;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgb(63, 63, 63);
+  border-radius: 10px;
+  height: 200px !important;
+}
+
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
