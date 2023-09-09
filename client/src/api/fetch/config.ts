@@ -74,7 +74,11 @@ const _getArtistById = async (token: string, artistId: string) => {
 	const data = result.json();
 	return data;
 };
-const _getArtistData = async (token: string, artistId: string , feed : string) => {
+const _getArtistData = async (
+	token: string,
+	artistId: string,
+	feed: string
+) => {
 	const result = await fetch(`${BaseUrl}/artists/${artistId}/${feed}`, {
 		method: "GET",
 		headers: {
@@ -105,7 +109,7 @@ const _searchItems = async (token: string, query: string, filter: string) => {
 	return data;
 };
 
-const _getAlbums = async (token: string , ids : string) => {
+const _getAlbums = async (token: string, ids: string) => {
 	const result = await fetch(`${BaseUrl}/albums?ids=${ids}`, {
 		method: "GET",
 		headers: {
@@ -115,17 +119,20 @@ const _getAlbums = async (token: string , ids : string) => {
 	const data = await result.json();
 	return data;
 };
-const _getRecommended = async (token : string) => {
-	const result = await fetch(`${BaseUrl}/recommendations
-	`, {
-		method: "GET",
-		headers: {
-			Authorization: "Bearer " + token,
-		},
-	});
+const _getRecommended = async (token: string) => {
+	const result = await fetch(
+		`${BaseUrl}/recommendations
+	`,
+		{
+			method: "GET",
+			headers: {
+				Authorization: "Bearer " + token,
+			},
+		}
+	);
 	const data = await result.json();
 	return data;
-}
+};
 export {
 	_getGenres,
 	_getToken,
@@ -137,5 +144,5 @@ export {
 	_getArtistRelated,
 	_searchItems,
 	_getAlbums,
-	_getRecommended
+	_getRecommended,
 };
