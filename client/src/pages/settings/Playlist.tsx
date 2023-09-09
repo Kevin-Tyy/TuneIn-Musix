@@ -32,7 +32,8 @@ const Playlist = () => {
 			onDragOver={allowDrop}
       onDragEnter={() => setIsDraggedOver(true)}
 			onDrop={handleDrop}
-			onDragLeave={() => setIsDraggedOver(false)}>
+			onDragLeave={() => setIsDraggedOver(false)}
+			>
 			Playlist
 			<div className="bg-neutral-800 my-2">
 				{playlist.map((item, index) => (

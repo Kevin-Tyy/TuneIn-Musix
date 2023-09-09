@@ -24,7 +24,6 @@ const LikedSongs: React.FC = () => {
 			});
 		}
 	}, [savedMusic]);
-	console.log(savedMusic);
 
 	let placeholderUrl;
 	if (user) {
@@ -79,7 +78,7 @@ const LikedSongs: React.FC = () => {
 				<div>
 					<div>
 						{savedMusic.length !== 0 ? (
-							<div className="flex flex-col gap-3 px-4 mt-10">
+							<div className="flex flex-col gap-3 px-14 mt-10">
 								{likedMusic.map((item, index) => (
 									<TrackBox item={item} index={index} key={index} />
 								))}

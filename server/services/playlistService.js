@@ -59,8 +59,30 @@ class playlistService {
 	};
 	updatePlaylist = async ({ id }, data) => {
 		try {
-			const playlist = await PlaylistModel.findByIdAndUpdate(id, { $set: { ...data } });
-			return playlist
+			const playlist = await PlaylistModel.findByIdAndUpdate(id, {
+				$set: { ...data },
+			});
+			return playlist;
+		} catch (error) {
+			throw new Error(error);
+		}
+	};
+	addMusicToPlaylist = async ({ id }, { musicId }) => {
+		try {
+			const playlist = await PlaylistModel.findByIdAndUpdate(id, {
+				$addToSet: { songIds: musicId },
+			});
+			return playlist;
+		} catch (error) {
+			throw new Error(error);
+		}
+	};
+	removeMusicFromPlaylist = async ({ id }, { musicId }) => {
+		try {
+			const playlist = await PlaylistModel.findByIdAndUpdate(id, {
+				$pull: { songId: musicId },
+			});
+			return playlist;
 		} catch (error) {
 			throw new Error(error);
 		}

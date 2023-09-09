@@ -35,7 +35,7 @@ const Playlist = () => {
 	const [playlistData, setPlaylistData] = useState<PlaylistItem | null>(null);
 	const [tracks, setTracks] = useState<TrackType[] | null>(null);
 	const { user } = useSelector(loggedInUser);
-	const [searchFilter, setSearchFilter] = useState<string | null>(null)
+	const [searchFilter, setSearchFilter] = useState<string | null>(null);
 
 	//loading states
 	const [loading, setLoading] = useState<boolean>(false);
@@ -53,10 +53,14 @@ const Playlist = () => {
 	useEffect(() => {
 		getPlaylist();
 		if (!playlistData) return;
-		_getTracks(userToken, playlistData?.songIds.join(",")).then((response) => {
-			console.log(response);
-			setTracks(response.tracks);
-		});
+		if (playlistData?.songIds.length > 0) {
+			_getTracks(userToken, playlistData?.songIds.join(",")).then(
+				(response) => {
+					console.log(response);
+					setTracks(response.tracks);
+				}
+			);
+		}
 	}, [id]);
 	const getPlaylist = () => {
 		setLoading(true);
@@ -186,11 +190,13 @@ const Playlist = () => {
 										onChange={(e) => setSearchFilter(e.target.value)}
 										className={`w-full bg-transparent outline-none placeholder:text-white`}
 									/>
-									{searchFilter && isExpanded && 
-										<div className="absolute right-2 hover:bg-gray-600/40 cursor-pointer transition rounded-md p-1.5" onClick={() => setIsExpanded(false)}>
-											<IoClose/>
+									{searchFilter && isExpanded && (
+										<div
+											className="absolute right-2 hover:bg-gray-600/40 cursor-pointer transition rounded-md p-1.5"
+											onClick={() => setIsExpanded(false)}>
+											<IoClose />
 										</div>
-									}
+									)}
 								</div>
 							</div>
 							<FiSearch
@@ -222,7 +228,7 @@ const Playlist = () => {
 				{tracks && (
 					<div>
 						{tracks.length > 0 && (
-							<div>
+							<div className="flex flex-col gap-3 px-4 ">
 								{tracks.map((track, index) => (
 									<Trackbox item={track} key={index} index={index} />
 								))}

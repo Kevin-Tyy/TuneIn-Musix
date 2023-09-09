@@ -74,6 +74,32 @@ class PlayListController {
 			res.status(500).json({ msg: "Something went wrong" });
 		}
 	};
+	addSongsToPlaylist = async (req, res) => {
+		try {
+			const updatedPlaylist = await playlistService.addMusicToPlaylist(
+				req.params,
+				req.body
+			);
+			updatedPlaylist
+				? res.status(200).json({ msg: "Added to playlist" })
+				: res.status(400).json({ msg: "Couldn't add music to playlist" });
+		} catch (error) {
+			res.status(500).json({ msg: "Something went wrong" });
+		}
+	};
+	removeSongsToPlaylist = async (req, res) => {
+		try {
+			const updatedPlaylist = await playlistService.removeMusicFromPlaylist(
+				req.params,
+				req.body
+			);
+			updatedPlaylist
+				? res.status(200).json({ msg: "Removed to playlist" })
+				: res.status(400).json({ msg: "Couldn't remove song from playlist" });
+		} catch (error) {
+			res.status(500).json({ msg: "Something went wrong" });
+		}
+	};
 }
 
 export default new PlayListController();

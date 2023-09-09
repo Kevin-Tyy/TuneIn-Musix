@@ -9,4 +9,9 @@ PlaylistRoute.route("/single/:id")
 	.get(playlistController.getSinglePlaylist)
 	.delete(playlistController.deletePlaylist)
 	.patch(playlistController.updatePlaylist);
+
+PlaylistRoute.route("/add/:id")
+	.post(playlistController.addSongsToPlaylist)
+	.delete(playlistController.removeSongsToPlaylist);
+
 export default PlaylistRoute;

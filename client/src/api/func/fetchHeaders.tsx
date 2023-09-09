@@ -1,7 +1,6 @@
 import axios from "axios";
 import { ApiRoot } from "../config/apiRoot";
 const token = localStorage.getItem("token");
-console.log(token);
 export const fetchServerRequest = (uri: string) => {
 	return axios.get(`${ApiRoot}/${uri}`, {
 		headers: {

@@ -15,7 +15,7 @@ import axios from "axios";
 import { ApiRoot } from "../api/config/apiRoot";
 import useCurrentUser from "../hooks/useCurrentUser";
 import { useEffect, useState } from "react";
-import { LoaderIcon } from "react-hot-toast";
+import { LoaderIcon, toast } from "react-hot-toast";
 import { Link } from "react-router-dom";
 import clsx from "clsx";
 const SideBarLayout = () => {
@@ -24,6 +24,8 @@ const SideBarLayout = () => {
 	};
 	const user = useCurrentUser();
 	const [playlists, setPlaylists] = useState<PlaylistItem[] | null>(null);
+
+	/// dispatch a song to saved music in redux state
 	const dispatch = useDispatch();
 	const { savedMusic } = useSelector(userAccount);
 
@@ -44,11 +46,41 @@ const SideBarLayout = () => {
 				console.log(error);
 			});
 	};
-	playlists && console.log(playlists[0]?.songIds);
 
+	/// fetch playlists on component mount
 	useEffect(() => {
 		fetchPlaylists();
 	}, []);
+
+	/// drag and drop functions and state
+	const [isDraggedOver, setIsDraggedOver] = useState(false);
+	const [draggedOverIndex, setDraggedOverIndex] = useState<number | null>(null);
+
+	const allowDrop = (index: number, e: any) => {
+		e.preventDefault();
+		setIsDraggedOver(true);
+		setDraggedOverIndex(index);
+	};
+
+	// drop music
+	const handleDrop = (id: string, e: any) => {
+		if (!playlists) return;
+		e.preventDefault();
+		const trackId = e.dataTransfer.getData("track");
+		axios
+			.post(`${ApiRoot}/playlist/add/${id}`, {
+				musicId: trackId,
+			})
+			.then((response) => {
+				toast.success(response?.data?.msg);
+			})
+			.catch((err) => {
+				toast.error(err.message);
+			});
+		setIsDraggedOver(false);
+	};
+
+	//render functional component to ui
 	return (
 		<div
 			className={clsx(
@@ -79,8 +111,8 @@ const SideBarLayout = () => {
 							<div className="w-full overflow-hidden">
 								<h1 className="text-xl text-white font-bold whitespace-nowrap w-full overflow-hidden text-ellipsis">
 									{currentTrack?.name} -{" "}
-									{currentTrack?.artists.map((artist) => (
-										<span>
+									{currentTrack?.artists.map((artist, index) => (
+										<span key={index}>
 											{artist.name}
 											{currentTrack.artists.indexOf(artist) !==
 												currentTrack.artists.length - 1 && ", "}
@@ -149,8 +181,15 @@ const SideBarLayout = () => {
 							{playlists.map((playlist, index) => (
 								<div
 									key={index}
-									className="bg-neutral-900 hover:bg-neutral-800/80 p-2 rounded-md"
-									onDrop={() => console.log("dropped")}>
+									onDragOver={(e) => allowDrop(index, e)}
+									onDragLeave={() => setIsDraggedOver(false)}
+									onDrop={(e) => handleDrop(playlist?._id, e)}
+									className={clsx(
+										"bg-neutral-900 hover:bg-neutral-800/80 p-2 rounded-md",
+										isDraggedOver &&
+											draggedOverIndex === index &&
+											"ring-1 ring-fuchsia-700"
+									)}>
 									<Link
 										to={`/playlist/${playlist._id}`}
 										className="flex gap-2 items-center">
@@ -182,7 +221,10 @@ const SideBarLayout = () => {
 						<div className="w-full h-full min-h-[10vh] flex justify-center items-center gap-4 text-white">
 							<TfiMusicAlt size={25} />
 
-							<p className="text-sm max-w-[70%]">You have no playlists, create a new one to organize your favorite songs</p>
+							<p className="text-sm max-w-[70%]">
+								You have no playlists, create a new one to organize your
+								favorite songs
+							</p>
 						</div>
 					)
 				) : (

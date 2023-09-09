@@ -5,7 +5,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
 * {
 	font-family: "Poppins", 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-	font-size: 15px;
+	font-size: 14px;
 }
 .button {
 	@apply bg-white
@@ -23,6 +23,6 @@
 }
 
 ::-webkit-scrollbar-track {
-  background-color: transparent;
+  background-color: black;
 }
 

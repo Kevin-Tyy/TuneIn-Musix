@@ -122,7 +122,7 @@ const SearchPage: React.FC = () => {
 						)}
 					</>
 				)}
-				<div className="px-4 mt-5">
+				<div className="px-16 mt-5">
 					{(loading && !AlbumSearchResults) ||
 						(!TrackSearchResults && loading && (
 							<div className="flex items-center justify-center h-96">

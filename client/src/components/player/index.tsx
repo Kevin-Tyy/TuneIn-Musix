@@ -61,14 +61,14 @@ const Player = () => {
 	return (
 		<div className="bg-black z-50 fixed bottom-0 w-full h-[8vh] min-h-[90px] px-3 py-1">
 			<div className=" ring-1 grid grid-cols-4 h-full ring-neutral-900 rounded-md">
-				<div className="h-full p-3 ">
+				<div className="h-full p-3 col-span-2 md:col-span-1">
 					{!currentTrack && (
 						<div className="text-white bg-neutral-800 h-full w-full max-w-[60px] grid place-content-center rounded-sm">
 							<TfiMusicAlt />
 						</div>
 					)}
 					{currentTrack && (
-						<div className="w-full flex items-center gap-4 h-full">
+						<div className="w-full  flex items-center gap-4 h-full">
 							<div className="h-full w-full max-w-[60px] group relative">
 								<img
 									src={currentTrack.album.images[0].url!}
@@ -77,7 +77,7 @@ const Player = () => {
 								<div className="opacity-0 group-hover:opacity-60 absolute inset-0 bg-black"></div>
 							</div>
 							<div className="space-y-1">
-								<h1 className="text-white font-sans font-semibold tracking-tight text-sm">
+								<h1 className="text-white font-sans font-semibold tracking-tight ">
 									{currentTrack.name}
 								</h1>
 								<p className="text-gray-400 text-[10px]">
@@ -85,7 +85,7 @@ const Player = () => {
 										<span key={artist.id}>
 											<Link
 												to={`/artist/${artist.id}`}
-												className="hover:underline">
+												className="hover:underline text-sm">
 												{artist.name}
 											</Link>
 											{currentTrack.artists.indexOf(artist) !==
@@ -112,7 +112,7 @@ const Player = () => {
 						</div>
 					)}
 				</div>
-				<div className="flex col-span-2 w-full justify-center items-center gap-2 flex-col">
+				<div className="flex md:col-span-2 w-full justify-center items-center gap-2 flex-col">
 					<div
 						className={clsx(
 							"justify-center flex items-center space-x-5",
@@ -155,7 +155,7 @@ const Player = () => {
 					</div>
 					<div
 						className={clsx(
-							"flex gap-3 items-center w-full max-w-xl select-none",
+							"hidden md:flex gap-3 items-center w-full max-w-xl select-none",
 							disabled && "opacity-40"
 						)}>
 						<h1 className="text-white text-xs">1:05</h1>
