@@ -10,7 +10,7 @@ import { TrackType } from "../../types";
 import { Link } from "react-router-dom";
 import { BiHeart } from "react-icons/bi";
 import { BsHeartFill, BsRepeat } from "react-icons/bs";
-import { HiMiniPause, HiMiniPlay } from "react-icons/hi2";
+import { HiBars4, HiMiniPause, HiMiniPlay } from "react-icons/hi2";
 import { BiShuffle, BiSkipNext, BiSkipPrevious } from "react-icons/bi";
 import { TbMicrophone2 } from "react-icons/tb";
 import clsx from "clsx";
@@ -18,8 +18,11 @@ import { HiMenuAlt3, HiVolumeOff, HiVolumeUp } from "react-icons/hi";
 import { TfiMusicAlt } from "react-icons/tfi";
 import useDuration from "../../hooks/useDuration";
 // import axios from "axios";
-
-const Player = () => {
+interface Props {
+	isExpanded: boolean;
+	setExpanded: () => void;
+}
+const Player: React.FC<Props> = ({ isExpanded, setExpanded }) => {
 	// const { userToken } = useSelector(userAccount);
 	const { savedMusic } = useSelector(userAccount);
 	const [isMuted, setIsMuted] = useState(false);
@@ -58,6 +61,16 @@ const Player = () => {
 			audio.volume = volume;
 		}
 	};
+	const [progress, setprogress] = useState(0);
+	useEffect(() => {
+		const timer = setInterval(() => {
+			if (progress < 100) {
+				setprogress((prev) => prev + 1);
+			}
+		}, 500);
+		return () => clearInterval(timer);
+	}, []);
+
 	return (
 		<div className="bg-black z-50 fixed bottom-0 w-full h-[8vh] min-h-[90px] px-3 py-1">
 			<div className=" ring-1 grid grid-cols-4 h-full ring-neutral-900 rounded-md">
@@ -159,7 +172,11 @@ const Player = () => {
 							disabled && "opacity-40"
 						)}>
 						<h1 className="text-white text-xs">1:05</h1>
-						<div className="h-1 bg-white rounded-full flex-1"></div>
+						<div className="h-1 bg-white rounded-full flex-1">
+							<div
+								className={`h-full bg-fuchsia-800 transition max-w-full`}
+								style={{ width: `${progress}%` }}></div>
+						</div>
 						<h1 className="text-white text-xs">
 							{useDuration(currentTrack?.duration_ms)}
 						</h1>
@@ -170,9 +187,14 @@ const Player = () => {
 				</div>
 				<div
 					className={clsx(
-						"text-white pr-10 md:flex w-full justify-end items-center gap-6 hidden",
+						"text-white pr-10 md:flex w-full justify-end items-center gap-4 hidden",
 						disabled && "opacity-40"
 					)}>
+					<div
+						className={`${isExpanded && "text-green-600"} cursor-pointer`}
+						onClick={setExpanded}>
+						<HiBars4 size={18} />
+					</div>
 					<div className="cursor-pointer">
 						<TbMicrophone2 size={18} />
 					</div>
@@ -181,6 +203,7 @@ const Player = () => {
 							{isMuted ? <HiVolumeOff size={20} /> : <HiVolumeUp size={20} />}
 						</div>
 						<input
+							className="w-32 h-1"
 							type="range"
 							min="0"
 							disabled={isMuted}
