@@ -1,16 +1,21 @@
-import React, { useState, useCallback } from "react";
-import { useSelector } from "react-redux";
-import { userAccount } from "../../redux/slices/Accountslice";
+import React, { useEffect, useState, useCallback } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+	addRecentMusic,
+	clearAllRecentMusic,
+	userAccount,
+} from "../../redux/slices/Accountslice";
 import { FiSearch } from "react-icons/fi";
-import { _searchItems } from "../../api/fetch/config";
-import { AlbumType, TrackType } from "../../types";
+import { _getGenres, _getTracks, _searchItems } from "../../api/fetch/config";
+import { AlbumType, GenreItemType, TrackType } from "../../types";
 import SearchFilter from "../../components/modals/SearchFilter";
 import Header from "../../components/navigation/Header";
-import { toast } from "react-hot-toast";
-import { BounceLoader } from "react-spinners";
+import { LoaderIcon, toast } from "react-hot-toast";
 import TrackBox from "../../components/TrackBox";
 import AlbumBox from "../../components/AlbumBox";
 import { TfiMusicAlt } from "react-icons/tfi";
+import RecentBox from "./ci/RecentBox";
+import GenreBox from "../../components/GenreBox";
 
 interface SearchResult<T> {
 	href: string;
@@ -28,12 +33,12 @@ type TrackSearchResult = SearchResult<TrackType>;
 const SearchPage: React.FC = () => {
 	const { recentMusic } = useSelector(userAccount);
 	const [queryString, setQueryString] = useState<string>("");
-	// const [searchResults, setSearchResults] = useState<SearchResultType>(null);
+	const [recentTracks, setRecentTracks] = useState<TrackType[] | null>(null);
 	const [TrackSearchResults, setTrackSearchResults] =
 		useState<TrackSearchResult | null>(null);
 	const [AlbumSearchResults, setAlumSearchResults] =
 		useState<AlbumSearchResult | null>(null);
-
+	const [genres, setGenres] = useState<GenreItemType[] | null>(null);
 	const [searchFilter, setSearchFilter] = useState("track");
 	const [isSearchFilterOpen, setIsSearchFilterOpen] = useState(false);
 	const [loading, setLoading] = useState(false);
@@ -44,7 +49,8 @@ const SearchPage: React.FC = () => {
 		if (!queryString) return;
 		searchResults();
 	};
-	const searchResults = useCallback(() => {
+	const dispatch = useDispatch();
+	const searchResults = () => {
 		setLoading(true);
 		setAlumSearchResults(null);
 		setTrackSearchResults(null);
@@ -68,8 +74,23 @@ const SearchPage: React.FC = () => {
 			.finally(() => {
 				setLoading(false);
 			});
-	}, [queryString, searchFilter]);
-
+	};
+	const handleRecent = (id: string) => {
+		dispatch(addRecentMusic(id));
+	};
+	const fetchRecentTracks = () => {
+		_getTracks(userToken, recentMusic.join(",")).then((response) => {
+			setRecentTracks(response.tracks);
+		});
+	};
+	const fetchGenres = async () => {
+		const genres = await _getGenres(userToken);
+		setGenres(genres);
+	};
+	useEffect(() => {
+		fetchRecentTracks();
+		fetchGenres();
+	}, [recentMusic]);
 	return (
 		<div>
 			<Header>
@@ -83,7 +104,7 @@ const SearchPage: React.FC = () => {
 								<FiSearch size={15} />
 							</button>
 							<input
-								className=" w-full bg-transparent text-xs outline-none"
+								className=" w-full bg-transparent text-sm outline-none"
 								placeholder="Search"
 								value={queryString as string}
 								onChange={(e) => {
@@ -106,29 +127,43 @@ const SearchPage: React.FC = () => {
 				</div>
 			</Header>
 			<div className="mt-5">
-				{!(AlbumSearchResults || TrackSearchResults) && (
-					<>
-						{recentMusic.length > 0 ? (
-							<div>
-								{recentMusic.map((_: any, index: number) => (
-									<p key={index}>RecentMusic at {index}</p>
+				{!(AlbumSearchResults || TrackSearchResults) &&
+					!loading &&
+					recentMusic.length > 0 && (
+						<div className="px-4 relative">
+							<h1 className="text-xl md:text-2xl mb-5">Your recent searches</h1>
+
+							<div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 2xl:grid-cols-7 gap-2">
+								{recentTracks &&
+									recentTracks.map((item: TrackType, index: number) => (
+										<RecentBox item={item} key={index} />
+									))}
+							</div>
+							<p
+								className="absolute right-3 top-3 cursor-pointer hover:underline p-4"
+								onClick={() => dispatch(clearAllRecentMusic())}>
+								Clear all
+							</p>
+						</div>
+					)}
+				{!(AlbumSearchResults || TrackSearchResults) && !loading && (
+					<div className="p-4">
+						<h1 className="text-xl md:text-2xl mb-5">Browse all categories</h1>
+						{genres && (
+							<div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-5 2xl:grid-cols-7 gap-3">
+								{genres?.map((item, index) => (
+									<GenreBox genre={item} key={index} />
 								))}
 							</div>
-						) : (
-							<div className="flex flex-col gap-3 justify-center items-center">
-								<TfiMusicAlt size={30} />
-								<h1 className="text-xl">No Recent searches</h1>
-							</div>
 						)}
-					</>
+					</div>
 				)}
-				<div className="px-16 mt-5">
-					{(loading && !AlbumSearchResults) ||
-						(!TrackSearchResults && loading && (
-							<div className="flex items-center justify-center h-96">
-								<BounceLoader size={140} color="#36d7b7" />
-							</div>
-						))}
+				<div className="px-10 mt-10">
+					{loading && (
+						<div className="flex items-center justify-center h-96">
+							<LoaderIcon style={{ width: 50, height: 50, borderWidth: 3 }} />
+						</div>
+					)}
 					{AlbumSearchResults && (
 						<div className="space-y-10">
 							<h1 className="text-2xl font-semibold">Top Results</h1>
@@ -139,25 +174,32 @@ const SearchPage: React.FC = () => {
 							</div>
 						</div>
 					)}
-					{TrackSearchResults && (
-						<div className="space-y-10">
-							<h1 className="text-2xl font-semibold">Top Results</h1>
-							<div className="flex flex-col gap-3">
-								{TrackSearchResults?.items
-									.slice(0, limit)
-									.map((item, index) => (
-										<TrackBox item={item} key={index} index={index} />
-									))}
-							</div>
+					{TrackSearchResults &&
+						(TrackSearchResults.items.length ? (
+							<div className="space-y-10">
+								<h1 className="text-2xl font-semibold">Top Results</h1>
+								<div className="flex flex-col gap-3">
+									{TrackSearchResults?.items
+										.slice(0, limit)
+										.map((item, index) => (
+											<div key={index} onClick={() => handleRecent(item?.id)}>
+												<TrackBox item={item} index={index} />
+											</div>
+										))}
+								</div>
 
-							<button
-								className="bg-gradient-to-br  from-primary-400 via-purple-600 to-pink-400 py-3 px-6 rounded-full hover:bg-primary-300 transition hover:scale-105"
-								onClick={() => setLimit(limit + 10)}
-								disabled={limit >= TrackSearchResults?.items.length}>
-								View more
-							</button>
-						</div>
-					)}
+								<button
+									className="bg-gradient-to-br  from-primary-400 via-purple-600 to-pink-400 py-3 px-6 rounded-full hover:bg-primary-300 transition hover:scale-105"
+									onClick={() => setLimit(limit + 10)}
+									disabled={limit >= TrackSearchResults?.items.length}>
+									View more
+								</button>
+							</div>
+						) : (
+							<div>
+								<p>Loading....</p>
+							</div>
+						))}
 				</div>
 			</div>
 		</div>

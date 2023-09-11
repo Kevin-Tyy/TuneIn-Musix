@@ -8,10 +8,19 @@ import Player from "../components/player";
 import SideBarLayout from "./SideBarLayout";
 
 const HomeLayout: React.FC = () => {
-	document.title = "Tune In † Music is vivid";
+	document.title = "Tune In • Music is vivid";
 	const dispatch = useDispatch();
+
 	useEffect(() => {
 		requestToken();
+		const tokenRefreshInterval = setInterval(() => {
+			requestToken();
+		}, 3600000);
+
+		// Clean up the interval when the component unmounts
+		return () => {
+			clearInterval(tokenRefreshInterval);
+		};
 	}, []);
 
 	const requestToken = async () => {

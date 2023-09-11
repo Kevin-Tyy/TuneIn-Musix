@@ -33,7 +33,6 @@ const HomePage: React.FC = () => {
 
 		const { artists } = await _getArtists(userToken);
 		setArtists(artists);
-		console.log(artists);
 	};
 
 	return (
@@ -50,10 +49,10 @@ const HomePage: React.FC = () => {
 					</div>
 				</div>
 			</Header>
-			<div>
+			<div className="p-4">
 				<h1 className="text-xl">Explore Famous Hits</h1>
 				{genres && (
-					<div className="mt-5 flex flex-wrap gap-4">
+					<div className="mt-5 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 2xl:grid-cols-7 gap-2">
 						{genres.slice(0, 7).map((genre) => (
 							<GenreBox genre={genre} key={genre.id} />
 						))}
@@ -63,10 +62,10 @@ const HomePage: React.FC = () => {
 			<div>
 				<h1 className="text-xl">Newest Music</h1>
 			</div>
-			<div className="mt-10">
+			<div className="mt-10 p-4">
 				<h1 className="text-xl">Popular Artists</h1>
 				{artists && (
-					<div className="mt-5 flex flex-wrap justify-stretch gap-4 w-full">
+					<div className="mt-5 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-6 2xl:grid-cols-8 gap-2">
 						{artists.map((artist: any) => (
 							<ArtistBox artist={artist} key={artist.id} />
 						))}

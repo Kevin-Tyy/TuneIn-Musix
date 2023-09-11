@@ -8,7 +8,7 @@ interface ArtistBoxProps {
 const ArtistBox: React.FC<ArtistBoxProps> = ({ artist }) => {
 	return (
 		<Link to={`/artist/${artist.id}`}>
-			<div className="w-[200px] max-w-md p-4 bg-neutral-600/30 rounded-md flex flex-col gap-5 transition hover:bg-neutral-800 relative group">
+			<div className="w-full max-w-md p-4 bg-neutral-600/30 rounded-md flex flex-col gap-5 transition hover:bg-neutral-800 relative group">
 				<img
 					src={
 						artist.images[0]?.url! ||

@@ -8,7 +8,7 @@ import useAvatar from "../../../hooks/useAvatar";
 import { _getRecommended, _getTracks } from "../../../api/fetch/config";
 
 //import icons, loading and ui components
-import { toast } from "react-hot-toast";
+import { LoaderIcon, toast } from "react-hot-toast";
 import { FiSearch } from "react-icons/fi";
 import { ClipLoader } from "react-spinners";
 import Header from "../../../components/navigation/Header";
@@ -225,7 +225,7 @@ const Playlist = () => {
 						</button>
 					</div>
 				)}
-				{tracks && (
+				{tracks ? (
 					<div>
 						{tracks.length > 0 && (
 							<div className="flex flex-col gap-3 px-4 ">
@@ -234,6 +234,10 @@ const Playlist = () => {
 								))}
 							</div>
 						)}
+					</div>
+				) : (
+					<div className="min-h-[30vh] grid place-content-center">
+						<LoaderIcon style={{ width : 50, height : 50 , borderWidth : 3}}/>
 					</div>
 				)}
 			</div>

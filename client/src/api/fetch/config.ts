@@ -44,10 +44,11 @@ const _getPlaylistByGenre = async (token: string, genreId: string) => {
 const _getTracks = async (token: string, ids: string) => {
 	const result = await fetch(`${BaseUrl}/tracks?ids=${ids}`, {
 		method: "GET",
-		headers: { Authorization: "Bearer " + token },
+		headers: {
+			Authorization: "Bearer " + token,
+		},
 	});
-
-	const data = await result.json();
+	const data = result.json();
 	return data;
 };
 

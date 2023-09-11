@@ -14,6 +14,7 @@ import useDuration from "../hooks/useDuration";
 import { playerStatus, setCurrentTrack } from "../redux/slices/PlayerSlice";
 import { Bars } from "react-loader-spinner";
 import clsx from "clsx";
+import { TfiMusicAlt } from "react-icons/tfi";
 type TrackBoxProps = {
 	item: TrackType;
 	index?: number;
@@ -49,7 +50,7 @@ const TrackBox: React.FC<TrackBoxProps> = ({ item, index }) => {
 				currentTrack?.id === item?.id && isPlaying ? "gap-4" : "gap-6"
 			}`}>
 			{currentTrack?.id === item?.id && isPlaying ? (
-				<Bars width={16} height={40} color="purple"/>
+				<Bars width={16} height={40} color="purple" />
 			) : (
 				<p
 					className={clsx(
@@ -67,10 +68,16 @@ const TrackBox: React.FC<TrackBoxProps> = ({ item, index }) => {
 					className="flex justify-start w-full gap-4"
 					onClick={handlePlayTrack}>
 					<div className="relative ">
-						<img
-							src={item.album?.images[0].url!}
-							className="h-full rounded-sm"
-						/>
+						{item?.album?.images[0]?.url ? (
+							<img
+								src={item.album?.images[0]?.url!}
+								className="h-full rounded-sm"
+							/>
+						) : (
+							<div className="bg-gradient-to-br from-purple-800 to-gray-600 w-16 rounded grid place-content-center h-full">
+								<TfiMusicAlt size={16} />
+							</div>
+						)}
 						<div className="h-full w-full rounded-sm opacity-0 bg-black/0 group-hover:bg-black/50 transition duration-200 group-hover:opacity-100 absolute inset-0 flex items-center justify-center">
 							{isPlaying && currentTrack.id === item.id ? (
 								<FaPause />

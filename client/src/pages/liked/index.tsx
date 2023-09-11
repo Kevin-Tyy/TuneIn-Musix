@@ -61,8 +61,8 @@ const LikedSongs: React.FC = () => {
 											<span className="text-sm sm:text-base hover:underline cursor-pointer">
 												{user.username.split(" ")[0]}
 											</span>{" "}
-											• {likedMusic.length} song
-											{likedMusic.length !== 1 && "s"}
+											• {savedMusic.length} song
+											{savedMusic.length !== 1 && "s"}
 										</p>
 									</div>
 								)}
