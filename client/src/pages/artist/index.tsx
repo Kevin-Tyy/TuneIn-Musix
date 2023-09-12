@@ -146,7 +146,7 @@ const Artist = () => {
 				<h1 className="text-xl">Popular Artists</h1>
 				{relatedArtists && (
 					<div className="space-y-5">
-						<div className="mt-5 grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 2xl:grid-cols-7  gap-3">
+						<div className="mt-5 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 2xl:grid-cols-7  gap-3">
 							{relatedArtists
 								.slice(0, artistlimit)
 								.map((artist: ArtistType) => (

@@ -40,8 +40,10 @@ const TrackBox: React.FC<TrackBoxProps> = ({ item, index }) => {
 	};
 	const handleDragStart = (id: string, e: any) => {
 		e.dataTransfer.setData("track", id);
-		console.log("Drag started");
 	};
+	if(currentTrack.id === item.id) {
+		console.log(item.name)
+	}
 	return (
 		<div
 			draggable="true"

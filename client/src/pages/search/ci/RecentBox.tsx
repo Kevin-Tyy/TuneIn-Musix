@@ -14,7 +14,7 @@ const RecentBox = ({ item }: Props) => {
 	};
 	return (
 		<div
-			className="flex items-center gap-5 select-none"
+			className="flex items-center h-full gap-5 select-none"
 			title={item?.album?.name}>
 			<div className="relative flex flex-col w-full bg-neutral-900 h-80 p-2 group rounded-lg hover:bg-neutral-800/80 transition cursor-pointer">
 				<div

@@ -8,11 +8,8 @@ interface SearchFilterProps {
 }
 import { Fragment } from "react";
 import { LuSettings2 } from "react-icons/lu";
-const filterOptions: string[] = [
-	"album",
-	"artist",
-	"track",
-];
+import { searchTabs } from "../../utils/constants";
+
 const SearchFilter: React.FC<SearchFilterProps> = ({
 	searchFilter,
 	setIsSearchFilterOpen,
@@ -36,8 +33,8 @@ const SearchFilter: React.FC<SearchFilterProps> = ({
 					leaveFrom="opacity-100"
 					leaveTo="opacity-0">
 					<Listbox.Options className="absolute right-0 md:-right-32">
-						{filterOptions.map((option) => (
-							<Listbox.Option key={option} value={option} as={Fragment}>
+						{searchTabs.map((option, index) => (
+							<Listbox.Option key={index} value={option.filter} as={Fragment}>
 								{({ active, selected }) => (
 									<li
 										className={clsx(
@@ -45,7 +42,7 @@ const SearchFilter: React.FC<SearchFilterProps> = ({
 											active ? "bg-neutral-500" : "bg-neutral-800",
 											selected && "bg-primary-500"
 										)}>
-										{option}
+										{option.title}
 									</li>
 								)}
 							</Listbox.Option>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
 	addRecentMusic,
@@ -13,9 +13,9 @@ import Header from "../../components/navigation/Header";
 import { LoaderIcon, toast } from "react-hot-toast";
 import TrackBox from "../../components/TrackBox";
 import AlbumBox from "../../components/AlbumBox";
-import { TfiMusicAlt } from "react-icons/tfi";
 import RecentBox from "./ci/RecentBox";
 import GenreBox from "../../components/GenreBox";
+import { searchTabs } from "../../utils/constants";
 
 interface SearchResult<T> {
 	href: string;
@@ -124,6 +124,22 @@ const SearchPage: React.FC = () => {
 							</div>
 						</div>
 					</form>
+					{(TrackSearchResults || AlbumSearchResults) && (
+						<div className="flex gap-2">
+							{searchTabs.map((item, index) => (
+								<button
+									key={index}
+									onClick={() => setSearchFilter(item?.filter)}
+									className={` py-2 px-4 rounded-full text-sm ${
+										item?.filter.toLowerCase() === searchFilter.toLowerCase()
+											? "bg-white text-black"
+											: "bg-neutral-700/50 text-white"
+									}`}>
+									{item?.title}
+								</button>
+							))}
+						</div>
+					)}
 				</div>
 			</Header>
 			<div className="mt-5">
@@ -167,40 +183,50 @@ const SearchPage: React.FC = () => {
 					{AlbumSearchResults && (
 						<div className="space-y-10">
 							<h1 className="text-2xl font-semibold">Top Results</h1>
-							<div className="flex flex-col gap-3">
+							<div className="mt-5 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-6 2xl:grid-cols-7 gap-2">
 								{AlbumSearchResults?.items.map((item, index) => (
 									<AlbumBox item={item} key={index} index={index} />
 								))}
 							</div>
 						</div>
 					)}
-					{TrackSearchResults &&
-						(TrackSearchResults.items.length ? (
-							<div className="space-y-10">
-								<h1 className="text-2xl font-semibold">Top Results</h1>
-								<div className="flex flex-col gap-3">
-									{TrackSearchResults?.items
-										.slice(0, limit)
-										.map((item, index) => (
-											<div key={index} onClick={() => handleRecent(item?.id)}>
-												<TrackBox item={item} index={index} />
-											</div>
-										))}
-								</div>
-
+					{TrackSearchResults && TrackSearchResults?.items.length ? (
+						<div className="space-y-10">
+							<h1 className="text-2xl font-semibold">Top Results</h1>
+							<div className="flex flex-col gap-3">
+								{TrackSearchResults?.items
+									.slice(0, limit)
+									.map((item, index) => (
+										<div key={index} onClick={() => handleRecent(item?.id)}>
+											<TrackBox item={item} index={index} />
+										</div>
+									))}
+							</div>
+							{!loading && TrackSearchResults.items.length ? (
 								<button
 									className="bg-gradient-to-br  from-primary-400 via-purple-600 to-pink-400 py-3 px-6 rounded-full hover:bg-primary-300 transition hover:scale-105"
 									onClick={() => setLimit(limit + 10)}
 									disabled={limit >= TrackSearchResults?.items.length}>
 									View more
 								</button>
-							</div>
-						) : (
-							<div>
-								<p>Loading....</p>
-							</div>
-						))}
+							) : null}
+						</div>
+					) : null}
 				</div>
+				{!loading &&
+					!(
+						TrackSearchResults?.items.length || AlbumSearchResults?.items.length
+					) && (
+						<div className="min-h-[40vh] w-full grid place-content-center">
+							<div className="flex flex-col gap-2 items-center">
+								<p className="text-2xl">No results for "{queryString}"</p>
+								<p className="text-gray-400">
+									Please make sure your words are spelled correctly, or use
+									fewer or different keywords.
+								</p>
+							</div>
+						</div>
+					)}
 			</div>
 		</div>
 	);

@@ -52,15 +52,6 @@ const Playlist = () => {
 	const navigate = useNavigate();
 	useEffect(() => {
 		getPlaylist();
-		if (!playlistData) return;
-		if (playlistData?.songIds.length > 0) {
-			_getTracks(userToken, playlistData?.songIds.join(",")).then(
-				(response) => {
-					console.log(response);
-					setTracks(response.tracks);
-				}
-			);
-		}
 	}, [id]);
 	const getPlaylist = () => {
 		setLoading(true);
@@ -68,6 +59,13 @@ const Playlist = () => {
 			.get(`${ApiRoot}/playlist/single/${id}`)
 			.then((response) => {
 				setPlaylistData(response.data);
+				if (response.data?.songIds.length > 0) {
+					_getTracks(userToken, response.data?.songIds.join(",")).then(
+						(response) => {
+							setTracks(response.tracks);
+						}
+					);
+				}
 			})
 			.catch((err) => {
 				console.log(err);
@@ -237,7 +235,7 @@ const Playlist = () => {
 					</div>
 				) : (
 					<div className="min-h-[30vh] grid place-content-center">
-						<LoaderIcon style={{ width : 50, height : 50 , borderWidth : 3}}/>
+						<LoaderIcon style={{ width: 50, height: 50, borderWidth: 3 }} />
 					</div>
 				)}
 			</div>

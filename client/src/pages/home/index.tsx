@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import {
+	_getAlbums,
 	_getArtists,
 	_getGenres,
 	_getPlaylistByGenre,
@@ -7,18 +8,20 @@ import {
 	_getTracks,
 } from "../../api/fetch/config";
 import GenreBox from "../../components/GenreBox";
-import { GenreItemType } from "../../types";
+import { AlbumType, GenreItemType } from "../../types";
 import ArtistBox from "../../components/ArtistBox";
 import { useSelector } from "react-redux";
 import { userAccount } from "../../redux/slices/Accountslice";
 import Header from "../../components/navigation/Header";
 import ListBox from "../../components/navigation/ListBox";
 import { BsHeart } from "react-icons/bs";
+import AlbumBox from "../../components/AlbumBox";
 
 const HomePage: React.FC = () => {
 	// const [token, setToken] = useState("");
 	const [genres, setGenres] = useState<GenreItemType[]>([]);
 	const [artists, setArtists] = useState<any>([]);
+	const [albums, setAlbums] = useState<AlbumType[] | null>(null);
 	const { userToken } = useSelector(userAccount);
 
 	useEffect(() => {
@@ -33,6 +36,12 @@ const HomePage: React.FC = () => {
 
 		const { artists } = await _getArtists(userToken);
 		setArtists(artists);
+
+		const { albums } = await _getAlbums(
+			userToken,
+			"0aAVMtHuK9wX1mQozWvdSZ,3T4tUhGYeRNVUGevb0wThu,1ATL5GLyefJaxhQzSPVrLX,6qNMYsx5OUFDXWAoct9Pge,6q8AAimjVfKuv9PrI5xto9,277z75G1Gdz0SWN9pegrrs,36BrJMjIOTyT6Jyv43i1Uu,3nzuGtN3nXARvvecier4K0"
+		);
+		setAlbums(albums);
 	};
 
 	return (
@@ -61,6 +70,15 @@ const HomePage: React.FC = () => {
 			</div>
 			<div>
 				<h1 className="text-xl">Newest Music</h1>
+			</div>
+			<div>
+				{albums && (
+					<div className="mt-5 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-6 2xl:grid-cols-8 gap-2">
+						{albums.map((album: any) => (
+							<AlbumBox item={album} key={album} />
+						))}
+					</div>
+				)}
 			</div>
 			<div className="mt-10 p-4">
 				<h1 className="text-xl">Popular Artists</h1>

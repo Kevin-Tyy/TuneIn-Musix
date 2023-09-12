@@ -10,13 +10,14 @@ import { TrackType } from "../../types";
 import { Link } from "react-router-dom";
 import { BiHeart } from "react-icons/bi";
 import { BsHeartFill, BsRepeat } from "react-icons/bs";
-import { HiBars4, HiMiniPause, HiMiniPlay } from "react-icons/hi2";
+import {  HiMiniPause, HiMiniPlay } from "react-icons/hi2";
 import { BiShuffle, BiSkipNext, BiSkipPrevious } from "react-icons/bi";
 import { TbMicrophone2 } from "react-icons/tb";
 import clsx from "clsx";
 import { HiMenuAlt3, HiVolumeOff, HiVolumeUp } from "react-icons/hi";
 import { TfiMusicAlt } from "react-icons/tfi";
 import useDuration from "../../hooks/useDuration";
+import { MdPlaylistPlay } from "react-icons/md";
 // import axios from "axios";
 interface Props {
 	isExpanded: boolean;
@@ -171,14 +172,18 @@ const Player: React.FC<Props> = ({ isExpanded, setExpanded }) => {
 							"hidden md:flex gap-3 items-center w-full max-w-xl select-none",
 							disabled && "opacity-40"
 						)}>
-						<h1 className="text-white text-xs">1:05</h1>
+						<h1 className="text-white text-xs">
+							{currentTrack ? "1:05" : "--/--"}
+						</h1>
 						<div className="h-1 bg-white rounded-full flex-1">
-							<div
-								className={`h-full bg-fuchsia-800 transition max-w-full`}
-								style={{ width: `${progress}%` }}></div>
+							{currentTrack && (
+								<div
+									className={`h-full bg-fuchsia-800 transition max-w-full`}
+									style={{ width: `${progress}%` }}></div>
+							)}
 						</div>
 						<h1 className="text-white text-xs">
-							{useDuration(currentTrack?.duration_ms)}
+							{currentTrack ? useDuration(currentTrack?.duration_ms) : "--/--"}
 						</h1>
 					</div>
 				</div>
@@ -193,20 +198,23 @@ const Player: React.FC<Props> = ({ isExpanded, setExpanded }) => {
 					<div
 						className={`${isExpanded && "text-green-600"} cursor-pointer`}
 						onClick={setExpanded}>
-						<HiBars4 size={18} />
+						<MdPlaylistPlay size={30} />
 					</div>
-					<div className="cursor-pointer">
+					<button disabled={!currentTrack} className="cursor-pointer">
 						<TbMicrophone2 size={18} />
-					</div>
+					</button>
 					<div className="flex items-center gap-3">
-						<div className="cursor-pointer" onClick={handleMute}>
+						<button
+							disabled={!currentTrack}
+							className="cursor-pointer"
+							onClick={handleMute}>
 							{isMuted ? <HiVolumeOff size={20} /> : <HiVolumeUp size={20} />}
-						</div>
+						</button>
 						<input
 							className="w-32 h-1"
 							type="range"
 							min="0"
-							disabled={isMuted}
+							disabled={isMuted || !currentTrack}
 							max="1"
 							step="0.01"
 							value={volume}

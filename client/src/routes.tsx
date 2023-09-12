@@ -1,15 +1,17 @@
 import { useRoutes } from "react-router-dom";
+import { lazy, Suspense } from "react";
 import AuthPage from "./pages/auth";
 import NotFound from "./pages/notfound";
 import HomeLayout from "./layouts/HomeLayout";
-import SettingsPage from "./pages/settings";
-import ProfilePage from "./pages/profile";
-import HomePage from "./pages/home";
-import SearchPage from "./pages/search";
-import LikedSongs from "./pages/liked";
-import PlayLists from "./pages/playlists";
-import Artist from "./pages/artist";
-import Playlist from "./pages/playlists/playlist";
+import Fallback from "./components/loading/Fallback";
+const HomePage = lazy(() => import("./pages/home"));
+const ProfilePage = lazy(() => import("./pages/profile"));
+const SettingsPage = lazy(() => import("./pages/settings"));
+const SearchPage = lazy(() => import("./pages/search"));
+const LikedSongs = lazy(() => import("./pages/liked"));
+const PlayLists = lazy(() => import("./pages/playlists"));
+const Artist = lazy(() => import("./pages/artist"));
+const Playlist = lazy(() => import("./pages/playlists/playlist"));
 
 const useCustomRoutes = () => {
 	const routes = useRoutes([
@@ -23,39 +25,75 @@ const useCustomRoutes = () => {
 			children: [
 				{
 					index: true,
-					element: <HomePage />,
+					element: (
+						<Suspense fallback={<Fallback/>}>
+							<HomePage />
+						</Suspense>
+					),
 				},
 				{
 					path: "profile/:username",
-					element: <ProfilePage />,
+					element: (
+						<Suspense fallback={<Fallback/>}>
+							<ProfilePage />
+						</Suspense>
+					),
 				},
 				{
 					path: "settings",
-					element: <SettingsPage />,
+					element: (
+						<Suspense fallback={<Fallback/>}>
+							<SettingsPage />
+						</Suspense>
+					),
 				},
 				{
 					path: "search",
-					element: <SearchPage />,
+					element: (
+						<Suspense fallback={<Fallback/>}>
+							<SearchPage />
+						</Suspense>
+					),
 				},
 				{
 					path: "saved",
-					element: <LikedSongs />,
+					element: (
+						<Suspense fallback={<Fallback/>}>
+							<LikedSongs />
+						</Suspense>
+					),
 				},
 				{
 					path: "playlists",
-					element: <PlayLists />,
+					element: (
+						<Suspense fallback={<Fallback/>}>
+							<PlayLists />
+						</Suspense>
+					),
 				},
 				{
 					path: "explore",
-					element: <HomePage />,
+					element: (
+						<Suspense fallback={<Fallback/>}>
+							<HomePage />
+						</Suspense>
+					),
 				},
 				{
 					path: "/artist/:id",
-					element: <Artist />,
+					element: (
+						<Suspense fallback={<Fallback/>}>
+							<Artist />
+						</Suspense>
+					),
 				},
 				{
 					path: "/playlist/:id",
-					element: <Playlist />,
+					element: (
+						<Suspense fallback={<Fallback/>}>
+							<Playlist />
+						</Suspense>
+					),
 				},
 			],
 		},
@@ -65,7 +103,7 @@ const useCustomRoutes = () => {
 		},
 	]);
 
-  return routes;
+	return routes;
 };
 
 export default useCustomRoutes;

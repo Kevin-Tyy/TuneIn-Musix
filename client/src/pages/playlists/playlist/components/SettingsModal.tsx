@@ -53,7 +53,7 @@ const SettingsModal = ({
 		},
 	];
 	return (
-		<div className="animate-slideup absolute -right-52 w-[240px] bg-neutral-800 p-1 rounded-md">
+		<div className="animate-slideup absolute -right-52 w-[240px] bg-neutral-800 p-1 rounded-md z-50">
 			{settings.map((setting, index) => (
 				<div
 					key={index}

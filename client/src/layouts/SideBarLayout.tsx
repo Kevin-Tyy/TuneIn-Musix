@@ -86,7 +86,7 @@ const SideBarLayout: React.FC<Props> = ({ isExpanded, setExpanded }) => {
 	//render functional component to ui
 	return (
 		<div
-			className={`max-w-[400px] max-h-[90vh] bg-neutral-950 rounded-xl overflow-auto transition-all duration-1000 hidden lg:block sticky top-3 ${
+			className={`max-w-[370px] ${isExpanded && 'min-w-[350px]'}  max-h-[90vh] bg-neutral-950 rounded-xl overflow-auto transition-all duration-1000 hidden lg:block sticky top-3 ${
 				!isExpanded && "w-0"
 			}`}>
 			<div className="p-3">

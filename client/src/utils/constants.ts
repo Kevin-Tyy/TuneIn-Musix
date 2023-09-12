@@ -57,3 +57,22 @@ export const settings: sidenavOptions[] = [
 		title: "Notifications",
 	},
 ];
+
+export const searchTabs = [
+	{
+		title: "all",
+		filter: "all",
+	},
+	{
+		title: "albums",
+		filter: "albums",
+	},
+	{
+		title: "artists",
+		filter: "artist",
+	},
+	{
+		title: "songs",
+		filter: "track ",
+	},
+];
